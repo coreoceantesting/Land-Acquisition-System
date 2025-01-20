@@ -1,6 +1,6 @@
 <x-admin.layout>
-    <x-slot name="title">Villages</x-slot>
-    <x-slot name="heading">Villages</x-slot>
+    <x-slot name="title">Land Acqusition</x-slot>
+    <x-slot name="heading">Land Acqusition</x-slot>
     {{-- <x-slot name="subheading">Test</x-slot> --}}
 
 
@@ -12,22 +12,13 @@
                         @csrf
 
                         <div class="card-header">
-                            <h4 class="card-title">Add Villages</h4>
+                            <h4 class="card-title">Add Land Acqusition</h4>
                         </div>
                         <div class="card-body">
                             <div class="mb-3 row">
-                                <div class="col-md-4">
-                                    <label class="col-form-label" for="taluka_id">Select Taluka Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="taluka_id" name="taluka_id" required>
-                                        <option value="" selected disabled>Select Taluka</option>
-                                        @foreach($talukas as $taluka)
-                                            <option value="{{ $taluka->id }}">{{ $taluka->taluka_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="col-form-label" for="village_name"> Village Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="village_name" name="village_name" type="text" placeholder="Enter Village">
+                                <div class="col-md-8">
+                                    <label class="col-form-label" for="type_of_land_acquisition"> Land Acqusition Name / जिल्हा <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="type_of_land_acquisition" name="type_of_land_acquisition" type="text" placeholder="Enter Village">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
                             </div>
@@ -56,18 +47,10 @@
                         <div class="card-body py-2">
                             <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
                             <div class="mb-3 row">
+                                
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="taluka_id">Select Taluka Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="taluka_id" name="taluka_id" required>
-                                        <option value="" selected disabled>Select Taluka</option>
-                                        @foreach($talukas as $taluka)
-                                            <option value="{{ $taluka->id }}">{{ $taluka->taluka_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="col-form-label" for="village_name"> Village Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="village_name" name="village_name" type="text" placeholder="Enter taluka initial">
+                                    <label class="col-form-label" for="type_of_land_acquisition"> Land Acqusition Name / जिल्हा <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="type_of_land_acquisition" name="type_of_land_acquisition" type="text" placeholder="Enter taluka initial">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
                             </div>
@@ -126,9 +109,8 @@
 
 
 
-                                        <td>{{$taluka->taluka_name}}</td>
 
-                                        <td>{{$village->village_name}}</td>
+                                        <td>{{$land->type_of_land_acquisition}}</td>
 
                                         <td>
                                             <button class="edit-element btn text-secondary px-2 py-1" title="Edit village" data-id="{{ $village->id }}"><i data-feather="edit"></i></button>

@@ -59,6 +59,9 @@
                             <li class="nav-item">
                                 <a href="{{ route('villages.index') }}" class="nav-link" data-key="t-horizontal">Villages</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('lands.index') }}" class="nav-link" data-key="t-horizontal">Land Acqusition</a>
+                            </li>
                         </ul>
                     </div>
                 </li>

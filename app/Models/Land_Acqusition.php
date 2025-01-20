@@ -2,17 +2,15 @@
 
 namespace App\Models;
 
-use Faker\Provider\Base;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
-class Village extends BaseModel
+class Land_Acqusition extends BaseModel
 {
     use HasFactory, SoftDeletes;
-
-    protected $fillable = [ 'taluka_id','village_name', 'created_by', 'updated_by', 'deleted_by'];
+    protected $fillable = [ 'type_of_land_acquistion', 'created_by', 'updated_by', 'deleted_by'];
 
     public $timestamps = true;
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Masters\VillageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,10 @@ Route::middleware(['auth', 'PreventBackHistory', 'firewall.all'])->group(functio
     Route::resource('districts', App\Http\Controllers\Admin\Masters\DistrictController::class);
     Route::resource('talukas', App\Http\Controllers\Admin\Masters\TalukaController::class);
     Route::resource('villages', App\Http\Controllers\Admin\Masters\VillageController::class);
+    Route::resource('lands', App\Http\Controllers\Admin\Masters\TypeOfLandAcquisition::class);
+
+
+    // Route::put('/villages/{id}', [VillageController::class, 'update'])->name('villages.update');
 
 
 

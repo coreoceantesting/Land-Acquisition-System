@@ -1,25 +1,21 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Masters;
-
 use App\Http\Controllers\Admin\Controller;
-use App\Http\Requests\Admin\Masters\UpdateVillageRequest;
-use App\Http\Requests\Admin\Masters\StoreVillageRequest;
-use App\Models\Village;
-use App\Models\Taluka;
-use App\Models\District;
-use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Masters\UpdateTypeOfLandAcquisitionRequest;
+use App\Http\Requests\Admin\Masters\StoreTypeOfLandAcquisitioRequest;
+use App\Models\Land_Acqusition;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-class VillageController extends Controller
+class TypeOfLandAcquisition extends Controller
 {
     public function index()
     {
-        $villages = Village::latest()->get();
-        $talukas = Taluka::all();
+        $lands = Land_Acqusition::latest()->get();
+        // $villages = Village::all();
         // $districts = District;
         // dd($districts);
-        return view('admin.masters.villages')->with(['villages'=>  $villages,  'talukas' =>  $talukas]);
+        return view('admin.masters.typeofland')->with([ 'lands' =>  $lands]);
     }
 
     /**
@@ -28,16 +24,16 @@ class VillageController extends Controller
     public function create()
     {
         // return view('admin.masters.districts');
-        $talukas = Taluka::all();
-        return view('admin.masters.create_taluka')->with([
-            'talukas' => $talukas // Pass districts to the create view
-        ]);
+        // $talukas = Taluka::all();
+        // return view('admin.masters.create_taluka')->with([
+        //     'talukas' => $talukas // Pass districts to the create view
+        // ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreVillageRequest $request)
+    public function store(StoreTypeOfLandAcquisitioRequest $request)
     {
 
         try
@@ -48,21 +44,21 @@ class VillageController extends Controller
             $input = $request->validated();
 
             // Create the district and retrieve the created instance
-            $village = Village::create(Arr::only($input, Village::getFillables()));
+            $land = Land_Acqusition::create(Arr::only($input, Land_Acqusition::getFillables()));
 
             DB::commit();
 
             // Return the created district in the response
             return response()->json([
-                'success' => 'Village created successfully!',
-                'data' => $village
+                'success' => 'Land_Acqusition created successfully!',
+                'data' => $land
             ]);
         }
         catch (\Exception $e)
         {
             DB::rollBack(); // Ensure the transaction is rolled back on failure
 
-            return $this->respondWithAjax($e, 'creating', 'Village');
+            return $this->respondWithAjax($e, 'creating', 'land');
         }
     }
 
@@ -78,13 +74,13 @@ class VillageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Village $village)
+    public function edit(Land_Acqusition $land)
     {
-        if ($village)
+        if ($land)
         {
             $response = [
                 'result' => 1,
-                'village' => $village,
+                'land' => $land,
             ];
         }
         else
@@ -97,7 +93,7 @@ class VillageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVillageRequest $request,Village $village)
+    public function update(UpdateTypeOfLandAcquisitionRequest $request,Land_Acqusition $land)
     {
         try
         {
@@ -107,16 +103,16 @@ class VillageController extends Controller
             $input = $request->validated();
 
             // Use the fillable property to get allowed fields for mass update
-            $village->update(Arr::only($input, $village->getFillable()));
+            $land->update(Arr::only($input, $land->getFillable()));
 
             DB::commit();
 
-            return response()->json(['success' => 'Village updated successfully!']);
+            return response()->json(['success' => 'Land_Acqusition updated successfully!']);
         }
         catch(\Exception $e)
         {
             // Handle the exception and respond with an error
-            return $this->respondWithAjax($e, 'updating', 'Village');
+            return $this->respondWithAjax($e, 'updating', 'land');
         }
     }
 
@@ -124,19 +120,19 @@ class VillageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Village $village)
+    public function destroy(Land_Acqusition $land)
     {
         try
         {
             DB::beginTransaction();
-            $village->delete();
+            $land->delete();
             DB::commit();
 
-            return response()->json(['success'=> 'Village deleted successfully!']);
+            return response()->json(['success'=> 'Land_Acqusition deleted successfully!']);
         }
         catch(\Exception $e)
         {
-            return $this->respondWithAjax($e, 'deleting', 'Village');
+            return $this->respondWithAjax($e, 'deleting', 'land');
         }
     }
 }
