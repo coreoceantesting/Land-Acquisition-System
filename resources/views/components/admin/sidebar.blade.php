@@ -41,18 +41,28 @@
 
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarLayouts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
+                    <a class="nav-link menu-link" href="#sidebarMasters" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMasters">
                         <i class="ri-layout-3-line"></i>
                         <span data-key="t-layouts">Masters</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarLayouts">
+                    <div class="collapse menu-dropdown" id="sidebarMasters">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ route('wards.index') }}" class="nav-link" data-key="t-horizontal">Wards</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('districts.index') }}" class="nav-link" data-key="t-horizontal">Districts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('talukas.index') }}" class="nav-link" data-key="t-horizontal">Talukas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('villages.index') }}" class="nav-link" data-key="t-horizontal">Villages</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
+
 
 
                 @canany(['users.view', 'roles.view'])

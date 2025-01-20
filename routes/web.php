@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,6 +47,11 @@ Route::middleware(['auth', 'PreventBackHistory', 'firewall.all'])->group(functio
 
     // Masters
     Route::resource('wards', App\Http\Controllers\Admin\Masters\WardController::class);
+    Route::resource('districts', App\Http\Controllers\Admin\Masters\DistrictController::class);
+    Route::resource('talukas', App\Http\Controllers\Admin\Masters\TalukaController::class);
+    Route::resource('villages', App\Http\Controllers\Admin\Masters\VillageController::class);
+
+
 
 
 
