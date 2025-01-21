@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AcquisitionAssistantController;
 
 
 /*
@@ -50,9 +51,16 @@ Route::middleware(['auth', 'PreventBackHistory', 'firewall.all'])->group(functio
     Route::resource('districts', App\Http\Controllers\Admin\Masters\DistrictController::class);
     Route::resource('talukas', App\Http\Controllers\Admin\Masters\TalukaController::class);
     Route::resource('villages', App\Http\Controllers\Admin\Masters\VillageController::class);
+    Route::resource('land_acquisitions', App\Http\Controllers\Admin\Masters\LandAcquisitionController::class);
+    Route::resource('sr_nos', App\Http\Controllers\Admin\Masters\SrNoController::class);
+    Route::resource('bundles', App\Http\Controllers\Admin\Masters\BundleController::class);
+    Route::resource('years', App\Http\Controllers\Admin\Masters\YearController::class);
 
 
 
+    // Route::resource('create', App\Http\Controllers\AcquisitionAssistantController::class);
+
+    Route::resource('acquisition_assistant', App\Http\Controllers\AcquisitionAssistantController::class);
 
 
 

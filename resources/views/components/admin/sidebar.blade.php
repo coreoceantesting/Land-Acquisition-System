@@ -59,10 +59,36 @@
                             <li class="nav-item">
                                 <a href="{{ route('villages.index') }}" class="nav-link" data-key="t-horizontal">Villages</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('sr_nos.index') }}" class="nav-link" data-key="t-horizontal">Sr.no</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('land_acquisitions.index') }}" class="nav-link" data-key="t-horizontal">Land Acquisition</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('bundles.index') }}" class="nav-link" data-key="t-horizontal">Bundle</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('years.index') }}" class="nav-link" data-key="t-horizontal">Year</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarMasters" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMasters">
+                        <i class="ri-layout-3-line"></i>
+                        <span data-key="t-layouts"> Land Acquisition Record</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarMasters">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('acquisition_assistant.create') }}" class="nav-link" data-key="t-horizontal">Form</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
 
 
                 @canany(['users.view', 'roles.view'])

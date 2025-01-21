@@ -53,13 +53,13 @@
                             <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
                             <div class="mb-3 row">
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="name">district Name <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="name" name="name" type="text" placeholder="district Name">
+                                    <label class="col-form-label" for="name">District Name <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="name" name="name" type="text" placeholder="District Name" >
                                     <span class="text-danger is-invalid name_err"></span>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="initial">Initial <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="initial" name="initial" type="text" placeholder="Enter district Initial">
+                                    <input class="form-control" id="initial" name="initial" type="text" placeholder="Enter district Initial" >
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
                             </div>

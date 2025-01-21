@@ -1,6 +1,6 @@
 <x-admin.layout>
-    <x-slot name="title">Villages</x-slot>
-    <x-slot name="heading">Villages</x-slot>
+    <x-slot name="title">Land Acquisition</x-slot>
+    <x-slot name="heading">Land Acquisition</x-slot>
     {{-- <x-slot name="subheading">Test</x-slot> --}}
 
 
@@ -12,24 +12,16 @@
                         @csrf
 
                         <div class="card-header">
-                            <h4 class="card-title">Add Villages</h4>
+                            <h4 class="card-title">Add Land Acquisition</h4>
                         </div>
                         <div class="card-body">
                             <div class="mb-3 row">
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="taluka_id">Select Taluka Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="taluka_id" name="taluka_id" required>
-                                        <option value="" selected disabled>Select Taluka</option>
-                                        @foreach($talukas as $taluka)
-                                            <option value="{{ $taluka->id }}">{{ $taluka->taluka_name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label class="col-form-label" for="land_acquisitions_name">Land Acquisition Name / जिल्हा <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="land_acquisitions_name" name="land_acquisitions_name" type="text" placeholder="Enter District Name">
+                                    <span class="text-danger is-invalid name_err"></span>
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="col-form-label" for="village_name"> Village Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="village_name" name="village_name" type="text" placeholder="Enter taluka initial">
-                                    <span class="text-danger is-invalid initial_err"></span>
-                                </div>
+
                             </div>
 
                         </div>
@@ -51,25 +43,17 @@
                     @csrf
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit taluka</h4>
+                            <h4 class="card-title">Edit Land Acquisition</h4>
                         </div>
                         <div class="card-body py-2">
                             <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
                             <div class="mb-3 row">
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="taluka_id">Select Taluka Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="taluka_id" name="taluka_id" required>
-                                        <option value="" selected disabled>Select Taluka</option>
-                                        @foreach($talukas as $taluka)
-                                            <option value="{{ $taluka->id }}">{{ $taluka->taluka_name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label class="col-form-label" for="land_acquisitions_name">Land Acquisition Name <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="land_acquisitions_name" name="land_acquisitions_name" type="text" placeholder="district Name">
+                                    <span class="text-danger is-invalid name_err"></span>
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="col-form-label" for="village_name"> Village Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="village_name" name="village_name" type="text" placeholder="Enter taluka initial">
-                                    <span class="text-danger is-invalid initial_err"></span>
-                                </div>
+
                             </div>
 
                         </div>
@@ -102,10 +86,10 @@
                                 <thead>
                                     <tr>
 
+                                        <th>Land Acquisition Name</th>
 
+                                       {{-- <th>District Initial</th> --}}
 
-                                       <th>taluka Name</th>
-                                       <th>Village Name</th>
                                       {{--    <th>Office</th>
 
                                         <th>Age</th>
@@ -120,19 +104,21 @@
 
                                 </thead>
                                 <tbody>
-                                    @foreach ($villages as $village)
+                                    @foreach ($land_acquisitions as $land_acquisition)
 
                                     <tr>
 
+                                        <td>{{$land_acquisition->land_acquisitions_name}}</td>
+
+                                        {{-- <td>{{$district->district_initial}}</td> --}}
 
 
-                                        <td>{{$taluka->taluka_name}}</td>
-
-                                        <td>{{$village->village_name}}</td>
 
                                         <td>
-                                            <button class="edit-element btn text-secondary px-2 py-1" title="Edit village" data-id="{{ $village->id }}"><i data-feather="edit"></i></button>
-                                            <button class="btn text-danger rem-element px-2 py-1" title="Delete village" data-id="{{ $village->id }}"><i data-feather="trash-2"></i></button>
+
+                                            <button class="edit-element btn text-secondary px-2 py-1" title="Edit land acquisition" data-id="{{ $land_acquisition->id }}"><i data-feather="edit"></i></button>
+
+                                            <button class="btn text-danger rem-element px-2 py-1" title="Delete land acquisition" data-id="{{ $land_acquisition->id }}"><i data-feather="trash-2"></i> </button>
 
                                         </td>
 
@@ -159,7 +145,7 @@
 
         var formdata = new FormData(this);
         $.ajax({
-            url: '{{ route('villages.store') }}',
+            url: '{{ route('land_acquisitions.store') }}',
             type: 'POST',
             data: formdata,
             contentType: false,
@@ -170,7 +156,7 @@
                 if (!data.error2)
                     swal("Successful!", data.success, "success")
                         .then((action) => {
-                            window.location.href = '{{ route('villages.index') }}';
+                            window.location.href = '{{ route('land_acquisitions.index') }}';
                         });
                 else
                     swal("Error!", data.error2, "error");
@@ -197,7 +183,7 @@
     $("#buttons-datatables").on("click", ".edit-element", function(e) {
         e.preventDefault();
         var model_id = $(this).attr("data-id");
-        var url = "{{ route('villages.edit', ":model_id") }}";
+        var url = "{{ route('land_acquisitions.edit', ":model_id") }}";
 
         $.ajax({
             url: url.replace(':model_id', model_id),
@@ -209,9 +195,9 @@
                 editFormBehaviour();
                 if (!data.error)
                 {
-                    $("#editForm input[name='edit_model_id']").val(data.taluka.id);
-                    $("#editForm input[name='name']").val(data.taluka.name);
-                    $("#editForm input[name='initial']").val(data.taluka.initial);
+                    $("#editForm input[name='edit_model_id']").val(data.district.id);
+                    $("#editForm input[name='name']").val(data.district.name);
+                    $("#editForm input[name='initial']").val(data.district.initial);
                 }
                 else
                 {
@@ -235,7 +221,7 @@
             var formdata = new FormData(this);
             formdata.append('_method', 'PUT');
             var model_id = $('#edit_model_id').val();
-            var url = "{{ route('villages.update', ":model_id") }}";
+            var url = "{{ route('land_acquisitions.update', ":model_id") }}";
             //
             $.ajax({
                 url: url.replace(':model_id', model_id),
@@ -249,7 +235,7 @@
                     if (!data.error2)
                         swal("Successful!", data.success, "success")
                             .then((action) => {
-                                window.location.href = '{{ route('villages.index') }}';
+                                window.location.href = '{{ route('land_acquisitions.index') }}';
                             });
                     else
                         swal("Error!", data.error2, "error");
@@ -277,7 +263,7 @@
     $("#buttons-datatables").on("click", ".rem-element", function(e) {
         e.preventDefault();
         swal({
-            title: "Are you sure to delete this taluka?",
+            title: "Are you sure to delete this district?",
             // text: "Make sure if you have filled Vendor details before proceeding further",
             icon: "info",
             buttons: ["Cancel", "Confirm"]
@@ -287,7 +273,7 @@
             if (justTransfer)
             {
                 var model_id = $(this).attr("data-id");
-                var url = "{{ route('villages.destroy', ":model_id") }}";
+                var url = "{{ route('land_acquisitions.destroy', ":model_id") }}";
 
                 $.ajax({
                     url: url.replace(':model_id', model_id),

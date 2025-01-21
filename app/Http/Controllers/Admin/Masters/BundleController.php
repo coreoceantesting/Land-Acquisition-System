@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Admin\Masters;
 
-use App\Http\Controllers\Admin\Controller;
-use App\Http\Requests\Admin\Masters\UpdateVillageRequest;
-use App\Http\Requests\Admin\Masters\StoreVillageRequest;
-use App\Models\Village;
-use App\Models\Taluka;
+use App\Http\Controllers\Controller;
+use App\Models\Bundle;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\Masters\StoreBundleRequest;
+use App\Http\Requests\Admin\Masters\UpdateBundleRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-class VillageController extends Controller
+use Illuminate\Support\Facades\Log;
+
+class BundleController extends Controller
 {
     public function index()
     {
-        $villages = Village::latest()->get();
-        $talukas = Taluka::all();
-        // $districts = District;
+        $bundles = Bundle::latest()->get();
+
         // dd($districts);
-        return view('admin.masters.villages')->with(['villages'=>  $villages,  'talukas' =>  $talukas]);
+        return view('admin.masters.bundles')->with(['bundles'=> $bundles]);
     }
 
     /**
@@ -27,16 +27,14 @@ class VillageController extends Controller
     public function create()
     {
         // return view('admin.masters.districts');
-        $talukas = Taluka::all();
-        return view('admin.masters.create_taluka')->with([
-            'districts' => $talukas // Pass districts to the create view
-        ]);
+
+
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreVillageRequest $request)
+    public function store(StoreBundleRequest $request)
     {
 
         try
@@ -47,21 +45,23 @@ class VillageController extends Controller
             $input = $request->validated();
 
             // Create the district and retrieve the created instance
-            $village = Village::create(Arr::only($input, Village::getFillables()));
+            // dd($input());
+            $bundle = Bundle::create($request->all());
+
 
             DB::commit();
 
             // Return the created district in the response
             return response()->json([
-                'success' => 'Taluka created successfully!',
-                'data' => $village
+                'success' => 'Bundle created successfully!',
+                'data' => $bundle
             ]);
         }
         catch (\Exception $e)
         {
             DB::rollBack(); // Ensure the transaction is rolled back on failure
 
-            return $this->respondWithAjax($e, 'creating', 'Village');
+            return $this->respondWithAjax($e, 'creating', 'Bundle');
         }
     }
 
@@ -77,13 +77,13 @@ class VillageController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Village $village)
+    public function edit(Bundle $bundle)
     {
-        if ($village)
+        if ($bundle)
         {
             $response = [
                 'result' => 1,
-                'village' => $village,
+                'bundle' => $bundle,
             ];
         }
         else
@@ -96,46 +96,41 @@ class VillageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateVillageRequest $request,Village $village)
+    public function update(UpdateBundleRequest $request, Bundle $bundle)
     {
         try
         {
             DB::beginTransaction();
-
-            // Get validated data from the request
             $input = $request->validated();
-
-            // Use the fillable property to get allowed fields for mass update
-            $village->update(Arr::only($input, $village->getFillable()));
-
+            $bundle->update( Arr::only( $input, Bundle::getFillables() ) );
             DB::commit();
 
-            return response()->json(['success' => 'Village updated successfully!']);
+            return response()->json(['success'=> 'Bundle updated successfully!']);
         }
         catch(\Exception $e)
         {
-            // Handle the exception and respond with an error
-            return $this->respondWithAjax($e, 'updating', 'Village');
+            return $this->respondWithAjax($e, 'updating', 'Bundle');
         }
     }
-
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Village $village)
+    public function destroy(Bundle $bundle)
     {
         try
         {
             DB::beginTransaction();
-            $village->delete();
+            $bundle->delete();
             DB::commit();
 
-            return response()->json(['success'=> 'Ward deleted successfully!']);
+            return response()->json(['success'=> 'Bundle deleted successfully!']);
         }
         catch(\Exception $e)
         {
-            return $this->respondWithAjax($e, 'deleting', 'Taluka');
+            return $this->respondWithAjax($e, 'deleting', 'Bundle');
         }
     }
 }
+
+
