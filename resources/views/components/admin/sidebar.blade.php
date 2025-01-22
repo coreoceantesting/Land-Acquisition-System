@@ -85,7 +85,12 @@
                             <li class="nav-item">
                                 <a href="{{ route('acquisition_assistant.create') }}" class="nav-link" data-key="t-horizontal">Form</a>
                             </li>
-
+                            <li class="nav-item">
+                                <a href="{{ route('acquisition_assistant.index') }}" class="nav-link" data-key="t-horizontal">Index</a>
+                            </li>
+                            {{-- <li class="nav-item">
+                                <a href="{{ route('acquisition_assistant.create') }}" class="nav-link" data-key="t-horizontal">Form</a>
+                            </li> --}}
                         </ul>
                     </div>
                 </li>
