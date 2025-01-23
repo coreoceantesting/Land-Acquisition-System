@@ -15,6 +15,10 @@ class Village extends BaseModel
 
     public $timestamps = true;
 
+
+    public function taluka(){
+        return $this->belongsTo(Taluka::class, 'taluka_id', 'id');
+    }
     public static function booted()
     {
         static::creating(function (self $village) {

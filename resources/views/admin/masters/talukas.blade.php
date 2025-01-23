@@ -49,9 +49,10 @@
             <div class="col">
                 <form class="form-horizontal form-bordered" method="post" id="editForm">
                     @csrf
+                    @method('PUT')
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit taluka</h4>
+                            <h4 class="card-title">Edit Taluka</h4>
                         </div>
                         <div class="card-body py-2">
                             <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
@@ -66,12 +67,11 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="taluka_name"> taluka Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="taluka_name" name="taluka_name" type="text" placeholder="Enter taluka initial">
+                                    <label class="col-form-label" for="taluka_name">Taluka Name / जिल्हा <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="taluka_name" name="taluka_name" type="text" placeholder="Enter Taluka name">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
                             </div>
-
                         </div>
                         <div class="card-footer">
                             <button class="btn btn-primary" id="editSubmit">Submit</button>
@@ -101,18 +101,10 @@
                             <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
                                 <thead>
                                     <tr>
-
+                                        <th>Sr No.</th>
                                         <th>Distrtict Name</th>
 
                                        <th>taluka Name</th>
-
-                                      {{--    <th>Office</th>
-
-                                        <th>Age</th>
-
-                                        <th>Start date</th>
-
-                                        <th>Salary</th> --}}
 
                                         <th>Action</th>
 
@@ -123,8 +115,9 @@
                                     @foreach ($talukas as $taluka)
 
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
 
-                                        <td>{{$district->district_name}}</td>
+                                        <td>{{$taluka?->district->district_name}}</td>
 
                                         <td>{{$taluka->taluka_name}}</td>
 
@@ -194,36 +187,82 @@
 
 <!-- Edit -->
 <script>
-    $("#buttons-datatables").on("click", ".edit-element", function(e) {
+    // Handle the edit button click
+    $(document).on("click", ".edit-element", function (e) {
         e.preventDefault();
-        var model_id = $(this).attr("data-id");
-        var url = "{{ route('talukas.edit', ":model_id") }}";
+
+        var model_id = $(this).data("id");
+        var url = "{{ route('talukas.edit', ':model_id') }}".replace(':model_id', model_id);
 
         $.ajax({
-            url: url.replace(':model_id', model_id),
+            url: url,
             type: 'GET',
             data: {
                 '_token': "{{ csrf_token() }}"
             },
-            success: function(data, textStatus, jqXHR) {
-                editFormBehaviour();
-                if (!data.error)
-                {
+            success: function (data) {
+                if (!data.error) {
+                    // Populate the edit form with data
                     $("#editForm input[name='edit_model_id']").val(data.taluka.id);
-                    $("#editForm input[name='name']").val(data.taluka.name);
+                    $("#editForm input[name='taluka_name']").val(data.taluka.name);
                     $("#editForm input[name='initial']").val(data.taluka.initial);
-                }
-                else
-                {
-                    alert(data.error);
+
+                    // Show the form
+                    $("#editContainer").show();
+                } else {
+                    swal("Error", data.error, "error");
                 }
             },
-            error: function(error, jqXHR, textStatus, errorThrown) {
-                alert("Some thing went wrong");
-            },
+            error: function () {
+                swal("Error", "Something went wrong. Please try again.", "error");
+            }
+        });
+    });
+
+    // Handle form submission
+    $(document).ready(function () {
+        $("#editForm").submit(function (e) {
+            e.preventDefault();
+            $("#editSubmit").prop('disabled', true);
+
+            var formData = new FormData(this);
+            formData.append('_method', 'PUT');
+            var model_id = $('#edit_model_id').val();
+            var url = "{{ route('talukas.update', ':model_id') }}".replace(':model_id', model_id);
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    $("#editSubmit").prop('disabled', false);
+                    if (!data.error2) {
+                        swal("Successful!", data.success, "success")
+                            .then(() => {
+                                window.location.href = '{{ route('talukas.index') }}';
+                            });
+                    } else {
+                        swal("Error!", data.error2, "error");
+                    }
+                },
+                statusCode: {
+                    422: function (response) {
+                        $("#editSubmit").prop('disabled', false);
+                        resetErrors();
+                        printErrMsg(response.responseJSON.errors);
+                    },
+                    500: function () {
+                        $("#editSubmit").prop('disabled', false);
+                        swal("Error occurred!", "Something went wrong, please try again.", "error");
+                    }
+                }
+            });
         });
     });
 </script>
+
 
 
 <!-- Update -->

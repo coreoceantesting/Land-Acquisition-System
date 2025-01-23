@@ -18,29 +18,29 @@ class Year extends BaseModel
 
     public static function booted()
     {
-        static::created(function (self $user)
+        static::created(function (self $year)
         {
             if(Auth::check())
             {
-                self::where('id', $user->id)->update([
+                self::where('id', $year->id)->update([
                     'created_by'=> Auth::user()->id,
                 ]);
             }
         });
-        static::updated(function (self $user)
+        static::updated(function (self $year)
         {
             if(Auth::check())
             {
-                self::where('id', $user->id)->update([
+                self::where('id', $year->id)->update([
                     'updated_by'=> Auth::user()->id,
                 ]);
             }
         });
-        static::deleting(function (self $user)
+        static::deleting(function (self $year)
         {
             if(Auth::check())
             {
-                self::where('id', $user->id)->update([
+                self::where('id', $year->id)->update([
                     'deleted_by'=> Auth::user()->id,
                 ]);
             }

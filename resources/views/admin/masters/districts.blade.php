@@ -53,13 +53,13 @@
                             <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
                             <div class="mb-3 row">
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="name">District Name <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="name" name="name" type="text" placeholder="District Name" >
+                                    <label class="col-form-label" for="district_name">District Name <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="district_name" name="district_name" type="text" placeholder="District Name" >
                                     <span class="text-danger is-invalid name_err"></span>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="initial">Initial <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="initial" name="initial" type="text" placeholder="Enter district Initial" >
+                                    <label class="col-form-label" for="district_initial">Initial <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="district_initial" name="district_initial" type="text" placeholder="Enter district Initial" >
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
                             </div>
@@ -204,8 +204,8 @@
                 if (!data.error)
                 {
                     $("#editForm input[name='edit_model_id']").val(data.district.id);
-                    $("#editForm input[name='name']").val(data.district.name);
-                    $("#editForm input[name='initial']").val(data.district.initial);
+                    $("#editForm input[name='district_name']").val(data.district.name);
+                    $("#editForm input[name='district_initial']").val(data.district.initial);
                 }
                 else
                 {

@@ -9,7 +9,7 @@
                     <h4 class="card-title">Land Acquisition Assistance Records</h4>
                     <a href="{{ route('acquisition_assistant.create') }}" class="btn btn-primary btn-sm float-end">Add New</a>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="overflow-x: auto; white-space: nowrap;">
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -22,7 +22,9 @@
                                 <th>वर्णन / Description</th>
                                 <th>भूसंपादनाचे प्रयोजन / Purpose</th>
                                 {{-- <th>>निवाडा क्र. / Sr.No</th> --}}
+
                                 <th>Actions</th>
+                                <th>status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,11 +44,16 @@
 
                                     <td>
                                         <a href="{{ route('acquisition_assistant.edit', $record->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                        <form action="{{ route('acquisition_assistant.destroy', $record->id) }}" method="POST" class="d-inline">
+                                        <form action="{{ route('acquisition_assistant.destroy', $record->id) }}" method="POST" class="d-inline" onsubmit="return confirmDelete()">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this record?')">Delete</button>
+                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                         </form>
+                                    </td>
+
+                                    <td>
+                                        <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
+
                                     </td>
                                 </tr>
                             @empty

@@ -35,6 +35,7 @@ return new class extends Migration
             $table->integer('number');
             $table->decimal('area', 10, 2);
             $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

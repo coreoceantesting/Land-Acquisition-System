@@ -28,7 +28,7 @@ class StoreAcquisitionAssistantRequest extends FormRequest
             'sr_no_id'=>'required',
             'land_acquisition_id'=>'required',
             'project_name'=>'required',
-            'year'=>'required',
+            'year_id'=>'required',
             'acquisition_board_name'=>'required',
             'description'=>'required',
             'designation'=>'required',

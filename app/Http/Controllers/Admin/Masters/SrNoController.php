@@ -29,7 +29,6 @@ class SrNoController extends Controller
     {
         // return view('admin.masters.districts');
 
-
     }
 
     /**
@@ -43,7 +42,7 @@ class SrNoController extends Controller
             DB::beginTransaction();
 
             // Validate and filter input
-            $input = $request->validated();
+            // $input = $request->validated();
 
             // Create the district and retrieve the created instance
             // dd($input());
@@ -102,8 +101,9 @@ class SrNoController extends Controller
         try
         {
             DB::beginTransaction();
-            $input = $request->validated();
-            $sr_no->update( Arr::only( $input, Srno::getFillables() ) );
+            // $input = $request->validated();
+            // $sr_no = Srno::create($request->all());
+            $sr_no->update( $request->all() );
             DB::commit();
 
             return response()->json(['success'=> 'Srno updated successfully!']);

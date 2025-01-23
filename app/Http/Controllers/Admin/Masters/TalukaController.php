@@ -15,9 +15,9 @@ class TalukaController extends Controller
 {
     public function index()
     {
-        $talukas = Taluka::latest()->get();
+        $talukas = Taluka::with('district')->latest()->get();
         $districts = District::all();
-        // dd($districts);
+
         return view('admin.masters.talukas')->with(['talukas'=> $talukas,  'districts' => $districts]);
     }
 
@@ -26,10 +26,9 @@ class TalukaController extends Controller
      */
     public function create()
     {
-        // return view('admin.masters.districts');
         $districts = District::all();
         return view('admin.masters.create_taluka')->with([
-            'districts' => $districts // Pass districts to the create view
+            'districts' => $districts
         ]);
     }
 
@@ -46,12 +45,10 @@ class TalukaController extends Controller
             // Validate and filter input
             $input = $request->validated();
 
-            // Create the district and retrieve the created instance
             $taluka = Taluka::create(Arr::only($input, Taluka::getFillables()));
 
             DB::commit();
 
-            // Return the created district in the response
             return response()->json([
                 'success' => 'Taluka created successfully!',
                 'data' => $taluka

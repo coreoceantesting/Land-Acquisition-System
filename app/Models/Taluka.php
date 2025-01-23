@@ -15,6 +15,10 @@ class Taluka extends BaseModel
 
     public $timestamps = true;
 
+    public function district(){
+        return $this->belongsTo(District::class, 'district_id', 'id');
+    }
+
     public static function booted()
     {
         static::creating(function (self $taluka) {

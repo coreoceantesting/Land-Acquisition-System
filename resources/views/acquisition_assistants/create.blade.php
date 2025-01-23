@@ -77,7 +77,7 @@
 
                             <div class="col-md-4">
                                 <label class="col-form-label" for="year">भूसंपादनाचे वर्ष / Year <span class="text-danger">*</span></label>
-                                <select name="year" id="year_id" class="form-select" required>
+                                <select name="year_id" id="year_id" class="form-select" required>
                                     <option value="">भूसंपादनाचे वर्ष निवडा</option>
                                     @foreach($years as $year)
                                     <option value="{{ $year->id }}">{{ $year->year }}</option>
@@ -241,133 +241,9 @@
 </script>
 
 {{-- mobile and adhar validation --}}
-<script>
-     $(document).ready(function () {
-        $('#phone_no').on('input', function () {
-            const phoneValue = $(this).val();
-            $(this).val(phoneValue.replace(/[^0-9]/g, '').substring(0, 10));
-        });
 
-        // Validate Aadhaar Number (12 digits only)
-        $('#addhar_no').on('input', function () {
-            const aadhaarValue = $(this).val();
-            $(this).val(aadhaarValue.replace(/[^0-9]/g, '').substring(0, 12));
-        });
-     });
 
-     document.getElementById("nocForm").addEventListener("submit", async function (e) {
-        e.preventDefault();
 
-        const form = new FormData(this);
-        try {
-            const response = await fetch("/noc/store", {
-                method: "POST",
-                body: form,
-                headers: {
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content,
-                },
-            });
-
-            const result = await response.json();
-            if (response.ok) {
-                alert(result.success);
-            } else {
-                console.error(result.message || "An error occurred");
-                alert("Failed to create NOC");
-            }
-        } catch (error) {
-            console.error("Error:", error);
-            alert("An unexpected error occurred");
-        }
-    });
-</script>
-
-{{-- <script>
-    $(document).ready(function () {
-        let SegregationRowCount = 1; // Counter for unique row IDs
-
-        // Automatically show the first row when the page loads
-        let html = `<tr id="SegregationRow${SegregationRowCount}">
-                        <td>
-                             <select name="waste_type[]" class="form-select AddFormSelectzone" required/>
-                                    <option value="">Select waste type</option>
-                                  @foreach($PrefixDetails as $Prefix)
-                                     <option value="{{ $Prefix->Main_Prefix }}">{{ $Prefix->value}}</option>
-                                  @endforeach
-                                </select>
-                        </td>
-                        <td>
-                            <input type="text" name="waste_sub_type1[]" class="form-control" placeholder="Enter waste sub type1" required>
-                        </td>
-                        <td>
-                            <input type="text" name="waste_sub_type2[]" class="form-control" placeholder="Enter waste sub type2" required>
-                        </td>
-                        <td>
-                            <input type="number" name="volume[]" class="form-control volumeInput" placeholder="Enter volume" required>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-danger btn-sm removeSegregationRow" data-id="${SegregationRowCount}">Remove</button>
-                        </td>
-                    </tr>`;
-        $('#SegregationTableBody').append(html); // Append the first row to the table body
-        SegregationRowCount++; // Increment the row counter for unique IDs
-
-        // Add More Button Functionality (now only for adding extra rows after initial load)
-        $('#addMoreSegregationButton').on('click', function () {
-            let html = `<tr id="SegregationRow${SegregationRowCount}">
-                            <td>
-                                  <select name="waste_type[]" class="form-select AddFormSelectzone" required/>
-                                    <option value="">Select waste type</option>
-                                  @foreach($PrefixDetails as $Prefix)
-                                     <option value="{{ $Prefix->Main_Prefix }}">{{ $Prefix->value}}</option>
-                                  @endforeach
-                                </select>
-                            </td>
-                            <td>
-                                <input type="text" name="waste_sub_type1[]" class="form-control" placeholder="Enter waste sub type1" required>
-                            </td>
-                            <td>
-                                <input type="text" name="waste_sub_type2[]" class="form-control" placeholder="Enter waste sub type2" required>
-                            </td>
-                            <td>
-                                <input type="number" name="volume[]" class="form-control volumeInput" placeholder="Enter volume" required>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger btn-sm removeSegregationRow" data-id="${SegregationRowCount}">Remove</button>
-                            </td>
-                        </tr>`;
-
-            $('#SegregationTableBody').append(html); // Append the new row to the table body
-            SegregationRowCount++; // Increment the row counter for unique IDs
-        });
-
-        // Remove Row Functionality
-        $('body').on('click', '.removeSegregationRow', function () {
-            const rowId = $(this).data('id'); // Get the row ID from the button's data-id attribute
-            $(`#SegregationRow${rowId}`).remove(); // Remove the corresponding row
-            calculateTotalVolume(); // Recalculate total volume after removal
-        });
-
-        // Event listener to calculate total volume when the volume input field is updated
-        $('body').on('input', '.volumeInput', function () {
-            calculateTotalVolume(); // Recalculate total volume whenever a volume input changes
-        });
-
-        // Function to calculate and update the total volume
-        function calculateTotalVolume() {
-            let totalVolume = 0;
-            // Iterate through each volume field and sum up the values
-            $('input[name="volume[]"]').each(function () {
-                let volume = parseFloat($(this).val());
-                if (!isNaN(volume)) {
-                    totalVolume += volume;
-                }
-            });
-            // Update the total volume field
-            $('#totalVolumeField').val(totalVolume.toFixed(2)); // Display total volume with 2 decimal places
-        }
-    });
-</script> --}}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Get the Add More button and the table body

@@ -50,12 +50,10 @@
                             <div class="mb-3 row">
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="sr_nos_in">Enter Sr No <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="sr_nos_in" name="sr_nos_in" type="text" placeholder="district Name">
-                                    <span class="text-danger is-invalid name_err"></span>
+                                    <input class="form-control" id="sr_nos_in" name="sr_nos_in" type="text" placeholder="Enter Sr No">
+                                    <span class="text-danger is-invalid sr_nos_in_err"></span>
                                 </div>
-
                             </div>
-
                         </div>
                         <div class="card-footer">
                             <button class="btn btn-primary" id="editSubmit">Submit</button>
@@ -85,7 +83,7 @@
                             <table id="buttons-datatables" class="table table-bordered nowrap align-middle" style="width:100%">
                                 <thead>
                                     <tr>
-
+                                        <th>sr.no</th>
                                         <th>Srno Name</th>
 
                                        {{-- <th>District Initial</th> --}}
@@ -107,7 +105,7 @@
                                     @foreach ($sr_nos as $sr_no)
 
                                     <tr>
-
+                                        <td>{{$loop->iteration}}</td>
                                         <td>{{$sr_no->sr_nos_in}}</td>
 
                                         {{-- <td>{{$district->district_initial}}</td> --}}
@@ -180,35 +178,88 @@
 
 <!-- Edit -->
 <script>
+    // Handle edit button click
     $("#buttons-datatables").on("click", ".edit-element", function(e) {
         e.preventDefault();
         var model_id = $(this).attr("data-id");
-        var url = "{{ route('sr_nos.edit', ":model_id") }}";
+        var url = "{{ route('sr_nos.edit', ':model_id') }}".replace(':model_id', model_id);
 
         $.ajax({
-            url: url.replace(':model_id', model_id),
+            url: url,
             type: 'GET',
             data: {
                 '_token': "{{ csrf_token() }}"
             },
-            success: function(data, textStatus, jqXHR) {
-                editFormBehaviour();
-                if (!data.error)
-                {
+            success: function(data) {
+                if (!data.error) {
+                    // Show the edit form container
+                    $("#editContainer").show();
+                    // Set form values with the fetched data
                     $("#editForm input[name='edit_model_id']").val(data.district.id);
-                    $("#editForm input[name='name']").val(data.district.name);
-                    $("#editForm input[name='initial']").val(data.district.initial);
-                }
-                else
-                {
+                    $("#editForm input[name='sr_nos_in']").val(data.district.initial); // Set the Sr No
+                } else {
                     alert(data.error);
                 }
             },
-            error: function(error, jqXHR, textStatus, errorThrown) {
-                alert("Some thing went wrong");
-            },
+            error: function() {
+                alert("Something went wrong");
+            }
         });
     });
+
+    // Handle form submission
+    $(document).ready(function() {
+        $("#editForm").submit(function(e) {
+            e.preventDefault();
+            $("#editSubmit").prop('disabled', true);
+            var formdata = new FormData(this);
+            formdata.append('_method', 'PUT');
+            var model_id = $('#edit_model_id').val();
+
+            var url = "{{ route('sr_nos.update', ':model_id') }}".replace(':model_id', model_id);
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formdata,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    $("#editSubmit").prop('disabled', false);
+                    if (!data.error) {
+                        swal("Successful!", data.success, "success").then(() => {
+                            window.location.href = '{{ route('sr_nos.index') }}';
+                        });
+                    } else {
+                        swal("Error!", data.error, "error");
+                    }
+                },
+                statusCode: {
+                    422: function(response) {
+                        $("#editSubmit").prop('disabled', false);
+                        resetErrors();
+                        printErrMsg(response.responseJSON.errors);
+                    },
+                    500: function() {
+                        $("#editSubmit").prop('disabled', false);
+                        swal("Error!", "Something went wrong. Please try again.", "error");
+                    }
+                }
+            });
+        });
+    });
+
+    // Reset error messages
+    function resetErrors() {
+        $(".is-invalid").text('');
+    }
+
+    // Print validation error messages
+    function printErrMsg(errors) {
+        $.each(errors, function(key, value) {
+            $("#" + key).siblings(".is-invalid").text(value[0]);
+        });
+    }
 </script>
 
 

@@ -56,9 +56,13 @@ class AcquisitionAssistant extends BaseModel
         'law',
         'survey_or_group',
         'number',
-        'area'
+        'area',
     ];
     public $timestamps = true;
+
+
+
+
 
     public static function booted()
     {
@@ -68,18 +72,12 @@ class AcquisitionAssistant extends BaseModel
             }
         });
 
-        static::updating(function (self $village) {
+        static::updating(function (self $user) {
             if (Auth::check()) {
-                $village->updated_by = Auth::user()->id;
+                $user->updated_by = Auth::user()->id;
             }
         });
 
-        static::deleting(function (self $village) {
-            if (Auth::check()) {
-                $village->deleted_by = Auth::user()->id;
-                $village->save(); // Save the changes to the deleted_by field
-            }
-        });
     }
 
 }

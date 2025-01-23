@@ -94,6 +94,146 @@ class PermissionTableSeeder extends Seeder
                 'name' => 'wards.delete',
                 'group' => 'wards',
             ],
+            [
+                'id' => 17,
+                'name' => 'districts.view',
+                'group' => 'districts',
+            ],
+            [
+                'id' => 18,
+                'name' => 'districts.create',
+                'group' => 'districts',
+            ],
+            [
+                'id' => 19,
+                'name' => 'districts.edit',
+                'group' => 'districts',
+            ],
+            [
+                'id' => 20,
+                'name' => 'districts.delete',
+                'group' => 'districts',
+            ],
+            [
+                'id' => 21,
+                'name' => 'talukas.view',
+                'group' => 'talukas',
+            ],
+            [
+                'id' => 22,
+                'name' => 'talukas.create',
+                'group' => 'talukas',
+            ],
+            [
+                'id' => 23,
+                'name' => 'talukas.edit',
+                'group' => 'talukas',
+            ],
+            [
+                'id' => 24,
+                'name' => 'talukas.delete',
+                'group' => 'talukas',
+            ],
+            [
+                'id' => 25,
+                'name' => 'villages.view',
+                'group' => 'villages',
+            ],
+            [
+                'id' => 26,
+                'name' => 'villages.create',
+                'group' => 'villages',
+            ],
+            [
+                'id' => 27,
+                'name' => 'villages.edit',
+                'group' => 'villages',
+            ],
+            [
+                'id' => 28,
+                'name' => 'villages.delete',
+                'group' => 'villages',
+            ],
+            [
+                'id' => 29,
+                'name' => 'sr_nos.view',
+                'group' => 'sr_nos',
+            ],
+            [
+                'id' => 30,
+                'name' => 'sr_nos.create',
+                'group' => 'sr_nos',
+            ],
+            [
+                'id' => 31,
+                'name' => 'sr_nos.edit',
+                'group' => 'sr_nos',
+            ],
+            [
+                'id' => 32,
+                'name' => 'sr_nos.delete',
+                'group' => 'sr_nos',
+            ],
+            [
+                'id' => 33,
+                'name' => 'land_acquisitions.view',
+                'group' => 'land_acquisitions',
+            ],
+            [
+                'id' => 34,
+                'name' => 'land_acquisitions.create',
+                'group' => 'land_acquisitions',
+            ],
+            [
+                'id' => 35,
+                'name' => 'land_acquisitions.edit',
+                'group' => 'land_acquisitions',
+            ],
+            [
+                'id' => 36,
+                'name' => 'land_acquisitions.delete',
+                'group' => 'land_acquisitions',
+            ],
+            [
+                'id' => 37,
+                'name' => 'bundles.view',
+                'group' => 'bundles',
+            ],
+            [
+                'id' => 38,
+                'name' => 'bundles.create',
+                'group' => 'bundles',
+            ],
+            [
+                'id' => 39,
+                'name' => 'bundles.edit',
+                'group' => 'bundles',
+            ],
+            [
+                'id' =>40,
+                'name' => 'bundles.delete',
+                'group' => 'bundles',
+            ],
+            [
+                'id' => 41,
+                'name' => 'years.view',
+                'group' => 'years',
+            ],
+            [
+                'id' => 42,
+                'name' => 'years.create',
+                'group' => 'years',
+            ],
+            [
+                'id' => 43,
+                'name' => 'years.edit',
+                'group' => 'years',
+            ],
+            [
+                'id' =>44,
+                'name' => 'years.delete',
+                'group' => 'years',
+            ],
         ];
 
         foreach ($permissions as $permission)

@@ -14,10 +14,9 @@ class VillageController extends Controller
 {
     public function index()
     {
-        $villages = Village::latest()->get();
+        $villages = Village::with('taluka')->latest()->get();
         $talukas = Taluka::all();
-        // $districts = District;
-        // dd($districts);
+
         return view('admin.masters.villages')->with(['villages'=>  $villages,  'talukas' =>  $talukas]);
     }
 
@@ -28,8 +27,8 @@ class VillageController extends Controller
     {
         // return view('admin.masters.districts');
         $talukas = Taluka::all();
-        return view('admin.masters.create_taluka')->with([
-            'districts' => $talukas // Pass districts to the create view
+        return view('admin.masters.create_village')->with([
+            'talukas' => $talukas // Pass districts to the create view
         ]);
     }
 
@@ -53,7 +52,7 @@ class VillageController extends Controller
 
             // Return the created district in the response
             return response()->json([
-                'success' => 'Taluka created successfully!',
+                'success' => 'Village created successfully!',
                 'data' => $village
             ]);
         }
@@ -135,7 +134,7 @@ class VillageController extends Controller
         }
         catch(\Exception $e)
         {
-            return $this->respondWithAjax($e, 'deleting', 'Taluka');
+            return $this->respondWithAjax($e, 'deleting', 'Village');
         }
     }
 }

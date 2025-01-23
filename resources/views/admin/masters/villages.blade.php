@@ -51,7 +51,7 @@
                     @csrf
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit taluka</h4>
+                            <h4 class="card-title">Edit Taluka</h4>
                         </div>
                         <div class="card-body py-2">
                             <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
@@ -67,11 +67,10 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="village_name"> Village Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="village_name" name="village_name" type="text" placeholder="Enter taluka initial">
+                                    <input class="form-control" id="village_name" name="village_name" type="text" placeholder="Enter village name">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
                             </div>
-
                         </div>
                         <div class="card-footer">
                             <button class="btn btn-primary" id="editSubmit">Submit</button>
@@ -102,7 +101,7 @@
                                 <thead>
                                     <tr>
 
-
+<th>Sr No.</th>
 
                                        <th>taluka Name</th>
                                        <th>Village Name</th>
@@ -124,9 +123,9 @@
 
                                     <tr>
 
+                                        <td>{{ $loop->iteration }}</td>
 
-
-                                        <td>{{$taluka->taluka_name}}</td>
+                                        <td>{{$village?->taluka->taluka_name}}</td>
 
                                         <td>{{$village->village_name}}</td>
 
@@ -194,35 +193,82 @@
 
 <!-- Edit -->
 <script>
+    // Handle edit button click
     $("#buttons-datatables").on("click", ".edit-element", function(e) {
         e.preventDefault();
         var model_id = $(this).attr("data-id");
-        var url = "{{ route('villages.edit', ":model_id") }}";
+        var url = "{{ route('villages.edit', ':model_id') }}".replace(':model_id', model_id);
 
         $.ajax({
-            url: url.replace(':model_id', model_id),
+            url: url,
             type: 'GET',
-            data: {
-                '_token': "{{ csrf_token() }}"
-            },
-            success: function(data, textStatus, jqXHR) {
-                editFormBehaviour();
-                if (!data.error)
-                {
-                    $("#editForm input[name='edit_model_id']").val(data.taluka.id);
-                    $("#editForm input[name='name']").val(data.taluka.name);
-                    $("#editForm input[name='initial']").val(data.taluka.initial);
-                }
-                else
-                {
+            success: function(data) {
+                if (!data.error) {
+                    $("#editContainer").show();
+                    $("#editForm input[name='edit_model_id']").val(data.village.id);
+                    $("#editForm select[name='taluka_id']").val(data.village.taluka_id); // Dropdown value
+                    $("#editForm input[name='village_name']").val(data.village.name);
+                } else {
                     alert(data.error);
                 }
             },
-            error: function(error, jqXHR, textStatus, errorThrown) {
-                alert("Some thing went wrong");
-            },
+            error: function() {
+                alert("Something went wrong");
+            }
         });
     });
+
+    // Handle form submission
+    $(document).ready(function() {
+        $("#editForm").submit(function(e) {
+            e.preventDefault();
+            $("#editSubmit").prop('disabled', true);
+            var formdata = new FormData(this);
+            formdata.append('_method', 'PUT');
+            var model_id = $('#edit_model_id').val();
+
+            var url = "{{ route('villages.update', ':model_id') }}".replace(':model_id', model_id);
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formdata,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    $("#editSubmit").prop('disabled', false);
+                    if (!data.error2) {
+                        swal("Successful!", data.success, "success").then(() => {
+                            window.location.href = '{{ route('villages.index') }}';
+                        });
+                    } else {
+                        swal("Error!", data.error2, "error");
+                    }
+                },
+                statusCode: {
+                    422: function(response) {
+                        $("#editSubmit").prop('disabled', false);
+                        resetErrors();
+                        printErrMsg(response.responseJSON.errors);
+                    },
+                    500: function() {
+                        $("#editSubmit").prop('disabled', false);
+                        swal("Error!", "Something went wrong. Please try again.", "error");
+                    }
+                }
+            });
+        });
+    });
+
+    function resetErrors() {
+        $(".is-invalid").text('');
+    }
+
+    function printErrMsg(errors) {
+        $.each(errors, function(key, value) {
+            $("#" + key).siblings(".is-invalid").text(value[0]);
+        });
+    }
 </script>
 
 
@@ -235,6 +281,7 @@
             var formdata = new FormData(this);
             formdata.append('_method', 'PUT');
             var model_id = $('#edit_model_id').val();
+
             var url = "{{ route('villages.update', ":model_id") }}";
             //
             $.ajax({
