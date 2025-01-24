@@ -2,6 +2,15 @@
     <x-slot name="title">Form</x-slot>
     <x-slot name="heading">Form</x-slot>
 
+   <div class="row" id="addContainer">
+        <div class="col-sm-12">
+            <div class="card">
+                @if ($errors->any())
+     @foreach ($errors->all() as $error)
+         <div>{{$error}}</div>
+     @endforeach
+ @endif
+
     <div class="row" id="addContainer">
         <div class="col-sm-12">
             <div class="card">
@@ -94,7 +103,7 @@
 
 
                             <div class="col-md-4">
-                                <label class="col-form-label" for="description">वर्णन / Description<span class="text-danger">*</span></label>
+                                <label class="col-form-label" for="description">वर्णन / Description</label>
                                 <input class="form-control" id="description" name="description" type="text" placeholder="Enter Applicant Name">
                                 <span class="text-danger is-invalid applicant_name_err"></span>
                             </div>
@@ -171,6 +180,47 @@
                             </div>
                         </div>
 
+                        <!-- JavaScript to handle Add and Delete functionality -->
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const addMoreButton = document.getElementById('addMoreSegregationButton');
+                                const acquisitionAssistantBody = document.getElementById('AcquisitionAssistantBody');
+
+                                // Add new row when "Add More" button is clicked
+                                addMoreButton.addEventListener('click', function() {
+                                    const newRow = document.createElement('tr');
+                                    newRow.innerHTML = `
+                                        <th>
+                                            <select name="survey_or_group[]" class="form-control" required>
+                                                <option value="">भूसंपादनाचे वर्ष निवडा</option>
+                                                <option value="1">पूर्ण</option>
+                                                <option value="2">सुरु</option>
+                                            </select>
+                                        </th>
+                                        <th>
+                                            <input class="form-control" name="number[]" type="number" placeholder="Enter ">
+                                        </th>
+                                        <th>
+                                            <input class="form-control" name="area[]" type="number" placeholder="Enter ">
+                                        </th>
+                                        <th>
+                                            <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>
+                                        </th>
+                                    `;
+                                    acquisitionAssistantBody.appendChild(newRow);
+                                });
+
+                                // Remove row when the delete button is clicked
+                                acquisitionAssistantBody.addEventListener('click', function(event) {
+                                    if (event.target && event.target.classList.contains('deleteButton')) {
+                                        const row = event.target.closest('tr');
+                                        row.remove();
+                                    }
+                                });
+                            });
+                        </script>
+
+
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary" id="addSubmit">Submit</button>
                         <button type="reset" class="btn btn-warning">Reset</button>
@@ -244,7 +294,7 @@
 
 
 
-<script>
+{{-- <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Get the Add More button and the table body
         const addMoreButton = document.getElementById("addMoreSegregationButton");
@@ -296,6 +346,6 @@
             });
         }
     });
-</script>
+</script> --}}
 
 

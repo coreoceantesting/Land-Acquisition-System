@@ -54,15 +54,19 @@ class AcquisitionAssistant extends BaseModel
         'designation',
         'acquisition_proposal',
         'law',
-        'survey_or_group',
-        'number',
-        'area',
+        'acquisition_assistant_id',
+        'divisional_officer_status',
+        'divisional_officer_remark',
+        'acquisition_officer_status',
+        'acquisition_officer_remark',
     ];
     public $timestamps = true;
 
 
-
-
+    public function acquisitionAssistantSizes()
+    {
+        return $this->hasMany(AcquisitionAssistantSize::class);
+    }
 
     public static function booted()
     {

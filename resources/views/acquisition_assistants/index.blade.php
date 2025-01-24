@@ -52,7 +52,25 @@
                                     </td>
 
                                     <td>
-                                        <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
+
+                                    <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
+                                        <form action="{{ route('acquisition_assistants.approve', $record->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                             @if($record->divisional_officer_status == '0')
+                                            <button type="submit" class="btn btn-sm btn-success">Approve</button>
+                                            @elseif($record->divisional_officer_status=="1")
+                                            <label for="" class="btn btn-sm btn-success">Approved</label>
+                                            @elseif($record->divisional_officer_status=="2")
+                                            <label for="" class="btn btn-sm btn-danger">Reject</label>
+                                            @endif
+
+                                        </form>
+                                        <form action="{{ route('acquisition_assistants.reject', $record->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                             @if($record->divisional_officer_status == '0')
+                                            <button type="submit" class="btn btn-sm btn-danger">Reject</button>
+                                            @endif
+                                        </form>
 
                                     </td>
                                 </tr>
@@ -71,3 +89,31 @@
         </div>
     </div>
 </x-admin.layout>
+
+<script>
+    function updateStatus(id, status, officer) {
+    const remark = officer === 'divisional_officer'
+        ? document.getElementById('divisionalOfficerRemark').value
+        : document.getElementById('acquisitionOfficerRemark').value;
+
+    fetch(`/acquisition-assistants/${officer}-status/${id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({ status, remark })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.success);
+            location.reload(); // Reload to update status on the page
+        } else {
+            alert(data.error);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+</script>

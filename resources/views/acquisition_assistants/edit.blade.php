@@ -48,16 +48,7 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                             </div>
-{{--
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="taluka_name">तालुका / Taluka <span class="text-danger">*</span></label>
-                                <select name="taluka_id" id="taluka_id" class="form-select" required>
-                                    <option value="">तालुका निवडा</option>
-                                    @foreach($talukas as $taluka)
-                                    <option value="{{ $taluka->id }}">{{ $taluka->taluka_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div> --}}
+
 
                             <div class="col-md-4">
                                 <label class="col-form-label" for="village_name">गाव / Village <span class="text-danger">*</span></label>
@@ -112,7 +103,7 @@
 
                             <div class="col-md-4">
                                 <label class="col-form-label" for="project_name">प्रकल्पाचे नाव / Project Name <span class="text-danger">*</span></label>
-                                <input class="form-control" id="project_name" name="project_name" type="text" placeholder="Enter Applicant Name">
+                                <input class="form-control" id="project_name" name="project_name" type="text" placeholder="Enter Applicant Name"  value="{{ old('project_name', $acquisitionAssistant->project_name) }}">
                                 <span class="text-danger is-invalid applicant_name_err"></span>
                                 @error('project_name')
                                 <div class="text-danger">{{ $message }}</div>
@@ -135,7 +126,8 @@
 
                             <div class="col-md-4">
                                 <label class="col-form-label" for="acquisition_board_name">भूसंपादन मंडळाचे नाव  / Name of Land Acquisition Board<span class="text-danger">*</span></label>
-                                <textarea class="form-control" name="acquisition_board_name" id="acquisition_board_name" cols="30" rows="2" placeholder="Enter Applicant Address" required>{{ $abattoirLicense->full_address ?? '' }}</textarea>
+                                <textarea class="form-control" name="acquisition_board_name" id="acquisition_board_name" cols="30" rows="2" placeholder="Enter Applicant Address" required>   {{ old('acquisition_board_name', $acquisitionAssistant->acquisition_board_name ?? '') }}
+                                    {{ $abattoirLicense->full_address ?? '' }}</textarea>
                                 <span class="text-danger is-invalid full_address_err"></span>
                                 @error('acquisition_board_name')
                                 <div class="text-danger">{{ $message }}</div>
@@ -145,7 +137,7 @@
 
                             <div class="col-md-4">
                                 <label class="col-form-label" for="description">वर्णन / Description<span class="text-danger">*</span></label>
-                                <input class="form-control" id="description" name="description" type="text" placeholder="Enter Applicant Name">
+                                <input class="form-control" id="description" name="description" type="text" placeholder="Enter Applicant Name" value="{{ old('description', $acquisitionAssistant->description) }}">
                                 <span class="text-danger is-invalid applicant_name_err"></span>
 
                             </div>
@@ -154,8 +146,8 @@
                                 <label class="col-form-label" for="designation">निवाडा घोषित करणारे तत्कालन भूसंपादन अधिकाऱ्याचे पदनाम / Designation <span class="text-danger">*</span></label>
                                 <select name="designation" id="designation" class="form-control" required>
                                     <option value="">भूसंपादनाचे वर्ष निवडा</option>
-                                    <option value="1">पूर्ण</option>
-                                    <option value="2">सुरु</option>
+                                    <option value="1" {{ old('designation', $acquisitionAssistant->designation ?? '') == '1' ? 'selected' : '' }}>पूर्ण</option>
+                                    <option value="2" {{ old('designation', $acquisitionAssistant->designation ?? '') == '2' ? 'selected' : '' }}>सुरु</option>
                                 </select>
                                 @error('designation')
                                 <div class="text-danger">{{ $message }}</div>
@@ -167,8 +159,12 @@
                                     Land acquisition proposal<span class="text-danger">*</span></label>
                                 <select name="acquisition_proposal" id="acquisition_proposal" class="form-control" required>
                                     <option value="">भूसंपादनाचे वर्ष निवडा</option>
-                                    <option value="1">पूर्ण</option>
-                                    <option value="2">सुरु</option>
+                    <option value="1" {{ old('acquisition_proposal', $acquisitionAssistant->acquisition_proposal ?? '') == '1' ? 'selected' : '' }}>
+                        पूर्ण
+                    </option>
+                    <option value="2" {{ old('acquisition_proposal', $acquisitionAssistant->acquisition_proposal ?? '') == '2' ? 'selected' : '' }}>
+                        सुरु
+                    </option>
                                 </select>
                                 @error('acquisition_proposal')
                                 <div class="text-danger">{{ $message }}</div>
@@ -179,8 +175,12 @@
                                 <label class="col-form-label" for="law">भूसंपादन कोणत्या कायद्यानुसार झाले ? / Land acquisition was done according to which law? <span class="text-danger">*</span></label>
                                 <select name="law" id="law" class="form-control" required>
                                     <option value="">भूसंपादनाचे वर्ष निवडा</option>
-                                    <option value="1">पूर्ण</option>
-                                    <option value="2">सुरु</option>
+                                    <option value="1" {{ old('law', $acquisitionAssistant->law ?? '') == '1' ? 'selected' : '' }}>
+                                        पूर्ण
+                                    </option>
+                                    <option value="2" {{ old('law', $acquisitionAssistant->law ?? '') == '2' ? 'selected' : '' }}>
+                                        सुरु
+                                    </option>
                                 </select>
                                 @error('law')
                                 <div class="text-danger">{{ $message }}</div>
@@ -207,38 +207,39 @@
                                         </tr>
                                     </thead>
                                     <tbody id="AcquisitionAssistantBody">
-                                        <!-- Initial row (this can be used as a template) -->
-                                        <tr>
-                                            <th>
-                                                <select name="survey_or_group[]" class="form-control" required>
-                                                    <option value="">भूसंपादनाचे वर्ष निवडा</option>
-                                                    <option value="1">पूर्ण</option>
-                                                    <option value="2">सुरु</option>
-                                                </select>
-                                                @error('survey_or_group[]')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                            </th>
-                                            <th>
-                                                <input class="form-control" name="number[]" type="number" placeholder="Enter ">
-                                                @error('number[]')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                            </th>
-                                            <th>
-                                                @error('area[]')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                                <input class="form-control" name="area[]" type="number" placeholder="Enter ">
-                                            </th>
-                                            <th>
-                                                <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>
-                                            </th>
-                                        </tr>
+                                        @foreach ($acquisitionAssistantSizes as $size)
+                                            <tr>
+                                                <th>
+                                                    <select name="survey_or_group[]" class="form-control" required>
+                                                        <option value="1" {{ $size->survey_or_group == 1 ? 'selected' : '' }}>पूर्ण</option>
+                                                        <option value="2" {{ $size->survey_or_group == 2 ? 'selected' : '' }}>सुरु</option>
+                                                    </select>
+                                                    @error('survey_or_group[]')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </th>
+                                                <th>
+                                                    <input class="form-control" name="number[]" type="number" value="{{ old('number', $size->number) }}" placeholder="Enter ">
+                                                    @error('number[]')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </th>
+                                                <th>
+                                                    <input class="form-control" name="area[]" type="number" value="{{ old('area', $size->area) }}" placeholder="Enter ">
+                                                    @error('area[]')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </th>
+                                                <th>
+                                                    <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>
+                                                </th>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary" id="editSubmit">Update</button>
@@ -252,56 +253,17 @@
     </div>
 </x-admin.layout>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Get the Add More button and the table body
-        const addMoreButton = document.getElementById("addMoreSegregationButton");
-        const tableBody = document.getElementById("AcquisitionAssistantBody");
+  document.getElementById('addMoreSegregationButton').addEventListener('click', function () {
+    var newRow = document.querySelector('#AcquisitionAssistantBody tr').cloneNode(true);
 
-        // Add event listener to Add More button
-        addMoreButton.addEventListener("click", function() {
-            // Create a new row element
-            const newRow = document.createElement("tr");
-
-            // Set the inner HTML of the new row, similar to the initial row
-            newRow.innerHTML = `
-                <th>
-                    <select name="survey_or_group[]" class="form-control" required>
-                        <option value="">भूसंपादनाचे वर्ष निवडा</option>
-                        <option value="1">पूर्ण</option>
-                        <option value="2">सुरु</option>
-                    </select>
-                </th>
-                <th>
-                    <input class="form-control" name="number[]" type="number" placeholder="Enter Applicant Name">
-                </th>
-                <th>
-                    <input class="form-control" name="area[]" type="number" placeholder="Enter Applicant Name">
-                </th>
-                <th>
-                    <!-- Add a Delete button to the new row -->
-                    <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>
-                </th>
-            `;
-
-            // Append the new row to the table body
-            tableBody.appendChild(newRow);
-
-            // Add event listener to the delete button of the new row
-            const deleteButton = newRow.querySelector(".deleteButton");
-            deleteButton.addEventListener("click", function() {
-                // Remove the row when the delete button is clicked
-                newRow.remove();
-            });
-        });
-
-        // You can also add an event listener for the initial delete button in case of page reload or first entry
-        const initialDeleteButton = document.querySelector(".deleteButton");
-        if (initialDeleteButton) {
-            initialDeleteButton.addEventListener("click", function() {
-                // Remove the initial row
-                initialDeleteButton.closest('tr').remove();
-            });
-        }
+    // Reset input values (or leave them empty if you don't want to pre-populate)
+    newRow.querySelectorAll('input').forEach(function (input) {
+        input.value = '';
     });
+
+    // Append the new row to the table body
+    document.getElementById('AcquisitionAssistantBody').appendChild(newRow);
+});
+
 </script>
 

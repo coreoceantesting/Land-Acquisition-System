@@ -30,13 +30,13 @@ class UpdateAcquisitionAssistantRequest extends FormRequest
             'project_name'=>'required',
             'year_id'=>'required',
             'acquisition_board_name'=>'required',
-            'description'=>'required',
+            // 'description'=>'required',
             'designation'=>'required',
-            // 'acquisition_proposal'=>'required',
+             'acquisition_proposal'=>'required',
             'law'=>'required',
-            'survey_or_group'=>'required',
-            'number'=>'required',
-            'area'=>'required'
+            // 'survey_or_group'=>'required',
+            // 'number'=>'required',
+            // 'area'=>'required'
 
         ];
     }

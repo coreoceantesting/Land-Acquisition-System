@@ -79,8 +79,9 @@ Route::middleware(['auth', 'PreventBackHistory', 'firewall.all'])->group(functio
     Route::resource('roles', App\Http\Controllers\Admin\RoleController::class);
 });
 
-
-
+Route::post('/acquisition_assistants/{id}/approve', [AcquisitionAssistantController::class, 'approve'])->name('acquisition_assistants.approve');
+Route::post('/acquisition_assistants/{id}/reject', [AcquisitionAssistantController::class, 'reject'])->name('acquisition_assistants.reject');
+// Route::get('/acquisition_assistants', [AcquisitionAssistantController::class, 'index'])->name('acquisition_assistants.index');
 
 Route::get('/php', function (Request $request) {
     if (!auth()->check())
