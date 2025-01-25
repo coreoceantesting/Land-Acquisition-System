@@ -54,21 +54,24 @@
                                     <td>
 
                                     <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
-                                        <form action="{{ route('acquisition_assistants.approve', $record->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                             @if($record->divisional_officer_status == '0')
-                                            <button type="submit" class="btn btn-sm btn-success">Approve</button>
-                                            @elseif($record->divisional_officer_status=="1")
-                                            <label for="" class="btn btn-sm btn-success">Approved</label>
-                                            @elseif($record->divisional_officer_status=="2")
-                                            <label for="" class="btn btn-sm btn-danger">Reject</label>
+                                    <form action="{{ route('acquisition_assistants.approve', $record->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @if(in_array(Auth::user()->role, [3, 5])) <!-- Check if the user's role is either 3 or 5 -->
+                                            @if($record->divisional_officer_status == '0')
+                                                <button type="submit" class="btn btn-sm btn-success">Approve</button>
+                                            @elseif($record->divisional_officer_status == "1")
+                                                <label class="btn btn-sm btn-success">Approved</label>
+                                            @elseif($record->divisional_officer_status == "2")
+                                                <label class="btn btn-sm btn-danger">Rejected</label>
                                             @endif
-
-                                        </form>
+                                        @endif
+                                    </form>
+                                    @if(Auth::check() && in_array(Auth::user()->role, [3, 5]))               
+                                          @if($record->divisional_officer_status == '0')
                                         <form action="{{ route('acquisition_assistants.reject', $record->id) }}" method="POST" style="display:inline;">
                                             @csrf
-                                             @if($record->divisional_officer_status == '0')
                                             <button type="submit" class="btn btn-sm btn-danger">Reject</button>
+                                            @endif
                                             @endif
                                         </form>
 
