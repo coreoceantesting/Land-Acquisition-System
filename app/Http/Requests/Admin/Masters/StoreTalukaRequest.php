@@ -24,6 +24,7 @@ class StoreTalukaRequest extends FormRequest
         return [
             'taluka_name' => 'required',
             'district_id' => 'required',
+            'taluka_ini' =>'required',
         ];
     }
 }

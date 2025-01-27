@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Masters;
+namespace App\Http\Requests\Assistant;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreVillageRequest extends FormRequest
+class UpdateAcquisitionRegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,13 @@ class StoreVillageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'village_name' => 'required',
-            'taluka_id' => 'required',
-            'village_init' =>'required',
+            'district_id'=>'required',
+            'taluka_id'=>'required',
+            'village_id'=>'required',
+            'sr_no'=>'required',
+            'land_acquisition_id'=>'required',
+           'bundle'=>'required',
+
         ];
     }
 }

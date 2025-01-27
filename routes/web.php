@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AcquisitionAssistantController;
+use App\Http\Controllers\AcquisitionRegisterController;
 
 
 /*
@@ -65,6 +66,14 @@ Route::middleware(['auth', 'PreventBackHistory', 'firewall.all'])->group(functio
     // Route::resource('create', App\Http\Controllers\AcquisitionAssistantController::class);
 
     Route::resource('acquisition_assistant', App\Http\Controllers\AcquisitionAssistantController::class);
+//     Route::get('acquisition_assistants/register', [AcquisitionRegisterController::class, 'register'])
+// ->name('acquisition_register.register');
+// Route::post('/acquisition-assistant/store', [AcquisitionRegisterController::class, 'store'])->name('acquisition_register.store');
+// Route::get('acquisition_assistants/record', [AcquisitionRegisterController::class, 'show'])
+// ->name('acquisition_register.record');
+
+Route::resource('acquisition_register', AcquisitionRegisterController::class);
+
 
     Route::get('acquisition_assistant/{acquisition_assistant}', [AcquisitionAssistantController::class, 'show'])->name('acquisition_assistant.show');
 

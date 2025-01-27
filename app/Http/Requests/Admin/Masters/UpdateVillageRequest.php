@@ -24,6 +24,7 @@ class UpdateVillageRequest extends FormRequest
         return [
             'village_name' => 'required',
             'taluka_id' => 'required',
+            'village_init' =>'required',
         ];
     }
 }

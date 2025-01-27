@@ -30,6 +30,11 @@
                                     <input class="form-control" id="village_name" name="village_name" type="text" placeholder="Enter taluka initial">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
+                                <div class="col-md-4">
+                                    <label class="col-form-label" for="village_init"> Village Initial <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="village_init" name="village_init" type="text" placeholder="Enter taluka initial">
+                                    <span class="text-danger is-invalid initial_err"></span>
+                                </div>
                             </div>
 
                         </div>
@@ -70,6 +75,11 @@
                                     <input class="form-control" id="village_name" name="village_name" type="text" placeholder="Enter village name">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
+                                <div class="col-md-4">
+                                    <label class="col-form-label" for="village_init"> Village Initial <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="village_init" name="village_init" type="text" placeholder="Enter taluka initial">
+                                    <span class="text-danger is-invalid initial_err"></span>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -105,6 +115,7 @@
 
                                        <th>taluka Name</th>
                                        <th>Village Name</th>
+                                       <th>Village Initial</th>
                                       {{--    <th>Office</th>
 
                                         <th>Age</th>
@@ -125,9 +136,10 @@
 
                                         <td>{{ $loop->iteration }}</td>
 
-                                        <td>{{$village?->taluka->taluka_name}}</td>
+                                        <td>{{$village->taluka?->taluka_name}}</td>
 
                                         <td>{{$village->village_name}}</td>
+                                        <td>{{$village->village_init}}</td>
 
                                         <td>
                                             <button class="edit-element btn text-secondary px-2 py-1" title="Edit village" data-id="{{ $village->id }}"><i data-feather="edit"></i></button>

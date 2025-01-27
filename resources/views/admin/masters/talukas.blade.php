@@ -26,8 +26,13 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="taluka_name"> taluka Name / जिल्हा <span class="text-danger">*</span></label>
+                                    <label class="col-form-label" for="taluka_name"> Taluka Name / जिल्हा <span class="text-danger">*</span></label>
                                     <input class="form-control" id="taluka_name" name="taluka_name" type="text" placeholder="Enter taluka initial">
+                                    <span class="text-danger is-invalid initial_err"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-form-label" for="taluka_ini"> Taluka Initial / जिल्हा <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="taluka_ini" name="taluka_ini" type="text" placeholder="Enter taluka initial">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
                             </div>
@@ -71,6 +76,11 @@
                                     <input class="form-control" id="taluka_name" name="taluka_name" type="text" placeholder="Enter Taluka name">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
+                                <div class="col-md-4">
+                                    <label class="col-form-label" for="taluka_ini"> Taluka Initial / जिल्हा <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="taluka_ini" name="taluka_ini" type="text" placeholder="Enter taluka initial">
+                                    <span class="text-danger is-invalid initial_err"></span>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -104,8 +114,8 @@
                                         <th>Sr No.</th>
                                         <th>Distrtict Name</th>
 
-                                       <th>taluka Name</th>
-
+                                       <th>Taluka Name</th>
+                                        <th>Taluka Initial</th>
                                         <th>Action</th>
 
                                     </tr>
@@ -120,6 +130,7 @@
                                         <td>{{$taluka?->district->district_name}}</td>
 
                                         <td>{{$taluka->taluka_name}}</td>
+                                        <td>{{$taluka->taluka_ini}}</td>
 
 
 
