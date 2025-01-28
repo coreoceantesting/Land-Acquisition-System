@@ -26,7 +26,7 @@
                    <th>निवाडा घोषित करणारे तत्कालन भूसंपादन अधिकाऱ्याचे पदनाम / Designation </th>
                    <th>भूसंपादन प्रस्ताव / Land acquisition proposal</th>
                    <th>भूसंपादन कोणत्या कायद्यानुसार झाले ? / Land acquisition was done according to which law?</th>
-                   {{-- <th>status</th> --}}
+
                    <th>Actions</th>
 
                             </tr>
@@ -66,7 +66,7 @@
 सुरु
 @endif
 </td>
-
+<td></td>
 
                                     <td>
                                         <a href="{{ route('acquisition_assistant.edit', $record->id) }}" class="btn btn-sm btn-warning">Edit</a>
@@ -76,11 +76,7 @@
                                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                         </form>
                                         <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
-                                    </td>
 
-
-
-                                    </td>
                                 </tr>
                             @empty
                                 <tr>

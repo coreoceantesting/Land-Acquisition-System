@@ -33,9 +33,10 @@
                                     <td>{{ optional($record->taluka)->taluka_name ?? 'No taluka' }}</td>
                                     <td>{{ optional($record->village)->village_name ?? 'No village' }}</td>
                                     {{-- <td>{{ optional($record->sr_no)->sr_no ?? 'No sr_nos' }}</td> --}}
-                                    <td>{{ optional($record->sr_no)->sr_no ?? 'No sr no' }}</td>
+                                    <td>{{ $record->sr_no ?? 'No sr no' }}</td>
+
                                     <td>{{ optional($record->land_acquisition)->land_acquisitions_name ?? 'No land_acquisitions_name' }}</td>
-                             <td>{{ optional($record->bundle)->bundle ?? 'No bundle' }}</td>
+                                    <td>{{ $record->bundle ?? 'No bundle' }}</td>
 
                                     <td>
                                         <a href="{{ route('acquisition_register.edit', $record->id) }}" class="btn btn-sm btn-warning">Edit</a>

@@ -17,14 +17,18 @@
                                 <th>जिल्हा / District</th>
                                 <th>तालुका / Taluka</th>
                                 <th>गाव / Village</th>
+                                <th>निवाडा क्र. / Sr.No</th>
+                                <th>भूसंपादनाचे प्रयोजन / Purpose of land acquisition</th>
                                 <th>प्रकल्पाचे नाव / Project Name</th>
                                 <th>भूसंपादनाचे वर्ष / Year</th>
+                             <th>   भूसंपादन मंडळाचे नाव / Name of Land Acquisition Board</th>
                                 <th>वर्णन / Description</th>
-                                <th>भूसंपादनाचे प्रयोजन / Purpose</th>
-                                {{-- <th>>निवाडा क्र. / Sr.No</th> --}}
+                   <th>निवाडा घोषित करणारे तत्कालन भूसंपादन अधिकाऱ्याचे पदनाम / Designation </th>
+                   <th>भूसंपादन प्रस्ताव / Land acquisition proposal</th>
+                   <th>भूसंपादन कोणत्या कायद्यानुसार झाले ? / Land acquisition was done according to which law?</th>
+                   <th>status</th>
+                   <th>Actions</th>
 
-                                <th>Actions</th>
-                                <th>status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,13 +38,35 @@
                                     <td>{{ optional($record->district)->district_name ?? 'No district' }}</td>
                                     <td>{{ optional($record->taluka)->taluka_name ?? 'No taluka' }}</td>
                                     <td>{{ optional($record->village)->village_name ?? 'No village' }}</td>
-                                    {{-- <td>{{ optional($record->sr_no)->sr_no ?? 'No sr_nos' }}</td> --}}
-                                    <td>{{ $record->project_name }}</td>
-                                    <td>{{ optional($record->year)->year ?? 'No year' }}</td>
-
-                                    <td>{{ $record->description }}</td>
+                                    {{-- <td></td> --}}
+                                    <td>{{ optional($record->sr_no)->sr_nos_in ?? 'No sr_nos' }}</td>
                                     <td>{{ optional($record->land_acquisition)->land_acquisitions_name ?? 'No land_acquisitions_name' }}</td>
 
+                                    <td>{{ $record->project_name }}</td>
+                                    <td>{{ optional($record->year)->year ?? 'No year' }}</td>
+                                    <td>{{ $record->acquisition_board_name }}</td>
+                                    <td>{{ $record->description }}</td>
+                                  {{-- <td>{{ $record->designation }}</td> --}}
+                                  <td>  @if($record->designation == 1)
+                                    पूर्ण
+                                @elseif($record->designation == 2)
+                                सुरु
+                                @endif</td>
+<td>
+    @if($record->acquisition_proposal == 1)
+    पूर्ण
+@elseif($record->acquisition_proposal == 2)
+सुरु
+@endif
+</td>
+<td>
+    @if( $record->law  == 1)
+    पूर्ण
+@elseif( $record->law  == 2)
+सुरु
+@endif
+</td>
+<td></td>
 
                                     <td>
                                         <a href="{{ route('acquisition_assistant.edit', $record->id) }}" class="btn btn-sm btn-warning">Edit</a>
@@ -49,31 +75,10 @@
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                         </form>
+                                        <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
                                     </td>
 
-                                    <td>
 
-                                    <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
-                                    <form action="{{ route('acquisition_assistants.approve', $record->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @if(in_array(Auth::user()->role, [3, 5])) <!-- Check if the user's role is either 3 or 5 -->
-                                            @if($record->divisional_officer_status == '0')
-                                                <button type="submit" class="btn btn-sm btn-success">Approve</button>
-                                            @elseif($record->divisional_officer_status == "1")
-                                                <label class="btn btn-sm btn-success">Approved</label>
-                                            @elseif($record->divisional_officer_status == "2")
-                                                <label class="btn btn-sm btn-danger">Rejected</label>
-                                            @endif
-                                        @endif
-                                    </form>
-                                    @if(Auth::check() && in_array(Auth::user()->role, [3, 5]))               
-                                          @if($record->divisional_officer_status == '0')
-                                        <form action="{{ route('acquisition_assistants.reject', $record->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            <button type="submit" class="btn btn-sm btn-danger">Reject</button>
-                                            @endif
-                                            @endif
-                                        </form>
 
                                     </td>
                                 </tr>
@@ -91,11 +96,14 @@
             </div>
         </div>
     </div>
+
+
+
 </x-admin.layout>
 
 <script>
     function updateStatus(id, status, officer) {
-    const remark = officer === 'divisional_officer'
+    const remark = officer === 'acquisition_officer'
         ? document.getElementById('divisionalOfficerRemark').value
         : document.getElementById('acquisitionOfficerRemark').value;
 

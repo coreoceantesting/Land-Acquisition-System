@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AcquisitionAssistantController;
 use App\Http\Controllers\AcquisitionRegisterController;
-
+use App\Http\Controllers\DependentDropdownController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ Route::middleware(['auth', 'PreventBackHistory', 'firewall.all'])->group(functio
 
     // Route::resource('create', App\Http\Controllers\AcquisitionAssistantController::class);
 
-    Route::resource('acquisition_assistant', App\Http\Controllers\AcquisitionAssistantController::class);
+    // Route::resource('acquisition_assistant', App\Http\Controllers\AcquisitionAssistantController::class);
 //     Route::get('acquisition_assistants/register', [AcquisitionRegisterController::class, 'register'])
 // ->name('acquisition_register.register');
 // Route::post('/acquisition-assistant/store', [AcquisitionRegisterController::class, 'store'])->name('acquisition_register.store');
@@ -73,10 +73,32 @@ Route::middleware(['auth', 'PreventBackHistory', 'firewall.all'])->group(functio
 // ->name('acquisition_register.record');
 
 Route::resource('acquisition_register', AcquisitionRegisterController::class);
+Route::get('acquisition_register/{id}', [AcquisitionRegisterController::class, 'show'])
+    ->name('acquisition_register.show');
+
+    Route::post('/acquisition_assistant/{id}/approve', [AcquisitionAssistantController::class, 'approve'])
+    ->name('acquisition_assistant.approve');
+
+    Route::post('acquisition_assistant/{id}/reject', [AcquisitionAssistantController::class, 'reject'])
+    ->name('acquisition_assistant.reject');
+    // Or if you are using resource routes:
 
 
-    Route::get('acquisition_assistant/{acquisition_assistant}', [AcquisitionAssistantController::class, 'show'])->name('acquisition_assistant.show');
+    // Route::get('acquisition_assistant/{acquisition_assistant}', [AcquisitionAssistantController::class, 'show'])->name('acquisition_assistant.show');
 
+    // Route::get('/acquisition_assistant/pending', [AcquisitionAssistantController::class, 'pending'])->name('acquisition_assistant.pending');
+
+    Route::get('acquisition_assistant/pending', [AcquisitionAssistantController::class, 'pending'])->name('acquisition_assistant.pending');
+
+    Route::get('/acquisition_assistant/approved', [AcquisitionAssistantController::class, 'approved'])->name('acquisition_assistant.approved');
+
+    Route::get('acquisition_assistant/rejected', [AcquisitionAssistantController::class, 'rejected'])->name('acquisition_assistant.rejected');
+
+    Route::get('acquisition_assistant/land_acquisition', [AcquisitionAssistantController::class, 'land_acquisition'])->name('acquisition_assistant.land_acquisition');
+    
+    Route::resource('acquisition_assistant', AcquisitionAssistantController::class); // This will generate all the necessary routes, including the PATCH/PUT route.
+
+    // Route::get('/get-dependent-options/{id}', [DependentDropdownController::class, 'getDependentOptions']);
 
     // Users Roles n Permissions
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);

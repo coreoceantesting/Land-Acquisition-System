@@ -20,6 +20,7 @@ class AcquisitionRegisterController extends Controller
     public function index()
     {
         $record_reg = AcquisitionRegister::with(['district', 'taluka', 'village','land_acquisition'])->paginate(10);
+        // dd($record_reg);
         $acquisition_register =AcquisitionRegister ::all();
         return view('acquisition_registers.record_register', compact('acquisition_register','record_reg'));
 
@@ -65,8 +66,9 @@ class AcquisitionRegisterController extends Controller
     {
         try {
             // Fetch the Acquisition Assistant and its related data
-            $acquisition_register = AcquisitionRegister::findOrFail($id);
+            $acquisition_register = AcquisitionRegister::find($id);
 
+            // dd($acquisition_register);
 
             $districts = District::all();
             $talukas = Taluka::all();
@@ -74,13 +76,13 @@ class AcquisitionRegisterController extends Controller
             $land_acquisitions = Land_Acquisition::all();
 
 
-        return view('acquisition_registers.record_register', compact('districts',
+        return view('acquisition_registers.show', compact('acquisition_register','districts',
                  'talukas',
                 'villages',
             'land_acquisitions'));
     }catch (\Exception $e) {
         return response()->json([
-            'error' => 'An error occurred while fetching the Acquisition Assistant.',
+            'error' => 'An error occurred while fetching the Acquisition Register.',
             'message' => $e->getMessage(),
         ], 500);
     }
@@ -133,7 +135,7 @@ class AcquisitionRegisterController extends Controller
             // return($request);
 
             // Redirect to the show page with a success message
-            return redirect()->route('acquisition_assistant.index', $acquisition_register->id)
+            return redirect()->route('acquisition_register.index', $acquisition_register->id)
                              ->with('success', 'Acquisition Assistant updated successfully!');
         } catch (\Exception $e) {
             // Rollback if any exception occurs

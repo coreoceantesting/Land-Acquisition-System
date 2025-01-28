@@ -109,20 +109,33 @@
 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('acquisition_assistant.index') || request()->routeIs('acquisition_assistant.create') ? 'active' : 'collapsed' }}" href="#sidebarLandAcquisition" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLandAcquisition">
+                    <a class="nav-link menu-link {{ request()->routeIs('acquisition_assistant.pending') || request()->routeIs('acquisition_assistant.create') || request()->routeIs('acquisition_assistant.approved') || request()->routeIs('acquisition_assistant.rejected') ? 'active' : 'collapsed' }}" href="#sidebarLandAcquisition" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLandAcquisition">
                         <i class="ri-layout-3-line"></i>
                         <span data-key="t-layouts"> Land Acquisition</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ request()->routeIs('acquisition_assistant.index') || request()->routeIs('acquisition_assistant.create') ? 'show' : '' }}" id="sidebarLandAcquisition">
+                    <div class="collapse menu-dropdown {{ request()->routeIs('acquisition_assistant.pending') || request()->routeIs('acquisition_assistant.create') || request()->routeIs('acquisition_assistant.approved') || request()->routeIs('acquisition_assistant.rejected') ? 'show' : '' }}" id="sidebarLandAcquisition">
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
                                 <a href="{{ route('acquisition_assistant.create') }}" class="nav-link {{request()->routeIs('acquisition_assistant.create') ? 'active' : ''}}"  data-key="t-horizontal">Land Acquisition Records</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('acquisition_assistant.pending')}}" class="nav-link {{ request()->routeIs('acquisition_assistant.pending') ? 'active' : '' }}" data-key="t-horizontal">Pending Land Acquisition</a>
+                            </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('acquisition_assistant.index') }}" class="nav-link  {{request()->routeIs('acquisition_assistant.index') ? 'active' : ''}}" data-key="t-horizontal">Record Auth</a>
+                                <a href="{{ route('acquisition_assistant.approved') }}" class="nav-link  {{ request()->routeIs('acquisition_assistant.approved') ? 'active' : '' }}" data-key="t-horizontal">Approved Land Acquisition</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('acquisition_assistant.rejected') }}" class="nav-link  {{request()->routeIs('acquisition_assistant.rejected') ? 'active' : ''}}" data-key="t-horizontal">Rejected Land Acquisition</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('acquisition_assistant.land_acquisition') }}" class="nav-link  {{request()->routeIs('acquisition_assistant.land_acquisition') ? 'active' : ''}}" data-key="t-horizontal"> Pending Record Authorization</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link  {{request()->routeIs('acquisition_assistant.complete_record') ? 'active' : ''}}" data-key="t-horizontal">Completed Record Authorization</a>
+                            </li>
+
                             {{-- <li class="nav-item">
                                 <a href="{{ route('acquisition_assistant.create') }}" class="nav-link" data-key="t-horizontal">Form</a>
                             </li> --}}

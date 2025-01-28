@@ -25,7 +25,7 @@ class AcquisitionAssistantController extends Controller
 {
     public function index()
     {
-        $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year', 'land_acquisition'])->paginate(10);
+        $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])->paginate(10);
 
         $acquisition_assistants = AcquisitionAssistant::all();
         return view('acquisition_assistants.index', compact('acquisition_assistants','records'));
@@ -101,9 +101,11 @@ class AcquisitionAssistantController extends Controller
     // In your AcquisitionAssistantController.php
     public function show($id)
     {
+
         try {
             // Fetch the Acquisition Assistant and its related data
             $acquisitionAssistant = AcquisitionAssistant::findOrFail($id);
+            // $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])->paginate(10);
 
             // Fetch related Acquisition Assistant Sizes
             $acquisitionAssistantSizes = AcquisitionAssistantSize::where('acquisition_assistant_id', $id)->get();
@@ -198,7 +200,7 @@ public function edit($id)
             // return($request);
 
             // Redirect to the show page with a success message
-            return redirect()->route('acquisition_assistant.index', $acquisitionAssistant->id)
+            return redirect()->route('acquisition_assistant.pending', $acquisitionAssistant->id)
                              ->with('success', 'Acquisition Assistant updated successfully!');
         } catch (\Exception $e) {
             // Rollback if any exception occurs
@@ -235,7 +237,7 @@ public function edit($id)
         DB::commit();
 
         // Return success response and redirect to the index route
-        return redirect()->route('acquisition_assistant.index')->with('success', 'Acquisition Assistant deleted successfully!');
+        return redirect()->route('acquisition_assistant.pending')->with('success', 'Acquisition Assistant deleted successfully!');
     }
     catch(\Exception $e)
     {
@@ -251,25 +253,72 @@ public function edit($id)
 }
 
 
-public function approve($id)
+public function approve(Request $request,$id)
 {
+//  dd($request);
     $acquisitionAssistant = AcquisitionAssistant::find($id);
-    $acquisitionAssistant->divisional_officer_status = 1; // Approve
 
+    if(!$acquisitionAssistant)
+    {
+        return redirect()->back()->with('error', 'Item not found.');
+    }
+
+    $acquisitionAssistant->acquisition_officer_status = 1; // Approve
+    $acquisitionAssistant->acquisition_officer_remark = $request->input('remark');
     $acquisitionAssistant->save();
 
-    return redirect()->route('acquisition_assistant.index')->with('message', 'Item approved successfully.');
+    return redirect()->route('acquisition_assistant.approved')->with('message', 'Item approved successfully.');
 }
 
-public function reject($id)
+public function reject(Request $request,$id)
 {
+    // dd('dsfdg');
     $acquisitionAssistant = AcquisitionAssistant::find($id);
-    $acquisitionAssistant->divisional_officer_status = 2; // Reject
+
+    if (!$acquisitionAssistant) {
+        return redirect()->back()->with('error', 'Item not found.');
+    }
+    $acquisitionAssistant->acquisition_officer_status = 2; // Reject
+    $acquisitionAssistant->acquisition_officer_remark = $request->input('remark');
+
     // Add remark
     $acquisitionAssistant->save();
 
-    return redirect()->route('acquisition_assistant.index')->with('message', 'Item rejected successfully.');
+    return redirect()->route('acquisition_assistant.rejected')->with('message', 'Item rejected successfully.');
 }
+
+public function pending()
+{
+    $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])->where('acquisition_officer_status', 0)->paginate(10);
+
+    $acquisition_assistants = AcquisitionAssistant::all();
+    return view('acquisition_assistants.pending', compact('acquisition_assistants','records'));
+}
+
+public function land_acquisition()
+{
+    $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])->whereIn('acquisition_proposal', [1,2])->paginate(10);
+
+    $acquisition_assistants = AcquisitionAssistant::all();
+    return view('acquisition_assistants.land_acquisition', compact('acquisition_assistants','records'));
+}
+public function approved()
+{
+    $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])->where('acquisition_officer_status', 1)->paginate(10);
+
+        $acquisition_assistants = AcquisitionAssistant::all();
+        return view('acquisition_assistants.approved', compact('acquisition_assistants','records'));
+}
+
+public function rejected()
+{
+//  dd('sdff');
+    $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])->where('acquisition_officer_status', 2)->paginate(10);
+
+    $acquisition_assistants = AcquisitionAssistant::where('acquisition_officer_status', 2)->get(); // 2 for rejected status
+    return view('acquisition_assistants.rejected', compact('acquisition_assistants', 'records'));
+}
+
 
 
 }

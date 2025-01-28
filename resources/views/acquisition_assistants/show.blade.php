@@ -209,121 +209,86 @@
             </div>
         </div>
 
-        <h2> Status Details</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Remark</th>
-                </tr>
-            </thead>
-            {{-- <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Clerk</td>
-                    <td>
-                        @if($nocData->clerk_status == 0)
-                            <b>Pending by clerk</b>
-                        @elseif($nocData->clerk_status == 1)
-                            <b>Approved by clerk</b>
-                        @elseif($nocData->clerk_status == 2)
-                            <b>Rejected by clerk</b>
-                        @else
-                            Status not available
-                        @endif
-                    </td>
-                    <td>{{ $nocData->clerk_remark ?? 'No remarks available' }}</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Junior Engineer</td>
-                    <td>
-                        @if($noc Data->jr_eng_status == 0)
-                            <b>Pending by Junior Engineer</b>
-                        @elseif($nocData->jr_eng_status == 1)
-                            <b>Approved by Junior Engineer</b>
-                        @elseif($nocData->jr_eng_status == 2)
-                            <b>Rejected by Junior Engineer</b>
-                        @else
-                            Status not available
-                        @endif
-                    </td>
-                    <td>{{ $nocData->jr_eng_remark ?? 'No remarks available' }}</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Senior Engineer</td>
-                    <td>
-                        @if($nocData->sr_eng_status == 0)
-                            <b>Pending by Senior Engineer</b>
-                        @elseif($nocData->sr_eng_status == 1)
-                            <b>Approved by Senior Engineer</b>
-                        @elseif($nocData->sr_eng_status == 2)
-                            <b>Rejected by Senior Engineer</b>
-                        @else
-                            Status not available
-                        @endif
-                    </td>
-                    <td>{{ $nocData->sr_eng_remark ?? 'No remarks available' }}</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>HOD</td>
-                    <td>
-                        @if($nocData->hod_status == 0)
-                            <b>Pending by HOD</b>
-                        @elseif($nocData->hod_status == 1)
-                            <b>Approved by HOD</b>
-                        @elseif($nocData->hod_status == 2)
-                            <b>Rejected by HOD</b>
-                        @else
-                            Status not available
-                        @endif
-                    </td>
-                    <td>{{ $nocData->hod_remark ?? 'No remarks available' }}</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>City Engineer</td>
-                    <td>
-                        @if($nocData->city_eng_status == 0)
-                            <b>Pending by City Engineer</b>
-                        @elseif($nocData->city_eng_status == 1)
-                            <b>Approved by City Engineer</b>
-                        @elseif($nocData->city_eng_status == 2)
-                            <b>Rejected by City Engineer</b>
-                        @else
-                            Status not available
-                        @endif
-                    </td>
-                    <td>{{ $nocData->city_eng_remark ?? 'No remarks available' }}</td>
-                </tr>
-            </tbody> --}}
-        </table>
-        <!-- Display other details of the Acquisition Assistant -->
-        {{-- <div class="row">
-            <div class="col-md-6">
-                <label for="project_name">Project Name:</label>
-                <input type="text" class="form-control" value="{{ $acquisitionAssistant->project_name }}" readonly>
-            </div>
-            <div class="col-md-6">
-                <label for="created_by">Created By:</label>
-                <input type="text" class="form-control" value="{{ $acquisitionAssistant->created_by }}" readonly>
-            </div>
-        </div> --}}
 
-        <!-- Add more fields as necessary, based on the data you want to display -->
-
-
-            {{-- <div class="card-footer">
-                <button type="submit" class="btn btn-primary" id="editSubmit">Update</button>
-                <button type="reset" class="btn btn-warning">Reset</button>
-            </div> --}}
-        </div>
     </div>
+
+
+
+
 </form>
 
+@if(Auth::user()->hasRole('Land Acquisition Officer'))
+   <!-- Approve Button -->
+   <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approveModal">
+    Approve
+</button>
+
+<!-- Approve Modal -->
+<div class="modal fade" id="approveModal" tabindex="-1" aria-labelledby="approveModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ route('acquisition_assistant.approve', $acquisitionAssistant->id) }}" method="POST">
+                @csrf
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="approveModalLabel">Approve with Remark</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="remark" class="form-label">Remark</label>
+                        <textarea name="remark" id="remark" class="form-control" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Approve</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Reject Button -->
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
+    Reject
+</button>
+
+<!-- Reject Modal -->
+<div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ route('acquisition_assistant.reject', ['id' => $acquisitionAssistant->id]) }}" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="rejectModalLabel">Reject with Remark</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="remark" class="form-label">Remark</label>
+                        <textarea name="remark" id="remark" class="form-control" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Reject</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endif
 </x-admin.layout>
 
+@if(session('message'))
+    <div class="alert alert-success">
+        {{ session('message') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif

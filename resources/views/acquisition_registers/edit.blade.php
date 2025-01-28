@@ -4,7 +4,7 @@
 
     <form class="theme-form" name="addForm" id="addForm"  method="POST" action="{{ route('acquisition_register.update', $acquisition_register->id) }}" enctype="multipart/form-data" >
         @csrf
-
+@method('PUT')
         <div class="card-header">
             <h4 class="card-title">Land Acquisition Register </h4>
         </div>
@@ -16,7 +16,7 @@
                     <select name="district_id" id="district_name" class="form-select" required>
                         <option value="">जिल्हा निवडा</option>
                         @foreach($districts as $district)
-                        <option value="{{ $district->id }}">{{ $district->district_name }}</option>
+                        <option value="{{ $district->id }}" {{ $district->id == $acquisition_register->district_id ? 'selected' : '' }}>{{ $district->district_name }}</option>
                         @endforeach
                         <!-- Dynamic district options will be inserted here -->
                     </select>
@@ -28,7 +28,7 @@
                     <select name="taluka_id" id="taluka_id" class="form-select" required>
                         <option value="">तालुका निवडा</option>
                         @foreach($talukas as $taluka)
-                        <option value="{{ $taluka->id }}">{{ $taluka->taluka_name }}</option>
+                        <option value="{{ $taluka->id }}" {{ $taluka->id == $acquisition_register->taluka_id ? 'selected' : '' }}>{{ $taluka->taluka_name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -38,14 +38,14 @@
                     <select name="village_id" id="village_id" class="form-select" required>
                         <option value="">गाव निवडा</option>
                         @foreach($villages as $village)
-                        <option value="{{ $village->id }}">{{ $village->village_name }}</option>
+                        <option value="{{ $village->id }}"  {{ $village->id == $acquisition_register->village_id ? 'selected' : '' }}>{{ $village->village_name }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="col-md-4">
                     <label class="col-form-label" for="sr_no">Sr.No<span class="text-danger">*</span></label>
-                    <input class="form-control" id="sr_no" name="sr_no" type="number" placeholder="Enter sr no">
+                    <input class="form-control" id="sr_no" name="sr_no" type="number" placeholder="Enter sr no" value="{{ old('sr_no', $acquisition_register->sr_no) }}">
                     <span class="text-danger is-invalid applicant_name_err"></span>
                 </div>
 
@@ -56,14 +56,15 @@
                         <option value="">भूसंपादनाचे प्रयोजन</option>
                         @foreach($land_acquisitions as $land_acquisition)
 
-                        <option value="{{ $land_acquisition->id }}">{{ $land_acquisition->land_acquisitions_name }}</option>
+                        <option value="{{ $land_acquisition->id }}"
+                            {{ old('land_acquisition_id', $acquisition_register->land_acquisition_id ?? '') == $land_acquisition->id ? 'selected' : '' }}>{{ $land_acquisition->land_acquisitions_name }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="col-md-4">
                     <label class="col-form-label" for="bundle">Bundle No<span class="text-danger">*</span></label>
-                    <input class="form-control" id="bundle" name="bundle" type="text" placeholder="Enter Bundle">
+                    <input class="form-control" id="bundle" name="bundle" type="text" placeholder="Enter Bundle" value="{{ old('bundle', $acquisition_register->bundle) }}">
                     <span class="text-danger is-invalid applicant_name_err"></span>
                 </div>
                 {{-- <div class="col-md-4">
@@ -83,11 +84,11 @@
                 </div> --}}
 
 
-
-
-
-        <div class="card-footer">
-            <button type="submit" class="btn btn-primary" id="addSubmit">Submit</button>
+                <br>
+            </div>
+<br>
+        <div class="">
+            <button type="submit" class="btn btn-primary" id="addSubmit">Update</button>
             <button type="reset" class="btn btn-warning">Reset</button>
         </div>
     </form>

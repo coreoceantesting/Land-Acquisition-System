@@ -1,6 +1,6 @@
 <x-admin.layout>
-    <x-slot name="title">Land Acquisition Assistance - List</x-slot>
-    <x-slot name="heading">Land Acquisition Assistance - List</x-slot>
+    <x-slot name="title">Land Acquisition Assistance - Record</x-slot>
+    <x-slot name="heading">Land Acquisition Assistance - Record</x-slot>
 
     <div class="row">
         <div class="col-sm-12">
@@ -76,11 +76,7 @@
                                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                         </form>
                                         <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
-                                    </td>
 
-
-
-                                    </td>
                                 </tr>
                             @empty
                                 <tr>

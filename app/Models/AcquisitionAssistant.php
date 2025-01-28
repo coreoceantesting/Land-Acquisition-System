@@ -40,6 +40,11 @@ class AcquisitionAssistant extends BaseModel
         return $this->belongsTo(Land_Acquisition::class); // Adjust to your actual model
     }
 
+    public function sr_no()
+    {
+        return $this->belongsTo(Srno::class); // Adjust to your actual model
+    }
+
     protected $table = 'acquisition_assistants';
     protected $fillable = [
         'district_id',
