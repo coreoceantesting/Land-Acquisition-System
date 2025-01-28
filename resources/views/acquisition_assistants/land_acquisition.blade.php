@@ -28,7 +28,7 @@
                    <th>भूसंपादन कोणत्या कायद्यानुसार झाले ? / Land acquisition was done according to which law?</th>
                    {{-- <th>status</th> --}}
                    <th>Actions</th>
-
+<th>status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -76,7 +76,10 @@
                                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                         </form>
                                         <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
-
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#statusModal">Change Status</a>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
@@ -93,8 +96,47 @@
         </div>
     </div>
 
-
-
+    <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="statusModalLabel">Change Status</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form id="statusChangeForm">
+                        <!-- Acquisition Proposal Field -->
+                        <div class="mb-3">
+                            <label for="acquisitionProposal" class="form-label">भूसंपादन प्रस्ताव /
+                                Land acquisition proposal</label>
+                                <select name="acquisition_proposal" id="acquisition_proposal" class="form-select" required>
+                                    <option value="">भूसंपादन प्रस्ताव</option>
+                                    <option value="1">पूर्ण</option>
+                                    <option value="2">सुरु</option>
+                                </select>
+                        </div>
+    
+                       
+                        <!-- Date Field -->
+                        <div class="mb-3">
+                            <label for="statusDate" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="statusDate" name="date" required>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmStatusChange">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </x-admin.layout>
 
 <script>
@@ -122,5 +164,41 @@
     })
     .catch(error => console.error('Error:', error));
 }
+
+</script>
+<script>
+document.getElementById('confirmStatusChange').addEventListener('click', function () {
+    // Get input values
+    const acquisitionProposal = document.getElementById('acquisitionProposal').value;
+    const statusDate = document.getElementById('statusDate').value;
+
+    // Validate fields (optional)
+    if (!acquisitionProposal || !statusDate) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
+    // Example: Log the values or send them via AJAX
+    console.log('Acquisition Proposal:', acquisitionProposal);
+    console.log('Date:', statusDate);
+
+    // Perform your logic here (e.g., send data to the server via AJAX)
+    // Example using fetch:
+    // fetch('/change-status', {
+    //     method: 'POST',
+    //     body: JSON.stringify({ acquisition_proposal: acquisitionProposal, date: statusDate }),
+    //     headers: { 'Content-Type': 'application/json' }
+    // })
+    // .then(response => response.json())
+    // .then(data => console.log(data))
+    // .catch(error => console.error('Error:', error));
+
+    // Close the modal
+    const modal = document.querySelector('#statusModal');
+    const bootstrapModal = bootstrap.Modal.getInstance(modal);
+    bootstrapModal.hide();
+
+    alert('Status updated successfully!');
+});
 
 </script>
