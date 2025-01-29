@@ -16,6 +16,7 @@ use App\Http\Requests\Assistant\StoreAcquisitionAssistantRequest;
 use App\Http\Requests\Assistant\UpdateAcquisitionAssistantRequest;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 // use App\Http\Requests\Assistant\UpdateAcquisitionAssistantRequest;
@@ -25,7 +26,8 @@ class AcquisitionAssistantController extends Controller
 {
     public function index()
     {
-        $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])->paginate(10);
+        $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])
+        ->where('user_id', Auth::user()->id)->paginate(10);
 
         $acquisition_assistants = AcquisitionAssistant::all();
         return view('acquisition_assistants.index', compact('acquisition_assistants','records'));
@@ -49,12 +51,14 @@ class AcquisitionAssistantController extends Controller
 
     public function store(StoreAcquisitionAssistantRequest $request)
     {
+
         try {
             DB::beginTransaction();
 
             // $input = $request->validated();
 
-
+            $request['is_userdiff'] = Auth::user()->roles[0]->id ?? null;
+            $request['user_id'] = Auth::user()->id;
             $acquisition_assistant = AcquisitionAssistant::create($request->all());
             // dd($request->all());
 
@@ -289,33 +293,155 @@ public function reject(Request $request,$id)
 
 public function pending()
 {
-    $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])->where('acquisition_officer_status', 0)->paginate(10);
+    $user = Auth::user();
 
-    $acquisition_assistants = AcquisitionAssistant::all();
-    return view('acquisition_assistants.pending', compact('acquisition_assistants','records'));
+    // Fetch records with necessary relationships
+    $records = AcquisitionAssistant::with([
+        'district', 'taluka', 'village', 'year', 'sr_no', 'land_acquisition'
+    ]);
+
+    // If the user has specific roles, show only their own records
+    if ($user->hasRole(['Super Admin'])) {
+        $records = $records->whereIn('user_id', [4,6]);
+    }
+
+
+    if ($user->hasRole(['Land Acquisition Officer'])) {
+    $records = $records->whereIn('user_id', [4]);
+    }
+
+    if ($user->hasRole(['Land Acquisition Assistant Officer'])) {
+        $records = $records->whereIn('user_id', [4]);
+    }
+
+    // if ($user->hasRole(['Super Admin'])) {
+    //     $records = $records->whereIn('user_id', [6]);
+    // }
+
+    if ($user->hasRole(['Sub-Divisional Officer'])) {
+        $records = $records->whereIn('user_id', [6]);
+    }
+
+  if ($user->hasRole(['Sub-Divisional Assistant Officer'])) {
+        $records = $records->whereIn('user_id', [6]);
+    }
+    // Paginate the final query result
+    $records = $records->paginate(10);
+
+    $acquisition_assistants = AcquisitionAssistant::all()->where('acquisition_officer_status', 0);
+
+    return view('acquisition_assistants.pending', compact('acquisition_assistants', 'records'));
 }
 
-public function land_acquisition()
+
+public function land_acquisition(Request $request)
 {
-    $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])->whereIn('acquisition_proposal', [1,2])->paginate(10);
+    $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])->whereIn('acquisition_proposal', [2])->paginate(10);
 
     $acquisition_assistants = AcquisitionAssistant::all();
     return view('acquisition_assistants.land_acquisition', compact('acquisition_assistants','records'));
 }
+
+public function complete_reco_auth()
+{
+    $acquisition_assistants = AcquisitionAssistant::all();
+
+    // $acquisitionAssistant=AcquisitionAssistant::all();
+
+    // Fetch records with required relationships
+    $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year', 'land_acquisition'])->whereIn('acquisition_proposal', [1])
+      // Use `where` instead of `whereIn` for a single value
+        ->paginate(10);
+
+    // Fetch all acquisition assistants
+
+
+    // Return the view with data
+    return view('acquisition_assistants.complete_reco_auth', compact('acquisition_assistants', 'records'));
+}
+
+    public function complete_auth(Request $request)
+    {
+        $request->validate([
+            'acquisition_proposal' => 'required',
+            'updated_date' => 'required|date',
+             'id' => 'required|exists:acquisition_assistants,id',
+        ]);
+        $acquisitionAssistant = AcquisitionAssistant::find($request->input('id'));
+        // dd($request->all());
+        if (!$acquisitionAssistant) {
+
+            return redirect()->back()->with('error', 'Item not found.');
+        }
+
+        // Update the acquisition proposal status and the date
+        $acquisitionAssistant->acquisition_proposal = $request->input('acquisition_proposal');
+        $acquisitionAssistant->updated_date = $request->input('updated_date');
+        $acquisitionAssistant->save();
+
+        // Redirect to the complete_auth page with a success message
+
+        return redirect()->route('acquisition_assistant.complete_auth')->with('message', 'Item approved successfully.');
+    }
+
+
+
 public function approved()
 {
-    $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])->where('acquisition_officer_status', 1)->paginate(10);
 
+        $user = Auth::user();
+
+        // Fetch records with necessary relationships
+        $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])->where('acquisition_officer_status', 1);
+
+        // If the user has specific roles, show only their own records
+        if ($user->hasRole(['Super Admin'])) {
+            $records = $records->whereIn('user_id', [4,6]);
+        }
+
+
+        if ($user->hasRole(['Land Acquisition Officer'])) {
+        $records = $records->whereIn('user_id', [4]);
+        }
+
+        if ($user->hasRole(['Land Acquisition Assistant Officer'])) {
+            $records = $records->whereIn('user_id', [4]);
+        }
+
+
+        // Paginate the final query result
+         $records = $records->paginate(10);
+        // $sql = $records->toSql();
+        // dd($sql);
         $acquisition_assistants = AcquisitionAssistant::all();
+
+
         return view('acquisition_assistants.approved', compact('acquisition_assistants','records'));
 }
 
 public function rejected()
 {
 //  dd('sdff');
-    $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])->where('acquisition_officer_status', 2)->paginate(10);
+$user = Auth::user();
+$records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])->where('acquisition_officer_status', 2);
+if ($user->hasRole(['Super Admin'])) {
+    $records = $records->whereIn('user_id', [4,6]);
+}
 
-    $acquisition_assistants = AcquisitionAssistant::where('acquisition_officer_status', 2)->get(); // 2 for rejected status
+
+if ($user->hasRole(['Land Acquisition Officer'])) {
+$records = $records->whereIn('user_id', [4]);
+}
+
+if ($user->hasRole(['Land Acquisition Assistant Officer'])) {
+    $records = $records->whereIn('user_id', [4]);
+}
+
+$records = $records->paginate(10);
+// $sql = $records->toSql();
+// dd($sql);
+$acquisition_assistants = AcquisitionAssistant::all();
+// 2 for rejected status
     return view('acquisition_assistants.rejected', compact('acquisition_assistants', 'records'));
 }
 

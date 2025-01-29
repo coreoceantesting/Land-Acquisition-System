@@ -95,7 +95,10 @@ Route::get('acquisition_register/{id}', [AcquisitionRegisterController::class, '
     Route::get('acquisition_assistant/rejected', [AcquisitionAssistantController::class, 'rejected'])->name('acquisition_assistant.rejected');
 
     Route::get('acquisition_assistant/land_acquisition', [AcquisitionAssistantController::class, 'land_acquisition'])->name('acquisition_assistant.land_acquisition');
-    
+
+    Route::Post('acquisition_assistant/complete_auth', [AcquisitionAssistantController::class, 'complete_auth'])->name('acquisition_assistant.complete_auth');
+    // Route::get('acquisition_assistant/complete_auth', [AcquisitionAssistantController::class, 'complete_auth'])->name('acquisition_assistant.complete_auth');
+    Route::get('acquisition_assistant/complete_reco_auth', [AcquisitionAssistantController::class, 'complete_reco_auth'])->name('acquisition_assistant.complete_reco_auth');
     Route::resource('acquisition_assistant', AcquisitionAssistantController::class); // This will generate all the necessary routes, including the PATCH/PUT route.
 
     // Route::get('/get-dependent-options/{id}', [DependentDropdownController::class, 'getDependentOptions']);

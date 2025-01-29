@@ -59,11 +59,14 @@ class AcquisitionAssistant extends BaseModel
         'designation',
         'acquisition_proposal',
         'law',
+        'updated_date',
         'acquisition_assistant_id',
         'divisional_officer_status',
         'divisional_officer_remark',
         'acquisition_officer_status',
         'acquisition_officer_remark',
+        'is_userdiff',
+        'user_id'
     ];
     public $timestamps = true;
 
@@ -71,6 +74,11 @@ class AcquisitionAssistant extends BaseModel
     public function acquisitionAssistantSizes()
     {
         return $this->hasMany(AcquisitionAssistantSize::class);
+    }
+
+    public function complete_auth()
+    {
+        return $this->hasMany(AcquisitionAssistant::class);
     }
 
   public static function booted()

@@ -217,68 +217,69 @@
 
 </form>
 
-@if(Auth::user()->hasRole('Land Acquisition Officer'))
+@if(Auth::user()->hasRole(['Land Acquisition Officer', 'Sub-Divisional Officer']))
    <!-- Approve Button -->
    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approveModal">
     Approve
-</button>
+    </button>
 
-<!-- Approve Modal -->
-<div class="modal fade" id="approveModal" tabindex="-1" aria-labelledby="approveModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="{{ route('acquisition_assistant.approve', $acquisitionAssistant->id) }}" method="POST">
-                @csrf
+        <!-- Approve Modal -->
+        <div class="modal fade" id="approveModal" tabindex="-1" aria-labelledby="approveModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ route('acquisition_assistant.approve', $acquisitionAssistant->id) }}" method="POST">
+                        @csrf
 
-                <div class="modal-header">
-                    <h5 class="modal-title" id="approveModalLabel">Approve with Remark</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="approveModalLabel">Approve with Remark</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="remark" class="form-label">Remark</label>
+                                <textarea name="remark" id="remark" class="form-control" rows="4" required></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-success">Approve</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="remark" class="form-label">Remark</label>
-                        <textarea name="remark" id="remark" class="form-control" rows="4" required></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success">Approve</button>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
-</div>
 
-<!-- Reject Button -->
-<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
-    Reject
-</button>
+        <!-- Reject Button -->
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
+            Reject
+        </button>
 
-<!-- Reject Modal -->
-<div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="{{ route('acquisition_assistant.reject', ['id' => $acquisitionAssistant->id]) }}" method="POST">
-                @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title" id="rejectModalLabel">Reject with Remark</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- Reject Modal -->
+        <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ route('acquisition_assistant.reject', ['id' => $acquisitionAssistant->id]) }}" method="POST">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="rejectModalLabel">Reject with Remark</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="remark" class="form-label">Remark</label>
+                                <textarea name="remark" id="remark" class="form-control" rows="4" required></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Reject</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="remark" class="form-label">Remark</label>
-                        <textarea name="remark" id="remark" class="form-control" rows="4" required></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Reject</button>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
-</div>
-@endif
+
+        @endif
 </x-admin.layout>
 
 @if(session('message'))

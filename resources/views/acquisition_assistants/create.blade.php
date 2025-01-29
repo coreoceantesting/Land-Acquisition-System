@@ -80,7 +80,7 @@
 
                             <div class="col-md-4">
                                 <label class="col-form-label" for="project_name">प्रकल्पाचे नाव / Project Name <span class="text-danger">*</span></label>
-                                <input class="form-select" id="project_name" name="project_name" type="text" placeholder="Enter Applicant Name">
+                                <input class="form-control" id="project_name" name="project_name" type="text" placeholder="Enter Applicant Name">
                                 <span class="text-danger is-invalid applicant_name_err"></span>
                             </div>
 
@@ -97,14 +97,14 @@
 
                             <div class="col-md-4">
                                 <label class="col-form-label" for="acquisition_board_name">भूसंपादन मंडळाचे नाव  / Name of Land Acquisition Board<span class="text-danger">*</span></label>
-                                <textarea class="form-select" name="acquisition_board_name" id="acquisition_board_name" cols="30" rows="2" placeholder="भूसंपादन मंडळाचे नाव" required>{{ $abattoirLicense->full_address ?? '' }}</textarea>
+                                <textarea class="form-control" name="acquisition_board_name" id="acquisition_board_name" cols="30" rows="2" placeholder="भूसंपादन मंडळाचे नाव" required>{{ $abattoirLicense->full_address ?? '' }}</textarea>
                                 <span class="text-danger is-invalid full_address_err"></span>
                             </div>
 
 
                             <div class="col-md-4">
                                 <label class="col-form-label" for="description">वर्णन / Description</label>
-                                <input class="form-select" id="description" name="description" type="text" placeholder="वर्णन">
+                                <input class="form-control" id="description" name="description" type="text" placeholder="वर्णन">
                                 <span class="text-danger is-invalid applicant_name_err"></span>
                             </div>
 

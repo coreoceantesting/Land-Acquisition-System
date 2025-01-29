@@ -109,11 +109,11 @@
 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('acquisition_assistant.pending') || request()->routeIs('acquisition_assistant.create') || request()->routeIs('acquisition_assistant.approved') || request()->routeIs('acquisition_assistant.rejected') ? 'active' : 'collapsed' }}" href="#sidebarLandAcquisition" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLandAcquisition">
+                    <a class="nav-link menu-link {{ request()->routeIs('acquisition_assistant.pending') || request()->routeIs('acquisition_assistant.create') || request()->routeIs('acquisition_assistant.approved') || request()->routeIs('acquisition_assistant.rejected') || request()->routeIs('acquisition_assistant.land_acquisition') || request()->routeIs('acquisition_assistant.complete_reco_auth')  ? 'active' : 'collapsed' }}" href="#sidebarLandAcquisition" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLandAcquisition">
                         <i class="ri-layout-3-line"></i>
                         <span data-key="t-layouts"> Land Acquisition</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ request()->routeIs('acquisition_assistant.pending') || request()->routeIs('acquisition_assistant.create') || request()->routeIs('acquisition_assistant.approved') || request()->routeIs('acquisition_assistant.rejected') ? 'show' : '' }}" id="sidebarLandAcquisition">
+                    <div class="collapse menu-dropdown {{ request()->routeIs('acquisition_assistant.pending') || request()->routeIs('acquisition_assistant.create') || request()->routeIs('acquisition_assistant.approved') || request()->routeIs('acquisition_assistant.rejected') || request()->routeIs('acquisition_assistant.land_acquisition') || request()->routeIs('acquisition_assistant.complete_reco_auth') ? 'show' : '' }}" id="sidebarLandAcquisition">
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
@@ -133,7 +133,7 @@
                                 <a href="{{ route('acquisition_assistant.land_acquisition') }}" class="nav-link  {{request()->routeIs('acquisition_assistant.land_acquisition') ? 'active' : ''}}" data-key="t-horizontal"> Pending Record Authorization</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link  {{request()->routeIs('acquisition_assistant.complete_record') ? 'active' : ''}}" data-key="t-horizontal">Completed Record Authorization</a>
+                                <a href="{{ route('acquisition_assistant.complete_reco_auth') }}" class="nav-link  {{request()->routeIs('acquisition_assistant.complete_reco_auth') ? 'active' : ''}}" data-key="t-horizontal">Completed Record Authorization</a>
                             </li>
 
                             {{-- <li class="nav-item">

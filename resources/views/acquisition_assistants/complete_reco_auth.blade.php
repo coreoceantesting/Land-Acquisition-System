@@ -28,7 +28,7 @@
                    <th>भूसंपादन कोणत्या कायद्यानुसार झाले ? / Land acquisition was done according to which law?</th>
                    {{-- <th>status</th> --}}
                    <th>Actions</th>
-<th>status</th>
+{{-- <th>status</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -77,7 +77,7 @@
                                         </form>
                                         <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         <a href="#" class="btn btn-sm btn-success changeStatusModel"
                                         data-bs-toggle="modal"
                                         data-bs-target="#statusModal"
@@ -86,7 +86,7 @@
                                         data-updated_date="{{ $record->updated_date }}">
                                          Change Status
                                      </a>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @empty
                                 <tr>
@@ -103,7 +103,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <!-- Modal Header -->
@@ -144,7 +144,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 </x-admin.layout>
 
@@ -198,19 +198,19 @@
 
 // });
 
-$(document).ready(function(){
-    $('.changeStatusModel').click(function(){
-        let id = $(this).attr('data-id');
-        let acquisitionProposal = $(this).attr('data-acquisition_proposal');
-        let updatedDate = $(this).attr('data-updated_date');
-        // $('#acquisition_proposal').val(acquisitionProposal);
-        // $('#updated_date').val(updatedDate);
-        $('#modelId').val(id);
+// $(document).ready(function(){
+//     $('.changeStatusModel').click(function(){
+//         let id = $(this).attr('data-id');
+//         let acquisitionProposal = $(this).attr('data-acquisition_proposal');
+//         let updatedDate = $(this).attr('data-updated_date');
+//         // $('#acquisition_proposal').val(acquisitionProposal);
+//         // $('#updated_date').val(updatedDate);
+//         $('#modelId').val(id);
 
-        const modal = new bootstrap.Modal(document.getElementById('statusModal'));
-        modal.show();
-    })
-});
+//         const modal = new bootstrap.Modal(document.getElementById('statusModal'));
+//         modal.show();
+//     })
+// });
 
 
 
