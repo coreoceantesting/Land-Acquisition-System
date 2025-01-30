@@ -75,7 +75,7 @@
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                         </form>
-                                        <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
+                                        <a href="{{ route('acquisition_assistant.complete_reco_auth', $record->id) }}" class="btn btn-sm btn-warning">View</a>
                                     </td>
                                     <td>
                                         <a href="#" class="btn btn-sm btn-success changeStatusModel"

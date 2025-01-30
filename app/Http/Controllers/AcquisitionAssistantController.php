@@ -381,7 +381,7 @@ public function complete_reco_auth()
 
         // Redirect to the complete_auth page with a success message
 
-        return redirect()->route('acquisition_assistant.complete_auth')->with('message', 'Item approved successfully.');
+        return redirect()->route('acquisition_assistant.complete_reco_auth')->with('message', 'Item approved successfully.');
     }
 
 
@@ -446,6 +446,20 @@ $acquisition_assistants = AcquisitionAssistant::all();
 }
 
 
+public function getTalukas($districtId)
+{
+    // Fetch talukas based on the selected district
+    $talukas = Taluka::where('district_id', $districtId)->get(['id', 'taluka_name']);
+
+    // Return the talukas as a JSON response
+    return response()->json($talukas);
+}
+
+public function getVillages($talukaId)
+{
+    $villages = Village::where('taluka_id', $talukaId)->get();
+    return response()->json($villages);
+}
 
 }
 

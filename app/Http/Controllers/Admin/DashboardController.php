@@ -4,12 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cookie;
+use App\Http\Controllers\AcquisitionAssistantController;
+
 
 class DashboardController extends Controller
 {
 
     public function index()
     {
+        // $pendingCount = AcquisitionAssistantController::where('acquisition_officer_status	', 0)->count();
+        // $approvedCount = AcquisitionAssistantController::where('acquisition_officer_status	', 1)->count();
+        // $rejectedCount = AcquisitionAssistantController::where('acquisition_officer_status	', 2)->count();
         return view('admin.dashboard');
     }
 

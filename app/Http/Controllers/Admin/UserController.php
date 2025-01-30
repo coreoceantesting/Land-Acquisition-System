@@ -16,6 +16,7 @@ use App\Models\User;
 use App\Models\Ward;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use App\Models\SubUser;
 
 class UserController extends Controller
 {
@@ -228,5 +229,15 @@ class UserController extends Controller
         {
             return $this->respondWithAjax($e, 'changing', 'User\'s role');
         }
+    }
+
+    public function getOfficers($roleId)
+    {
+        // Fetch officers based on the selected role
+        $officers = User::whereHas('roles', function ($query) use ($roleId) {
+            $query->where('role_id', $roleId);  // Fetch users with the selected role
+        })->with('roles')->get(['id', 'name']);  // Return only 'id' and 'name' of the officers
+
+        return response()->json($officers);  // Return the officers as JSON
     }
 }

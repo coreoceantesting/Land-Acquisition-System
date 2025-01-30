@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin\Masters;
 use App\Http\Controllers\Admin\Controller;
 use App\Http\Requests\Admin\Masters\StoreLandAcquisitionRequest;
 use App\Http\Requests\Admin\Masters\UpdateLandAcquisitionRequest;
-
+use App\Models\District;
 use App\Models\Land_Acquisition;
+use App\Models\Taluka;
+use App\Models\Village;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -29,7 +31,8 @@ class LandAcquisitionController extends Controller
     {
         // return view('admin.masters.districts');
 
-
+        $districts = District::all();  // Get all districts
+        return view('land_acquisition.create', compact('districts'));
     }
 
     /**
@@ -131,4 +134,20 @@ class LandAcquisitionController extends Controller
             return $this->respondWithAjax($e, 'deleting', 'Land_Acquisition');
         }
     }
+
+    public function getTalukas($districtId)
+{
+    // Fetch talukas based on the selected district
+    $talukas = Taluka::where('district_id', $districtId)->get(['id', 'taluka_name']);
+
+    // Return the talukas as a JSON response
+    return response()->json($talukas);
+}
+
+public function getVillages($talukaId)
+{
+    $villages = Village::where('taluka_id', $talukaId)->get();
+    return response()->json($villages);
+}
+
 }

@@ -25,6 +25,10 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function subusers()
+    {
+        return $this->hasMany(SubUser::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

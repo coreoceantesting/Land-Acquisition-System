@@ -119,6 +119,9 @@
                             <li class="nav-item">
                                 <a href="{{ route('acquisition_assistant.create') }}" class="nav-link {{request()->routeIs('acquisition_assistant.create') ? 'active' : ''}}"  data-key="t-horizontal">Land Acquisition Records</a>
                             </li>
+                            {{-- <li class="nav-item">
+                                <a href="" class="nav-link {{request()->routeIs('acquisition_assistant.create') ? 'active' : ''}}"  data-key="t-horizontal">Total Land Acquisition  Form Records</a>
+                            </li> --}}
                             <li class="nav-item">
                                 <a href="{{ route('acquisition_assistant.pending')}}" class="nav-link {{ request()->routeIs('acquisition_assistant.pending') ? 'active' : '' }}" data-key="t-horizontal">Pending Land Acquisition</a>
                             </li>

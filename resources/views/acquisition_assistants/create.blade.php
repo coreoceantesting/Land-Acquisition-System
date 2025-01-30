@@ -30,18 +30,14 @@
                                     @foreach($districts as $district)
                                     <option value="{{ $district->id }}">{{ $district->district_name }}</option>
                                     @endforeach
-                                    <!-- Dynamic district options will be inserted here -->
                                 </select>
                             </div>
-
 
                             <div class="col-md-4">
                                 <label class="col-form-label" for="taluka_name">तालुका / Taluka <span class="text-danger">*</span></label>
                                 <select name="taluka_id" id="taluka_id" class="form-select" required>
                                     <option value="">तालुका निवडा</option>
-                                    @foreach($talukas as $taluka)
-                                    <option value="{{ $taluka->id }}">{{ $taluka->taluka_name }}</option>
-                                    @endforeach
+                                    <!-- Dynamic taluka options will be inserted here -->
                                 </select>
                             </div>
 
@@ -49,9 +45,7 @@
                                 <label class="col-form-label" for="village_name">गाव / Village <span class="text-danger">*</span></label>
                                 <select name="village_id" id="village_id" class="form-select" required>
                                     <option value="">गाव निवडा</option>
-                                    @foreach($villages as $village)
-                                    <option value="{{ $village->id }}">{{ $village->village_name }}</option>
-                                    @endforeach
+                                    <!-- Dynamic village options will be inserted here -->
                                 </select>
                             </div>
 
@@ -347,5 +341,79 @@
         }
     });
 </script> --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // When the district is selected, get talukas for that district
+        $('#district_name').on('change', function () {
+            var districtId = $(this).val();  // Get selected district ID
 
+            if (districtId) {
+                // AJAX request to get talukas based on the selected district
+                $.ajax({
+                    url: '/get-talukas/' + districtId,  // Adjust with your route
+                    type: 'GET',
+                    success: function (data) {
+                        $('#taluka_id').empty();  // Clear the taluka dropdown
+                        $('#taluka_id').append('<option value="">--Select Taluka--</option>');
+                        $.each(data, function (key, value) {
+                            $('#taluka_id').append('<option value="' + value.id + '">' + value.taluka_name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert("An error occurred while fetching talukas.");
+                    }
+                });
+            } else {
+                // Clear the taluka dropdown if no district is selected
+                $('#taluka_id').empty().append('<option value="">--Select Taluka--</option>');
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+    // When district is selected
+    $('#district_name').change(function() {
+        var districtId = $(this).val();
+        if(districtId) {
+            // Make AJAX request to get talukas for the selected district
+            $.ajax({
+                url: '/talukas/' + districtId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var talukaDropdown = $('#taluka_id');
+                    talukaDropdown.empty(); // Clear existing options
+                    talukaDropdown.append('<option value="">Select Taluka</option>');
+                    $.each(data, function(key, taluka) {
+                        talukaDropdown.append('<option value="' + taluka.id + '">' + taluka.taluka_name + '</option>');
+                    });
+                }
+            });
+        }
+    });
+
+    // When taluka is selected
+    $('#taluka_id').change(function() {
+        var talukaId = $(this).val();
+        if(talukaId) {
+            // Make AJAX request to get villages for the selected taluka
+            $.ajax({
+                url: '/villages/' + talukaId,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var villageDropdown = $('#village_id');
+                    villageDropdown.empty(); // Clear existing options
+                    villageDropdown.append('<option value="">Select Village</option>');
+                    $.each(data, function(key, village) {
+                        villageDropdown.append('<option value="' + village.id + '">' + village.village_name + '</option>');
+                    });
+                }
+            });
+        }
+    });
+});
+</script>
 

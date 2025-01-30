@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AcquisitionAssistantController;
 use App\Http\Controllers\AcquisitionRegisterController;
+use App\Http\Controllers\Admin\Masters\LandAcquisitionController;
+use App\Http\Controllers\Admin\Masters\TalukaController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DependentDropdownController;
 
 /*
@@ -101,8 +104,10 @@ Route::get('acquisition_register/{id}', [AcquisitionRegisterController::class, '
     Route::get('acquisition_assistant/complete_reco_auth', [AcquisitionAssistantController::class, 'complete_reco_auth'])->name('acquisition_assistant.complete_reco_auth');
     Route::resource('acquisition_assistant', AcquisitionAssistantController::class); // This will generate all the necessary routes, including the PATCH/PUT route.
 
-    // Route::get('/get-dependent-options/{id}', [DependentDropdownController::class, 'getDependentOptions']);
-
+    Route::get('/get-officers/{roleId}', [UserController::class, 'getOfficers']);
+        // Route::get('/get-dependent-options/{id}', [DependentDropdownController::class, 'getDependentOptions']);
+        Route::get('/get-talukas/{districtId}', [LandAcquisitionController::class, 'getTalukas'])->name('get-talukas');
+        Route::get('villages/{talukaId}', [LandAcquisitionController::class, 'getVillages']);
     // Users Roles n Permissions
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
     Route::get('users/{user}/toggle', [App\Http\Controllers\Admin\UserController::class, 'toggle'])->name('users.toggle');

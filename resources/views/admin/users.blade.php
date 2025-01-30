@@ -49,6 +49,15 @@
                             </div>
 
                             <div class="col-md-4 mt-3">
+                                <label class="col-form-label" for="officer_id">Select User Officer <span class="text-danger">*</span></label>
+                                <select class="js-example-basic-single col-sm-12" id="officer_id" name="officer_id">
+                                    <option value="">--Select Officer--</option>
+                                </select>
+                                <span class="text-danger is-invalid officer_id_err"></span>
+                            </div>
+
+
+                            <div class="col-md-4 mt-3">
                                 <label class="col-form-label" for="password">Password <span class="text-danger">*</span></label>
                                 <input class="form-control" id="password" name="password" type="password" placeholder="********">
                                 <span class="text-danger is-invalid password_err"></span>
@@ -264,6 +273,9 @@
                             <div class="col-sm-9" style="max-height: 60px">
                                 <select class="js-example-basic-single" id="edit_role" name="edit_role">
                                     <option value="">--Select Role--</option>
+                                    @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach
                                 </select>
                                 <span class="text-danger is-invalid edit_role_err"></span>
                             </div>
@@ -601,5 +613,46 @@
             });
         }
 
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Handle role change event
+        $('#role').on('change', function () {
+            var roleId = $(this).val();  // Get selected role ID
+
+
+            var mappedRoleId = null;
+
+            if (roleId == 4) {
+                mappedRoleId = 3;
+            } else if (roleId == 6) {
+                mappedRoleId = 5;
+            } else {
+                mappedRoleId = roleId;
+            }
+
+            if (mappedRoleId) {
+
+                $.ajax({
+                    url: '/get-officers/' + mappedRoleId,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#officer_id').empty();
+                        $('#officer_id').append('<option value="">--Select Officer--</option>');
+                        $.each(data, function (key, value) {
+                            $('#officer_id').append('<option value="' + value.id + '">' + value.name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert("An error occurred while fetching officers.");
+                    }
+                });
+            } else {
+                $('#officer_id').empty().append('<option value="">--Select Officer--</option>');  // Clear if no role selected or mapped role
+            }
+        });
     });
 </script>

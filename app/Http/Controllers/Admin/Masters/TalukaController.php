@@ -66,11 +66,11 @@ class TalukaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function showForm()
     {
-        //
+        $districts = District::all();  // Get all districts
+        return view('admin.masters.taluka', compact('districts'));
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -135,4 +135,11 @@ class TalukaController extends Controller
             return $this->respondWithAjax($e, 'deleting', 'Taluka');
         }
     }
+    public function getTalukas($districtId)
+{
+    // Fetch talukas based on the selected district
+    $talukas = Taluka::where('district_id', $districtId)->get(['id', 'name']);
+
+    return response()->json($talukas);
+}
 }

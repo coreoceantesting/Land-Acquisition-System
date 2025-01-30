@@ -18,13 +18,20 @@
                             <div class="mb-3 row">
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="district_id">Select District Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="district_id" name="district_id" required>
+                                    <select class="form-select" id="district_id" name="district_id" required>
                                         <option value="" selected disabled>Select District</option>
                                         @foreach($districts as $district)
                                             <option value="{{ $district->id }}">{{ $district->district_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+
+                                {{-- <select id="district" class="form-control">
+                                    <option value="">--Select District--</option>
+                                    @foreach($districts as $district)
+                                        <option value="{{ $district->id }}">{{ $district->name }}</option>
+                                    @endforeach
+                                </select> --}}
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="taluka_name"> Taluka Name / जिल्हा <span class="text-danger">*</span></label>
                                     <input class="form-control" id="taluka_name" name="taluka_name" type="text" placeholder="Enter taluka initial">
