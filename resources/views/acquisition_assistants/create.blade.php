@@ -223,6 +223,10 @@
             </div>
         </div>
     </div>
+            </div>
+        </div>
+   </div>
+   </div>
 </x-admin.layout>
 <script>
    document.addEventListener('DOMContentLoaded', function() {

@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\Masters\LandAcquisitionController;
 use App\Http\Controllers\Admin\Masters\TalukaController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DependentDropdownController;
-
+use App\Http\Controllers\Admin\Masters\DesignationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,6 +61,7 @@ Route::middleware(['auth', 'PreventBackHistory', 'firewall.all'])->group(functio
         Route::resource('sr_nos', App\Http\Controllers\Admin\Masters\SrNoController::class);
         Route::resource('bundles', App\Http\Controllers\Admin\Masters\BundleController::class);
         Route::resource('years', App\Http\Controllers\Admin\Masters\YearController::class);
+        Route::resource('designations', App\Http\Controllers\Admin\Masters\DesignationController::class);
 
     });
 

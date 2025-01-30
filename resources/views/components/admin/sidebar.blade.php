@@ -35,13 +35,13 @@
                     </a>
                 </li>
 
-                @canany(['wards.view', 'districts.view', 'districts.create', 'districts.edit','districts.delete', 'talukas.view', 'talukas.create' , 'talukas.edit' , 'talukas.delete' ,'villages.view', 'villages.create' , 'villages.edit' , 'villages.delete' , 'sr_nos.view', 'sr_nos.create', 'sr_nos.edit','sr_nos.delete', 'land_acquisitions.view', 'land_acquisitions.create', 'land_acquisitions.edit','land_acquisitions.delete','bundles.view', 'years.view'])
+                @canany(['wards.view','designations.view' ,'districts.view', 'districts.create', 'districts.edit','districts.delete', 'talukas.view', 'talukas.create' , 'talukas.edit' , 'talukas.delete' ,'villages.view', 'villages.create' , 'villages.edit' , 'villages.delete' , 'sr_nos.view', 'sr_nos.create', 'sr_nos.edit','sr_nos.delete', 'land_acquisitions.view', 'land_acquisitions.create', 'land_acquisitions.edit','land_acquisitions.delete','bundles.view', 'years.view'])
     <li class="nav-item">
-        <a class="nav-link menu-link {{ request()->routeIs('districts.index') || request()->routeIs('talukas.index') ||  request()->routeIs('villages.index') || request()->routeIs('sr_nos.index') ||request()->routeIs('land_acquisitions.index') ? 'active' : 'collapsed' }}" href="#sidebarMasters" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMasters">
+        <a class="nav-link menu-link {{ request()->routeIs('districts.index') || request()->routeIs('talukas.index') ||  request()->routeIs('villages.index') || request()->routeIs('sr_nos.index') ||request()->routeIs('land_acquisitions.index') ||request()->routeIs('designations.index') ? 'active' : 'collapsed' }}" href="#sidebarMasters" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMasters">
             <i class="ri-layout-3-line"></i>
             <span data-key="t-layouts">Masters</span>
         </a>
-        <div class="collapse menu-dropdown {{ request()->routeIs('districts.index') || request()->routeIs('talukas.index') ||  request()->routeIs('villages.index') || request()->routeIs('sr_nos.index') ||request()->routeIs('land_acquisitions.index') ? 'show' : '' }}" id="sidebarMasters">
+        <div class="collapse menu-dropdown {{ request()->routeIs('districts.index') || request()->routeIs('talukas.index') ||  request()->routeIs('villages.index') || request()->routeIs('sr_nos.index') ||request()->routeIs('land_acquisitions.index') || request()->routeIs('designations.index') || request()->routeIs('bundles.index') || request()->routeIs('years.index') ? 'show' : '' }}" id="sidebarMasters">
             <ul class="nav nav-sm flex-column">
                 @can('wards.view')
                     <li class="nav-item">
@@ -76,14 +76,19 @@
                 @endcan
                 @can('bundles.view')
                     <li class="nav-item">
-                        <a href="{{ route('bundles.index') }}" class="nav-link" data-key="t-horizontal">Bundle</a>
+                        <a href="{{ route('bundles.index') }}" class="nav-link {{ request()->routeIs('bundles.index')?'active' : '' }}" data-key="t-horizontal">Bundle</a>
                     </li>
                 @endcan
                 @can('years.view')
                     <li class="nav-item">
-                        <a href="{{ route('years.index') }}" class="nav-link" data-key="t-horizontal">Year</a>
+                        <a href="{{ route('years.index') }}" class="nav-link {{ request()->routeIs('years.index')?'active' : '' }}" data-key="t-horizontal">Year</a>
                     </li>
                 @endcan
+                @can('designations.view')
+                <li class="nav-item">
+                    <a href="{{ route('designations.index') }}" class="nav-link {{ request()->routeIs('designations.index')?'active' : '' }}" data-key="t-horizontal">Designation</a>
+                </li>
+            @endcan
             </ul>
         </div>
     </li>
@@ -113,7 +118,7 @@
                         <i class="ri-layout-3-line"></i>
                         <span data-key="t-layouts"> Land Acquisition</span>
                     </a>
-                    <div class="collapse menu-dropdown {{ request()->routeIs('acquisition_assistant.pending') || request()->routeIs('acquisition_assistant.create') || request()->routeIs('acquisition_assistant.approved') || request()->routeIs('acquisition_assistant.rejected') || request()->routeIs('acquisition_assistant.land_acquisition') || request()->routeIs('acquisition_assistant.complete_reco_auth') ? 'show' : '' }}" id="sidebarLandAcquisition">
+                    <div class="collapse menu-dropdown {{ request()->routeIs('acquisition_assistant.pending') || request()->routeIs('acquisition_assistant.create') || request()->routeIs('acquisition_assistant.approved') || request()->routeIs('acquisition_assistant.rejected') ? 'show' : '' }}" id="sidebarLandAcquisition">
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
@@ -132,6 +137,24 @@
                             <li class="nav-item">
                                 <a href="{{ route('acquisition_assistant.rejected') }}" class="nav-link  {{request()->routeIs('acquisition_assistant.rejected') ? 'active' : ''}}" data-key="t-horizontal">Rejected Land Acquisition</a>
                             </li>
+
+
+                            {{-- <li class="nav-item">
+                                <a href="{{ route('acquisition_assistant.create') }}" class="nav-link" data-key="t-horizontal">Form</a>
+                            </li> --}}
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->routeIs('acquisition_assistant.land_acquisition') || request()->routeIs('acquisition_assistant.complete_reco_auth')  ? 'active' : 'collapsed' }}" href="#sidebarLandAcquisition5" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLandAcquisition5">
+                        <i class="ri-layout-3-line"></i>
+                        <span data-key="t-layouts"> Record Acquisition Authrization</span>
+                    </a>
+                    <div class="collapse menu-dropdown {{ request()->routeIs('acquisition_assistant.land_acquisition') || request()->routeIs('acquisition_assistant.complete_reco_auth') ? 'show' : '' }}" id="sidebarLandAcquisition5">
+                        <ul class="nav nav-sm flex-column">
+
+
                             <li class="nav-item">
                                 <a href="{{ route('acquisition_assistant.land_acquisition') }}" class="nav-link  {{request()->routeIs('acquisition_assistant.land_acquisition') ? 'active' : ''}}" data-key="t-horizontal"> Pending Record Authorization</a>
                             </li>
@@ -145,7 +168,6 @@
                         </ul>
                     </div>
                 </li>
-
 
                 @canany(['users.view', 'roles.view'])
                 <li class="nav-item">

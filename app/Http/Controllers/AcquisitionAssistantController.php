@@ -26,10 +26,12 @@ class AcquisitionAssistantController extends Controller
 {
     public function index()
     {
+
         $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])
         ->where('user_id', Auth::user()->id)->paginate(10);
 
         $acquisition_assistants = AcquisitionAssistant::all();
+
         return view('acquisition_assistants.index', compact('acquisition_assistants','records'));
     }
 

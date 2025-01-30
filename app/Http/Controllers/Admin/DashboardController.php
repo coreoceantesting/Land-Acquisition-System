@@ -5,17 +5,19 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cookie;
 use App\Http\Controllers\AcquisitionAssistantController;
-
+use App\Models\AcquisitionAssistant;
 
 class DashboardController extends Controller
 {
 
     public function index()
     {
-        // $pendingCount = AcquisitionAssistantController::where('acquisition_officer_status	', 0)->count();
-        // $approvedCount = AcquisitionAssistantController::where('acquisition_officer_status	', 1)->count();
-        // $rejectedCount = AcquisitionAssistantController::where('acquisition_officer_status	', 2)->count();
-        return view('admin.dashboard');
+
+        $acquisition_assistants = AcquisitionAssistant::count();
+        $pending_count = AcquisitionAssistant::where('acquisition_officer_status', 0)->count();
+        $approved_count =AcquisitionAssistant::where('acquisition_officer_status', 1)->count();
+        $reject_count =AcquisitionAssistant::where('acquisition_officer_status', 2)->count();
+        return view('admin.dashboard', compact('acquisition_assistants','pending_count', 'approved_count','reject_count'));
     }
 
     public function changeThemeMode()

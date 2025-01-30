@@ -234,6 +234,26 @@ class PermissionTableSeeder extends Seeder
                 'name' => 'years.delete',
                 'group' => 'years',
             ],
+            [
+                'id' => 45,
+                'name' => 'designations.view',
+                'group' => 'designations',
+            ],
+            [
+                'id' => 46,
+                'name' => 'designations.create',
+                'group' => 'designations',
+            ],
+            [
+                'id' => 47,
+                'name' => 'designations.edit',
+                'group' => 'designations',
+            ],
+            [
+                'id' =>48,
+                'name' => 'designations.delete',
+                'group' => 'designations',
+            ],
         ];
 
         foreach ($permissions as $permission)
