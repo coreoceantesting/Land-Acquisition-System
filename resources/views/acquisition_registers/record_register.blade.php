@@ -22,7 +22,7 @@
                                    <th>Bundle No</th>
 
                                 <th>Actions</th>
-                                <th>status</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -39,14 +39,16 @@
                                     <td>{{ $record->bundle ?? 'No bundle' }}</td>
 
                                     <td>
-                                        <a href="{{ route('acquisition_register.edit', $record->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                        <form action="" method="POST" class="d-inline" onsubmit="return confirmDelete()">
+                                        <a href="{{ route('acquisition_register.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
+                                        <form action="{{ route('acquisition_register.destroy', $record->id) }}" method="POST" class="d-inline" onsubmit="return confirmDelete()">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                         </form>
+                                        <a href="{{ route('acquisition_register.edit', $record->id) }}" class="btn btn-sm btn-warning">Edit</a>
+
                                     </td>
-                                    <td> <a href="{{ route('acquisition_register.show', $record->id) }}" class="btn btn-sm btn-warning">View</a></td>
+
 
                                 </tr>
                             @empty
@@ -83,3 +85,4 @@
         });
     @endif
 </script>
+

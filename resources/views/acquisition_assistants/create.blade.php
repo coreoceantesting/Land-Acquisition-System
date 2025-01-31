@@ -160,13 +160,13 @@
                                                 </select>
                                             </th>
                                             <th>
-                                                <input class="form-select" name="number[]" type="number" placeholder="सर्वे / गट क्र. ">
+                                                <input class="form-control" name="number[]" type="number" placeholder="सर्वे / गट क्र. ">
                                             </th>
                                             <th>
-                                                <input class="form-select" name="area[]" type="number" placeholder="सर्वे / गट क्र. ">
+                                                <input class="form-control" name="area[]" type="number" placeholder="सर्वे / गट क्र. ">
                                             </th>
                                             <th>
-                                                <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>
+                                                {{-- <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button> --}}
                                             </th>
                                         </tr>
                                     </tbody>
@@ -186,16 +186,16 @@
                                     newRow.innerHTML = `
                                         <th>
                                             <select name="survey_or_group[]" class="form-select" required>
-                                                <option value="">भूसंपादनाचे वर्ष निवडा</option>
-                                                <option value="1">पूर्ण</option>
-                                                <option value="2">सुरु</option>
+                                                <option value="">सर्वे / गट क्र. निवडा</option>
+                                                <option value="1">सर्वे क्र.</option>
+                                                <option value="2">गट क्र.</option>
                                             </select>
                                         </th>
                                         <th>
-                                            <input class="form-select" name="number[]" type="number" placeholder="Enter ">
+                                            <input class="form-control" name="number[]" type="number" placeholder="सर्वे / गट क्र. ">
                                         </th>
                                         <th>
-                                            <input class="form-select" name="area[]" type="number" placeholder="Enter ">
+                                            <input class="form-control" name="area[]" type="number" placeholder="सर्वे / गट क्र. ">
                                         </th>
                                         <th>
                                             <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>
@@ -227,6 +227,8 @@
         </div>
    </div>
    </div>
+
+
 </x-admin.layout>
 <script>
    document.addEventListener('DOMContentLoaded', function() {
@@ -419,5 +421,7 @@
         }
     });
 });
+
+
 </script>
 

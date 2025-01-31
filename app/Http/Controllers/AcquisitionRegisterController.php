@@ -47,13 +47,16 @@ class AcquisitionRegisterController extends Controller
             DB::commit();
 
             // Return success response
-            return redirect()->route('acquisition_register.index')->with(['success'=> "successfull register"]);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data saved successfully!'
+            ]);
         } catch (\Exception $e) {
             // Rollback the transaction if anything goes wrong
             DB::rollBack();
 
             // Log the exception for debugging (optional but useful)
-
+            Log::error('Error saving acquisition register: ' . $e->getMessage());
             // Return an error response
             return response()->json([
                 'error' => 'An error occurred while creating the Acquisition Register.',
@@ -146,6 +149,39 @@ class AcquisitionRegisterController extends Controller
                 'error' => 'An error occurred while updating the Acquisition Assistant.',
                 'message' => $e->getMessage(),
             ], 500);
+        }
+    }
+    public function destroy(AcquisitionRegister $acquisition_register)
+    {
+        try
+        {
+            // Check if the record exists before deleting
+            if (!$acquisition_register) {
+                return response()->json(['error' => 'Record not found'], 404);
+            }
+
+            // Start transaction
+            DB::beginTransaction();
+
+            // Attempt to delete the record (soft delete if SoftDeletes is used)
+            $acquisition_register->delete();
+
+            // Commit transaction
+            DB::commit();
+
+            // Return success response and redirect to the index route
+            return redirect()->route('acquisition_assistant.complete_reco_auth')->with('success', 'Acquisition Assistant deleted successfully!');
+        }
+        catch(\Exception $e)
+        {
+            // Log the error message for debugging
+            // \Log::error('Error deleting AcquisitionAssistant: ' . $e->getMessage());
+
+            // Rollback in case of error
+            DB::rollBack();
+
+            // Return a more detailed error response
+            return response()->json(['error' => 'Failed to delete the AcquisitionAssistant', 'message' => $e->getMessage()], 500);
         }
     }
     }

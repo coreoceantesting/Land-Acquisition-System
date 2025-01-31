@@ -300,7 +300,7 @@ public function pending()
     // Fetch records with necessary relationships
     $records = AcquisitionAssistant::with([
         'district', 'taluka', 'village', 'year', 'sr_no', 'land_acquisition'
-    ]);
+    ])->where('acquisition_officer_status', 0);
 
     // If the user has specific roles, show only their own records
     if ($user->hasRole(['Super Admin'])) {

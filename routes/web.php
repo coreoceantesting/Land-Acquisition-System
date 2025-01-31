@@ -105,6 +105,8 @@ Route::get('acquisition_register/{id}', [AcquisitionRegisterController::class, '
     Route::get('acquisition_assistant/complete_reco_auth', [AcquisitionAssistantController::class, 'complete_reco_auth'])->name('acquisition_assistant.complete_reco_auth');
     Route::resource('acquisition_assistant', AcquisitionAssistantController::class); // This will generate all the necessary routes, including the PATCH/PUT route.
 
+    Route::get('acquisition_register/{id}', [AcquisitionRegisterController::class, 'show'])->name('acquisition_register.show');
+
     Route::get('/get-officers/{roleId}', [UserController::class, 'getOfficers']);
         // Route::get('/get-dependent-options/{id}', [DependentDropdownController::class, 'getDependentOptions']);
         Route::get('/get-talukas/{districtId}', [LandAcquisitionController::class, 'getTalukas'])->name('get-talukas');

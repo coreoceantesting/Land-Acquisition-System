@@ -151,7 +151,7 @@
 <script>
     function updateStatus(id, status, officer) {
     const remark = officer === 'acquisition_officer'
-        ? document.getElementById('divisionalOfficerRemark').value
+        ? document.getElementById('acquisitionOfficerRemark').value
         : document.getElementById('acquisitionOfficerRemark').value;
 
     fetch(`/acquisition-assistants/${officer}-status/${id}`, {

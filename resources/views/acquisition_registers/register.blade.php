@@ -65,21 +65,6 @@
                                 <input class="form-control" id="bundle" name="bundle" type="text" placeholder="Enter Bundle">
                                 <span class="text-danger is-invalid applicant_name_err"></span>
                             </div>
-                            {{-- <div class="col-md-4">
-                                <label class="col-form-label" for="project_name">प्रकल्पाचे नाव / Project Name <span class="text-danger">*</span></label>
-                                <input class="form-control" id="project_name" name="project_name" type="text" placeholder="Enter Applicant Name">
-                                <span class="text-danger is-invalid applicant_name_err"></span>
-                            </div> --}}
-
-                            {{-- <div class="col-md-4">
-                                <label class="col-form-label" for="year">भूसंपादनाचे वर्ष / Year <span class="text-danger">*</span></label>
-                                <select name="year_id" id="year_id" class="form-select" required>
-                                    <option value="">भूसंपादनाचे वर्ष निवडा</option>
-                                    @foreach($years as $year)
-                                    <option value="{{ $year->id }}">{{ $year->year }}</option>
-                                    @endforeach
-                                </select>
-                            </div> --}}
 
 
 
@@ -93,6 +78,23 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="successModalLabel">Success</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p id="successMessage"></p> <!-- This is where the success message will be displayed -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 </x-admin.layout>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -169,4 +171,38 @@
         }
     });
 });
+
+$(document).ready(function() {
+    // Listen for the form submission
+    $('#addForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent default form submission
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: '{{ route("acquisition_register.store") }}',  // Route to your save function in Laravel
+            type: 'POST',
+            data: formData,
+            processData: false,  // Prevent jQuery from converting the data
+            contentType: false,  // Prevent jQuery from setting content type
+            success: function(response) {
+                if(response.status === 'success') {
+                    // Show success message in a custom modal popup
+                    $('#successModal').modal('show'); // Show the modal
+                    $('#successMessage').html(response.message); // Set the message in the modal
+                    // Optionally reset the form after success
+                    $('#addForm')[0].reset();
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle errors here
+                alert('Error occurred: ' + error);
+            }
+        });
+    });
+});
+
+
+
 </script>
+

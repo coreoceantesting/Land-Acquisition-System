@@ -28,7 +28,7 @@
                    <th>भूसंपादन कोणत्या कायद्यानुसार झाले ? / Land acquisition was done according to which law?</th>
 
                    <th>Actions</th>
-
+<th>Remark</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -66,7 +66,7 @@
 सुरु
 @endif
 </td>
-<td></td>
+
 
                                     <td>
                                         <a href="{{ route('acquisition_assistant.edit', $record->id) }}" class="btn btn-sm btn-warning">Edit</a>
@@ -76,7 +76,8 @@
                                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                         </form>
                                         <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
-
+                                    </td>
+                                        <td>{{$record->acquisition_officer_remark}} </td>
                                 </tr>
                             @empty
                                 <tr>

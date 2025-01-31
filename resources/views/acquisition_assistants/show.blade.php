@@ -217,7 +217,7 @@
 
 </form>
 
-@if(Auth::user()->hasRole(['Land Acquisition Officer', 'Sub-Divisional Officer']))
+@if(Auth::user()->hasRole(['Land Acquisition Officer', 'Sub-Divisional Officer'])&& $acquisitionAssistant->acquisition_officer_status == 0 || $acquisitionAssistant->divisional_officer_status= 0 )
    <!-- Approve Button -->
    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approveModal">
     Approve
@@ -280,6 +280,8 @@
         </div>
 
         @endif
+
+
 </x-admin.layout>
 
 @if(session('message'))
