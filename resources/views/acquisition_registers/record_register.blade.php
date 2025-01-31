@@ -40,10 +40,10 @@
 
                                     <td>
                                         <a href="{{ route('acquisition_register.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
-                                        <form action="{{ route('acquisition_register.destroy', $record->id) }}" method="POST" class="d-inline" onsubmit="return confirmDelete()">
+                                        <form  id="delete-form-{{ $record->id }}" action="{{ route('acquisition_register.destroy', $record->id) }}" method="POST" class="d-inline" >
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $record->id }})">Delete</button>
                                         </form>
                                         <a href="{{ route('acquisition_register.edit', $record->id) }}" class="btn btn-sm btn-warning">Edit</a>
 
@@ -86,3 +86,21 @@
     @endif
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function confirmDelete(recordId) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById("delete-form-" + recordId).submit();
+        }
+    });
+}
+
+</script>

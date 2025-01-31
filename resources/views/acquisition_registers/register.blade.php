@@ -171,7 +171,6 @@
         }
     });
 });
-
 $(document).ready(function() {
     // Listen for the form submission
     $('#addForm').on('submit', function(e) {
@@ -201,6 +200,7 @@ $(document).ready(function() {
         });
     });
 });
+
 
 
 

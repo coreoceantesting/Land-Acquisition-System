@@ -267,3 +267,30 @@
 
 </script>
 
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle the form submission with confirmation
+        document.getElementById('editSubmit').addEventListener('click', function(e) {
+            e.preventDefault();  // Prevent the form from submitting immediately
+
+            // Show a confirmation popup
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you want to update the Acquisition Register?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, update it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If confirmed, submit the form
+                    document.getElementById('editForm').submit();  // This now targets the updated form id
+                }
+            });
+        });
+    });
+</script>

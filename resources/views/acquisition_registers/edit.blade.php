@@ -88,8 +88,49 @@
             </div>
 <br>
         <div class="">
-            <button type="submit" class="btn btn-primary" id="addSubmit">Update</button>
+            <button type="submit" class="btn btn-primary" id="addSubmit" > Update</button>
             <button type="reset" class="btn btn-warning">Reset</button>
         </div>
     </form>
 </x-admin.layout>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function confirmDelete(recordId) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById("delete-form-" + recordId).submit();
+        }
+    });
+}
+</script>
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.js"></script>
+<script>
+    // Handle the form submission with confirmation
+    document.getElementById('addSubmit').addEventListener('click', function(e) {
+        e.preventDefault();  // Prevent the form from submitting immediately
+
+        // Show a confirmation popup
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to update the Acquisition Register?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, update it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If confirmed, submit the form
+                document.getElementById('addForm').submit();
+            }
+        });
+    });
+</script>

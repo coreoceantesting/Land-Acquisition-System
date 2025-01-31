@@ -243,7 +243,8 @@ public function edit($id)
         DB::commit();
 
         // Return success response and redirect to the index route
-        return redirect()->route('acquisition_assistant.pending')->with('success', 'Acquisition Assistant deleted successfully!');
+        return redirect()->back();
+        // return redirect()->route('acquisition_assistant.pending')->with('success', 'Acquisition Assistant deleted successfully!');
     }
     catch(\Exception $e)
     {
@@ -330,7 +331,7 @@ public function pending()
     // Paginate the final query result
     $records = $records->paginate(10);
 
-    $acquisition_assistants = AcquisitionAssistant::all()->where('acquisition_officer_status', 0);
+    $acquisition_assistants = AcquisitionAssistant::all();
 
     return view('acquisition_assistants.pending', compact('acquisition_assistants', 'records'));
 }

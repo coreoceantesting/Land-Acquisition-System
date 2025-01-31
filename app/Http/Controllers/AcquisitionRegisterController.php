@@ -79,7 +79,7 @@ class AcquisitionRegisterController extends Controller
             $land_acquisitions = Land_Acquisition::all();
 
 
-        return view('acquisition_registers.show', compact('acquisition_register','districts',
+        return view('acquisition_registers.record_register', compact('acquisition_register','districts',
                  'talukas',
                 'villages',
             'land_acquisitions'));
@@ -170,7 +170,7 @@ class AcquisitionRegisterController extends Controller
             DB::commit();
 
             // Return success response and redirect to the index route
-            return redirect()->route('acquisition_assistant.complete_reco_auth')->with('success', 'Acquisition Assistant deleted successfully!');
+            return redirect()->route('acquisition_assistant.index')->with('success', 'Acquisition Assistant deleted successfully!');
         }
         catch(\Exception $e)
         {
