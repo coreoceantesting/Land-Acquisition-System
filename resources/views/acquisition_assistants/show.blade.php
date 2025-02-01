@@ -136,8 +136,8 @@
                 <label class="col-form-label" for="designation">निवाडा घोषित करणारे तत्कालन भूसंपादन अधिकाऱ्याचे पदनाम / Designation <span class="text-danger">*</span></label>
                 <select name="designation" id="designation" class="form-control" required>
                     <option value="">भूसंपादनाचे वर्ष निवडा</option>
-                    <option value="1" {{ old('designation', $acquisitionAssistant->designation ?? '') == '1' ? 'selected' : '' }}>पूर्ण</option>
-                    <option value="2" {{ old('designation', $acquisitionAssistant->designation ?? '') == '2' ? 'selected' : '' }}>सुरु</option>
+                    <option value="1" {{ old('designation', $acquisitionAssistant->designation ?? '') == '1' ? 'selected' : '' }}>लिपिक/Clerk</option>
+                    <option value="2" {{ old('designation', $acquisitionAssistant->designation ?? '') == '2' ? 'selected' : '' }}>सहाय्यक/Assistant</option>
                 </select>
                 @error('designation')
                     <div class="text-danger">{{ $message }}</div>
@@ -168,10 +168,11 @@
                 <select name="law" id="law" class="form-control" required>
                     <option value="">भूसंपादनाचे वर्ष निवडा</option>
                     <option value="1" {{ old('law', $acquisitionAssistant->law ?? '') == '1' ? 'selected' : '' }}>
-                        पूर्ण
+                        THE NATIONAL GREEN TRIBUNAL ACT, 2010/
+                        राष्ट्रीय हरित न्यायाधिकरण कायदा, २०१०
                     </option>
                     <option value="2" {{ old('law', $acquisitionAssistant->law ?? '') == '2' ? 'selected' : '' }}>
-                        सुरु
+                        THE MUSSALMAN WAKF ACT, 1923/मुस्लिम वक्फ कायदा, १९२३
                     </option>
                 </select>
                 @error('law')
@@ -216,6 +217,9 @@
 
 
 </form>
+
+<div></div>
+
 
 @if(Auth::user()->hasRole(['Land Acquisition Officer', 'Sub-Divisional Officer'])&& $acquisitionAssistant->acquisition_officer_status == 0 || $acquisitionAssistant->divisional_officer_status= 0 )
    <!-- Approve Button -->

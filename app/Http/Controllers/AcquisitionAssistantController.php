@@ -310,7 +310,7 @@ public function pending()
 
 
     if ($user->hasRole(['Land Acquisition Officer'])) {
-    $records = $records->whereIn('user_id', [4]);
+    $records = $records->whereIn('user_id', [4,5,1]);
     }
 
     if ($user->hasRole(['Land Acquisition Assistant Officer'])) {
@@ -322,11 +322,11 @@ public function pending()
     // }
 
     if ($user->hasRole(['Sub-Divisional Officer'])) {
-        $records = $records->whereIn('user_id', [6]);
+        $records = $records->whereIn('user_id', [6,5]);
     }
 
   if ($user->hasRole(['Sub-Divisional Assistant Officer'])) {
-        $records = $records->whereIn('user_id', [6]);
+        $records = $records->whereIn('user_id', [6,5]);
     }
     // Paginate the final query result
     $records = $records->paginate(10);
@@ -399,18 +399,24 @@ public function approved()
 
         // If the user has specific roles, show only their own records
         if ($user->hasRole(['Super Admin'])) {
-            $records = $records->whereIn('user_id', [4,6]);
+            $records = $records->whereIn('user_id', [4,6,3,5]);
         }
 
 
         if ($user->hasRole(['Land Acquisition Officer'])) {
-        $records = $records->whereIn('user_id', [4]);
+        $records = $records->whereIn('user_id', [4,3,1]);
         }
 
         if ($user->hasRole(['Land Acquisition Assistant Officer'])) {
-            $records = $records->whereIn('user_id', [4]);
+            $records = $records->whereIn('user_id', [4,3,1]);
+        }
+        if ($user->hasRole(['Sub-Divisional Officer'])) {
+            $records = $records->whereIn('user_id', [6,5,1]);
         }
 
+      if ($user->hasRole(['Sub-Divisional Assistant Officer'])) {
+            $records = $records->whereIn('user_id', [6,5,1]);
+        }
 
         // Paginate the final query result
          $records = $records->paginate(10);
@@ -438,6 +444,13 @@ $records = $records->whereIn('user_id', [4]);
 
 if ($user->hasRole(['Land Acquisition Assistant Officer'])) {
     $records = $records->whereIn('user_id', [4]);
+}
+if ($user->hasRole(['Sub-Divisional Officer'])) {
+    $records = $records->whereIn('user_id', [6]);
+}
+
+if ($user->hasRole(['Sub-Divisional Assistant Officer'])) {
+    $records = $records->whereIn('user_id', [6]);
 }
 
 $records = $records->paginate(10);

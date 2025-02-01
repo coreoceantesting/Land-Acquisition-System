@@ -90,7 +90,7 @@
 
 
                             <div class="col-md-4">
-                                <label class="col-form-label" for="acquisition_board_name">भूसंपादन मंडळाचे नाव  / Name of Land Acquisition Board<span class="text-danger">*</span></label>
+                                <label class="col-form-label" for="acquisition_board_name">भूसंपादन मंडळाचे नाव /Name of Land Acquisition Board<span class="text-danger">*</span></label>
                                 <textarea class="form-control" name="acquisition_board_name" id="acquisition_board_name" cols="30" rows="2" placeholder="भूसंपादन मंडळाचे नाव" required>{{ $abattoirLicense->full_address ?? '' }}</textarea>
                                 <span class="text-danger is-invalid full_address_err"></span>
                             </div>
@@ -106,8 +106,8 @@
                                 <label class="col-form-label" for="designation">निवाडा घोषित करणारे तत्कालन भूसंपादन अधिकाऱ्याचे पदनाम / Designation <span class="text-danger">*</span></label>
                                 <select name="designation" id="designation" class="form-select" required>
                                     <option value="">भूसंपादन अधिकाऱ्याचे पदनाम</option>
-                                    <option value="1">पूर्ण</option>
-                                    <option value="2">सुरु</option>
+                                    <option value="1">लिपिक/Clerk</option>
+                                    <option value="2">सहाय्यक/Assistant</option>
                                 </select>
                             </div>
 
@@ -125,8 +125,9 @@
                                 <label class="col-form-label" for="law">भूसंपादन कोणत्या कायद्यानुसार झाले ? / Land acquisition was done according to which law? <span class="text-danger">*</span></label>
                                 <select name="law" id="law" class="form-select" required>
                                     <option value="">भूसंपादनाचे कायद्यानुसार</option>
-                                    <option value="1">पूर्ण</option>
-                                    <option value="2">सुरु</option>
+                                    <option value="1">THE NATIONAL GREEN TRIBUNAL ACT, 2010/
+                                        राष्ट्रीय हरित न्यायाधिकरण कायदा, २०१०</option>
+                                    <option value="2">THE MUSSALMAN WAKF ACT, 1923/मुस्लिम वक्फ कायदा, १९२३</option>
                                 </select>
                             </div>
 

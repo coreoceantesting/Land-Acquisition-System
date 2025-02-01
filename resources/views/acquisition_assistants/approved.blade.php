@@ -14,19 +14,19 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>जिल्हा / District</th>
-                                <th>तालुका / Taluka</th>
-                                <th>गाव / Village</th>
-                                <th>निवाडा क्र. / Sr.No</th>
-                                <th>भूसंपादनाचे प्रयोजन / Purpose of land acquisition</th>
-                                <th>प्रकल्पाचे नाव / Project Name</th>
-                                <th>भूसंपादनाचे वर्ष / Year</th>
+                                <th>जिल्हा/District</th>
+                                <th>तालुका/Taluka</th>
+                                <th>गाव/Village</th>
+                                <th>निवाडा क्र./Sr.No</th>
+                                <th>भूसंपादनाचे प्रयोजन/Purpose of L.A</th>
+                                <th>प्रकल्पाचे नाव/Project Name</th>
+                                {{-- <th>भूसंपादनाचे वर्ष / Year</th>
                              <th>   भूसंपादन मंडळाचे नाव / Name of Land Acquisition Board</th>
                                 <th>वर्णन / Description</th>
                    <th>निवाडा घोषित करणारे तत्कालन भूसंपादन अधिकाऱ्याचे पदनाम / Designation </th>
                    <th>भूसंपादन प्रस्ताव / Land acquisition proposal</th>
                    <th>भूसंपादन कोणत्या कायद्यानुसार झाले ? / Land acquisition was done according to which law?</th>
-                   {{-- <th>status</th> --}}
+                   <th>status</th> --}}
                    <th>Actions</th>
 
                             </tr>
@@ -43,40 +43,41 @@
                                     <td>{{ optional($record->land_acquisition)->land_acquisitions_name ?? 'No land_acquisitions_name' }}</td>
 
                                     <td>{{ $record->project_name }}</td>
-                                    <td>{{ optional($record->year)->year ?? 'No year' }}</td>
+                                    {{-- <td>{{ optional($record->year)->year ?? 'No year' }}</td>
                                     <td>{{ $record->acquisition_board_name }}</td>
-                                    <td>{{ $record->description }}</td>
+                                    <td>{{ $record->description }}</td> --}}
                                   {{-- <td>{{ $record->designation }}</td> --}}
-                                  <td>  @if($record->designation == 1)
-                                    पूर्ण
+                                  {{-- <td>  @if($record->designation == 1)
+                                    लिपिक/Clerk
                                 @elseif($record->designation == 2)
-                                सुरु
+                                सहाय्यक/Assistant
                                 @endif</td>
-<td>
-    @if($record->acquisition_proposal == 1)
-    पूर्ण
-@elseif($record->acquisition_proposal == 2)
-सुरु
-@endif
-</td>
-<td>
-    @if( $record->law  == 1)
-    पूर्ण
-@elseif( $record->law  == 2)
-सुरु
-@endif
-</td>
+                                        <td>
+                                            @if($record->acquisition_proposal == 1)
+                                            पूर्ण
+                                        @elseif($record->acquisition_proposal == 2)
+                                        सुरु
+                                        @endif
+                                        </td>
+                                        <td>
+                                            @if( $record->law  == 1)
+                                            THE NATIONAL GREEN TRIBUNAL ACT, 2010/
+                                            राष्ट्रीय हरित न्यायाधिकरण कायदा, २०१०
+                                        @elseif( $record->law  == 2)
+                                        THE MUSSALMAN WAKF ACT, 1923/मुस्लिम वक्फ कायदा, १९२३
+                                        @endif
+                                        </td> --}}
 
 
                                     <td>
-                                        <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
+                                        <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-success">View</a>
 
-                                        <form id="delete-form-{{ $record->id }}" action="{{ route('acquisition_assistant.destroy', $record->id) }}" method="POST" class="d-inline" >
+                                        {{-- <form id="delete-form-{{ $record->id }}" action="{{ route('acquisition_assistant.destroy', $record->id) }}" method="POST" class="d-inline" >
                                             @csrf
                                             @method('DELETE')
                                             <button type="button" class="btn btn-sm btn-danger"  onclick="confirmDelete({{ $record->id }})">Delete</button>
                                         </form>
-                                        <a href="{{ route('acquisition_assistant.edit', $record->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                        <a href="{{ route('acquisition_assistant.edit', $record->id) }}" class="btn btn-sm btn-warning">Edit</a> --}}
 
                                     </td>
 

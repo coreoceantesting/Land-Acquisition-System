@@ -146,8 +146,8 @@
                                 <label class="col-form-label" for="designation">निवाडा घोषित करणारे तत्कालन भूसंपादन अधिकाऱ्याचे पदनाम / Designation <span class="text-danger">*</span></label>
                                 <select name="designation" id="designation" class="form-control" required>
                                     <option value="">भूसंपादनाचे वर्ष निवडा</option>
-                                    <option value="1" {{ old('designation', $acquisitionAssistant->designation ?? '') == '1' ? 'selected' : '' }}>पूर्ण</option>
-                                    <option value="2" {{ old('designation', $acquisitionAssistant->designation ?? '') == '2' ? 'selected' : '' }}>सुरु</option>
+                                    <option value="1" {{ old('designation', $acquisitionAssistant->designation ?? '') == '1' ? 'selected' : '' }}>लिपिक</option>
+                                    <option value="2" {{ old('designation', $acquisitionAssistant->designation ?? '') == '2' ? 'selected' : '' }}>सहाय्यक</option>
                                 </select>
                                 @error('designation')
                                 <div class="text-danger">{{ $message }}</div>
