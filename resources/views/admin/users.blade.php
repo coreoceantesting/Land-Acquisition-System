@@ -36,24 +36,40 @@
                                     placeholder="Enter User Mobile">
                                 <span class="text-danger is-invalid mobile_err"></span>
                             </div>
-
                             <div class="col-md-4 mt-3">
                                 <label class="col-form-label" for="role">Select User Type / Role <span class="text-danger">*</span></label>
                                 <select class="js-example-basic-single col-sm-12" id="role" name="role">
                                     <option value="">--Select Role--</option>
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                        <option value="{{ $role->id }}" data-role-name="{{ $role->name }}">{{ $role->name }}</option>
                                     @endforeach
                                 </select>
                                 <span class="text-danger is-invalid role_err"></span>
                             </div>
 
-                            <div class="col-md-4 mt-3">
+                            <div class="col-md-4 mt-3" id="officerField" style="display: none;">
                                 <label class="col-form-label" for="officer_id">Select User Officer <span class="text-danger">*</span></label>
                                 <select class="js-example-basic-single col-sm-12" id="officer_id" name="officer_id">
                                     <option value="">--Select Officer--</option>
                                 </select>
                                 <span class="text-danger is-invalid officer_id_err"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="district_name"> जिल्हा/ District <span class="text-danger">*</span></label>
+                                <select name="district_id" id="district_name" class="form-select" required>
+                                    <option value="">जिल्हा निवडा</option>
+                                    @foreach($districts as $district)
+                                    <option value="{{ $district->id }}">{{ $district->district_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="taluka_name">तालुका / Taluka <span class="text-danger">*</span></label>
+                                <select name="taluka_id" id="taluka_id" class="form-select" required>
+                                    <option value="">तालुका निवडा</option>
+                                    <!-- Dynamic taluka options will be inserted here -->
+                                </select>
                             </div>
 
 
@@ -125,6 +141,32 @@
                                     @endforeach
                                 </select>
                                 <span class="text-danger is-invalid role_err"></span>
+                            </div>
+
+                            {{-- <div class="col-md-4 mt-3" id="officerField" style="display: none;">
+                                <label class="col-form-label" for="officer_id">Select User Officer <span class="text-danger">*</span></label>
+                                <select class="js-example-basic-single col-sm-12" id="officer_id" name="officer_id">
+                                    <option value="">--Select Officer--</option>
+                                </select>
+                                <span class="text-danger is-invalid officer_id_err"></span>
+                            </div> --}}
+
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="district_name"> जिल्हा/ District <span class="text-danger">*</span></label>
+                                <select name="district_id" id="district_name" class="form-select" required>
+                                    <option value="">जिल्हा निवडा</option>
+                                    @foreach($districts as $district)
+                                    <option value="{{ $district->id }}">{{ $district->district_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="taluka_name">तालुका / Taluka <span class="text-danger">*</span></label>
+                                <select name="taluka_id" id="taluka_id" class="form-select" required>
+                                    <option value="">तालुका निवडा</option>
+                                    <!-- Dynamic taluka options will be inserted here -->
+                                </select>
                             </div>
 
                         </div>
@@ -652,6 +694,80 @@
                 });
             } else {
                 $('#officer_id').empty().append('<option value="">--Select Officer--</option>');  // Clear if no role selected or mapped role
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const roleSelect = document.getElementById("role");
+        const officerField = document.getElementById("officerField");
+
+        roleSelect.addEventListener("change", function () {
+            const selectedRole = roleSelect.options[roleSelect.selectedIndex].getAttribute("data-role-name");
+
+            // Only show officer_id field for these roles
+            const allowedRoles = ["Land Acquisition Assistant Officer", "Sub-Divisional Assistant Officer"];
+
+            if (allowedRoles.includes(selectedRole)) {
+                officerField.style.display = "block"; // Show field
+            } else {
+                officerField.style.display = "none"; // Hide field
+            }
+        });
+    });
+</script>
+
+    <script>
+    $(document).ready(function() {
+        $('#district_id').on('change', function() {
+            var districtId = $(this).val();
+
+            if(districtId) {
+                $.ajax({
+                    url: '/fetch-talukas/' + districtId, // your endpoint to get talukas
+                    type: 'GET',
+                    success: function(data) {
+                        $('#taluka_id').empty(); // Clear existing options
+                        $('#taluka_id').append('<option value="" selected disabled>Select Taluka</option>');
+                        $.each(data, function(index, taluka) {
+                            $('#taluka_id').append('<option value="' + taluka.id + '">' + taluka.name + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#taluka_id').empty();
+                $('#taluka_id').append('<option value="" selected disabled>Select Taluka</option>');
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        // When the district is selected, get talukas for that district
+        $('#district_name').on('change', function () {
+            var districtId = $(this).val();  // Get selected district ID
+
+            if (districtId) {
+                // AJAX request to get talukas based on the selected district
+                $.ajax({
+                    url: '/get-talukas/' + districtId,  // Adjust with your route
+                    type: 'GET',
+                    success: function (data) {
+                        $('#taluka_id').empty();  // Clear the taluka dropdown
+                        $('#taluka_id').append('<option value="">--तालुका निवडा--</option>');
+                        $.each(data, function (key, value) {
+                            $('#taluka_id').append('<option value="' + value.id + '">' + value.taluka_name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert("An error occurred while fetching talukas.");
+                    }
+                });
+            } else {
+                // Clear the taluka dropdown if no district is selected
+                $('#taluka_id').empty().append('<option value="">--तालुका निवडा--</option>');
             }
         });
     });

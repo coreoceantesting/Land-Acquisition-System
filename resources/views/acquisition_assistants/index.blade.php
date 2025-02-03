@@ -46,7 +46,7 @@
                                     <td>{{ optional($record->year)->year ?? 'No year' }}</td>
                                     <td>{{ $record->acquisition_board_name }}</td>
                                     <td>{{ $record->description }}</td>
-                                  {{-- <td>{{ $record->designation }}</td> --}}
+                                  {{-- <td>{{ $record->  }}</td> --}}
                                   <td>  @if($record->designation == 1)
                                     पूर्ण
                                 @elseif($record->designation == 2)

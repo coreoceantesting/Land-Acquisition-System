@@ -171,10 +171,15 @@
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
                             <img class="rounded-circle header-profile-user" src="{{ asset('admin/images/users/avatar-1.jpg') }}" alt="Header Avatar" />
+
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-inline-block ms-1 fw-semibold user-name-text">{{ ucfirst(auth()->user()->name) }}</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">{{ auth()->user()->roles[0]->name }}</span>
-                            </span>
+
+                                @if(!Auth::user()->hasRole(['Super Admin', 'Land Acquisition Officer', 'Sub-Divisional Officer']))
+    <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">
+        Taluka: {{ auth()->check() && auth()->user()->taluka ? auth()->user()->taluka->taluka_name : '' }}
+    </span>
+@endif
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">

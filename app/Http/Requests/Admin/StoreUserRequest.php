@@ -29,6 +29,9 @@ class StoreUserRequest extends FormRequest
             'mobile' => 'required|unique:users,mobile|digits:10',
             'password' => 'required|min:8',
             'confirm_password' => 'required|same:password',
+            'officer_id' => 'nullable',
+            'district_id'=>'nullable',
+            'taluka_id'=>'nullable'
         ];
     }
 }

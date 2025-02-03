@@ -22,8 +22,15 @@ class User extends Authenticatable
         'name',
         'email',
         'mobile',
+        'officer_id',
         'password',
+        'district_id',
+        'taluka_id'
     ];
+
+    public function taluka(){
+        return $this->belongsTo(Taluka::class, 'taluka_id', 'id');
+    }
 
     public function subusers()
     {

@@ -16,7 +16,9 @@ use App\Models\User;
 use App\Models\Ward;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use App\Models\SubUser;
+use App\Models\District;
+use App\Models\Taluka;
+
 
 class UserController extends Controller
 {
@@ -27,8 +29,9 @@ class UserController extends Controller
     {
         $users = User::whereNot('id', Auth::user()->id)->latest()->get();
         $roles = Role::orderBy('id', 'DESC')->whereNot('name', 'like', '%super%')->get();
-
-        return view('admin.users')->with(['users'=> $users, 'roles'=> $roles]);
+        $districts = District::all();
+        $talukas = Taluka::all();
+        return view('admin.users')->with(['users'=> $users, 'roles'=> $roles, 'districts'=> $districts, 'talukas'=>$talukas]);
     }
 
     /**
@@ -36,7 +39,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $districts = District::all();
+        $talukas = Taluka::all();
+        return view('admin.create_user', compact('districts', 'talukas'));
     }
 
     /**
@@ -46,12 +51,14 @@ class UserController extends Controller
     {
         try
         {
+
             DB::beginTransaction();
             $input = $request->validated();
             $input['password'] = Hash::make($input['password']);
             $user = User::create( Arr::only( $input, Auth::user()->getFillable() ) );
             DB::table('model_has_roles')->insert(['role_id'=> $input['role'], 'model_type'=> 'App\Models\User', 'model_id'=> $user->id]);
             DB::commit();
+
             return response()->json(['success'=> 'User created successfully!']);
         }
         catch(\Exception $e)
@@ -75,6 +82,8 @@ class UserController extends Controller
     {
         $roles = Role::whereNot('name', 'like', '%super%')->get();
         $user->loadMissing('roles');
+        $districts = District::all();
+        $talukas = Taluka::all();
 
         if ($user)
         {

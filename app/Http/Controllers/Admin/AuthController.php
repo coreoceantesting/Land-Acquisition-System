@@ -27,6 +27,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+// dd($request->all());
         $validator = Validator::make($request->all(), [
             'username' => 'required',
             'password' => 'required',
@@ -56,10 +57,12 @@ class AuthController extends Controller
                     return response()->json(['error2'=> 'Your entered credentials are invalid']);
 
                 $userType = '';
-                if( $user->hasRole(['User']) )
+                if( $user->hasRole(['User']) ) {
                     $userType = 'user';
+                }
+                    session(['officer_id' => $user->officer_id]);
 
-                return response()->json(['success'=> 'login successful', 'user_type'=> $userType ]);
+                return response()->json(['success'=> 'login successful', 'user_type'=> $userType, 'officer_id' => $user->officer_id ]);
             }
             catch(\Exception $e)
             {
@@ -83,6 +86,7 @@ class AuthController extends Controller
 
 
     public function showChangePassword()
+
     {
         return view('admin.auth.change-password');
     }

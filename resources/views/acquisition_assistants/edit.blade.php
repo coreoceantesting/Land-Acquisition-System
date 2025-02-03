@@ -32,7 +32,7 @@
                                 </select>
                                 @error('district_id')
                                 <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                                 @enderror
                             </div>
 
                             <div class="col-md-4">
@@ -46,7 +46,7 @@
                                 </select>
                                 @error('taluka_id')
                                 <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                                     @enderror
                             </div>
 
 

@@ -218,7 +218,7 @@
 
 </form>
 
-<div></div>
+
 
 
 @if(Auth::user()->hasRole(['Land Acquisition Officer', 'Sub-Divisional Officer'])&& $acquisitionAssistant->acquisition_officer_status == 0 || $acquisitionAssistant->divisional_officer_status= 0 )
