@@ -11,12 +11,13 @@ class Taluka extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [ 'district_id','taluka_name', 'taluka_ini','created_by', 'updated_by', 'deleted_by'];
+    protected $fillable = ['district_id', 'taluka_name', 'taluka_ini', 'created_by', 'updated_by', 'deleted_by'];
 
     public $timestamps = true;
 
-    public function district(){
-        return $this->belongsTo(District::class, 'district_id', 'id');
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id', 'id')->withTrashed();
     }
 
     public static function booted()
@@ -41,5 +42,3 @@ class Taluka extends BaseModel
         });
     }
 }
-
-

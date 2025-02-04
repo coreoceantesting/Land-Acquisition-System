@@ -124,7 +124,7 @@ margin-left:94%
                     dd(asset('admin/images/sewagemanagement.jpg'));
                 @endphp --}}
                     <div class="bg-img col-lg-6 col-md-6 col-12 d-flex justify-content-center" >
-                        <img class="back-ground col-lg-12 col-md-12 col-12" src="{{asset('storage/Land_Acquisition.jpg')}}" >
+                        <img class="back-ground col-lg-12 col-md-12 col-12" src="{{ asset('img/la_login_bg.jpg') }}" >
                     </div>
 
                     <div class="col-lg-6 col-md-6 col-12 d-md-none d-lg-none d-xl-none d-sm-block d-block mobile-view-bgcolor">
