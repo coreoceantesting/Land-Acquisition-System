@@ -21,7 +21,7 @@
                                     <select class="form-select" id="district_id" name="district_id" required>
                                         <option value="" selected disabled>Select District</option>
                                         @foreach($districts as $district)
-                                            <option value="{{ $district>->id }}">{{ $district?->district_name }}</option>
+                                            <option value="{{ $district?->id }}">{{ $district?->district_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
