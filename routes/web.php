@@ -41,7 +41,7 @@ Route::middleware(['guest', 'PreventBackHistory', 'firewall.all'])->group(functi
 Route::middleware(['auth', 'PreventBackHistory', 'firewall.all'])->group(function () {
 
     // Auth Routes
-    Route::get('home', fn () => redirect()->route('dashboard'))->name('home');
+    Route::get('home', fn() => redirect()->route('dashboard'))->name('home');
     Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::post('logout', [App\Http\Controllers\Admin\AuthController::class, 'Logout'])->name('logout');
     Route::get('change-theme-mode', [App\Http\Controllers\Admin\DashboardController::class, 'changeThemeMode'])->name('change-theme-mode');
@@ -62,7 +62,6 @@ Route::middleware(['auth', 'PreventBackHistory', 'firewall.all'])->group(functio
         Route::resource('bundles', App\Http\Controllers\Admin\Masters\BundleController::class);
         Route::resource('years', App\Http\Controllers\Admin\Masters\YearController::class);
         Route::resource('designations', App\Http\Controllers\Admin\Masters\DesignationController::class);
-
     });
 
 
@@ -70,21 +69,21 @@ Route::middleware(['auth', 'PreventBackHistory', 'firewall.all'])->group(functio
     // Route::resource('create', App\Http\Controllers\AcquisitionAssistantController::class);
 
     // Route::resource('acquisition_assistant', App\Http\Controllers\AcquisitionAssistantController::class);
-//     Route::get('acquisition_assistants/register', [AcquisitionRegisterController::class, 'register'])
-// ->name('acquisition_register.register');
-// Route::post('/acquisition-assistant/store', [AcquisitionRegisterController::class, 'store'])->name('acquisition_register.store');
-// Route::get('acquisition_assistants/record', [AcquisitionRegisterController::class, 'show'])
-// ->name('acquisition_register.record');
+    //     Route::get('acquisition_assistants/register', [AcquisitionRegisterController::class, 'register'])
+    // ->name('acquisition_register.register');
+    // Route::post('/acquisition-assistant/store', [AcquisitionRegisterController::class, 'store'])->name('acquisition_register.store');
+    // Route::get('acquisition_assistants/record', [AcquisitionRegisterController::class, 'show'])
+    // ->name('acquisition_register.record');
 
-Route::resource('acquisition_register', AcquisitionRegisterController::class);
-Route::get('acquisition_register/{id}', [AcquisitionRegisterController::class, 'show'])
-    ->name('acquisition_register.show');
+    Route::resource('acquisition_register', AcquisitionRegisterController::class);
+    Route::get('acquisition_register/{id}', [AcquisitionRegisterController::class, 'show'])
+        ->name('acquisition_register.show');
 
     Route::post('/acquisition_assistant/{id}/approve', [AcquisitionAssistantController::class, 'approve'])
-    ->name('acquisition_assistant.approve');
+        ->name('acquisition_assistant.approve');
 
     Route::post('acquisition_assistant/{id}/reject', [AcquisitionAssistantController::class, 'reject'])
-    ->name('acquisition_assistant.reject');
+        ->name('acquisition_assistant.reject');
     // Or if you are using resource routes:
 
 
@@ -108,9 +107,11 @@ Route::get('acquisition_register/{id}', [AcquisitionRegisterController::class, '
     Route::get('acquisition_register/{id}', [AcquisitionRegisterController::class, 'show'])->name('acquisition_register.show');
 
     Route::get('/get-officers/{roleId}', [UserController::class, 'getOfficers']);
-        // Route::get('/get-dependent-options/{id}', [DependentDropdownController::class, 'getDependentOptions']);
-        Route::get('/get-talukas/{districtId}', [LandAcquisitionController::class, 'getTalukas'])->name('get-talukas');
-        Route::get('villages/{talukaId}', [LandAcquisitionController::class, 'getVillages']);
+    // Route::get('/get-dependent-options/{id}', [DependentDropdownController::class, 'getDependentOptions']);
+    Route::get('/get-talukas/{districtId}', [LandAcquisitionController::class, 'getTalukas'])->name('get-talukas');
+    Route::get('villages/{talukaId}', [LandAcquisitionController::class, 'getVillages']);
+    Route::get('serial_numbers/{villageId}', [LandAcquisitionController::class, 'getSerialNumbers']);
+    Route::get('la_purpose/{serialNo}', [LandAcquisitionController::class, 'getLaPurpose']);
     // Users Roles n Permissions
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
     Route::get('users/{user}/toggle', [App\Http\Controllers\Admin\UserController::class, 'toggle'])->name('users.toggle');

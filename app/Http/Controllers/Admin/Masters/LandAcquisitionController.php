@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Masters;
 use App\Http\Controllers\Admin\Controller;
 use App\Http\Requests\Admin\Masters\StoreLandAcquisitionRequest;
 use App\Http\Requests\Admin\Masters\UpdateLandAcquisitionRequest;
+use App\Models\AcquisitionRegister;
 use App\Models\District;
 use App\Models\Land_Acquisition;
 use App\Models\Taluka;
@@ -20,8 +21,7 @@ class LandAcquisitionController extends Controller
     {
         $land_acquisitions = Land_Acquisition::latest()->get();
 
-        // dd($districts);
-        return view('admin.masters.land_acquisition')->with(['land_acquisitions'=> $land_acquisitions]);
+        return view('admin.masters.land_acquisition')->with(['land_acquisitions' => $land_acquisitions]);
     }
 
     /**
@@ -40,10 +40,9 @@ class LandAcquisitionController extends Controller
      */
     public function store(StoreLandAcquisitionRequest $request)
     {
-       // dd($request->all());
+        // dd($request->all());
 
-        try
-        {
+        try {
             DB::beginTransaction();
 
             // Validate and filter input
@@ -59,9 +58,7 @@ class LandAcquisitionController extends Controller
                 'success' => 'Land_Acquisition created successfully!',
                 'data' => $land_acquisition
             ]);
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             DB::rollBack(); // Ensure the transaction is rolled back on failure
 
             return $this->respondWithAjax($e, 'creating', 'Land_Acquisition');
@@ -82,15 +79,12 @@ class LandAcquisitionController extends Controller
      */
     public function edit(Land_Acquisition $land_acquisition)
     {
-        if ($land_acquisition)
-        {
+        if ($land_acquisition) {
             $response = [
                 'result' => 1,
                 'land_acquisition' => $land_acquisition,
             ];
-        }
-        else
-        {
+        } else {
             $response = ['result' => 0];
         }
         return $response;
@@ -101,17 +95,14 @@ class LandAcquisitionController extends Controller
      */
     public function update(UpdateLandAcquisitionRequest $request, Land_Acquisition $land_acquisition)
     {
-        try
-        {
+        try {
             DB::beginTransaction();
             $input = $request->validated();
-            $land_acquisition->update( Arr::only( $input, Land_Acquisition::getFillables() ) );
+            $land_acquisition->update(Arr::only($input, Land_Acquisition::getFillables()));
             DB::commit();
 
-            return response()->json(['success'=> 'Land_Acquisition updated successfully!']);
-        }
-        catch(\Exception $e)
-        {
+            return response()->json(['success' => 'Land_Acquisition updated successfully!']);
+        } catch (\Exception $e) {
             return $this->respondWithAjax($e, 'updating', 'Land_Acquisition');
         }
     }
@@ -121,33 +112,46 @@ class LandAcquisitionController extends Controller
      */
     public function destroy(Land_Acquisition $land_acquisition)
     {
-        try
-        {
+        try {
             DB::beginTransaction();
             $land_acquisition->delete();
             DB::commit();
 
-            return response()->json(['success'=> 'Land_Acquisition deleted successfully!']);
-        }
-        catch(\Exception $e)
-        {
+            return response()->json(['success' => 'Land_Acquisition deleted successfully!']);
+        } catch (\Exception $e) {
             return $this->respondWithAjax($e, 'deleting', 'Land_Acquisition');
         }
     }
 
     public function getTalukas($districtId)
-{
-    // Fetch talukas based on the selected district
-    $talukas = Taluka::where('district_id', $districtId)->get(['id', 'taluka_name']);
+    {
+        // Fetch talukas based on the selected district
+        $talukas = Taluka::where('district_id', $districtId)->get(['id', 'taluka_name']);
 
-    // Return the talukas as a JSON response
-    return response()->json($talukas);
-}
+        // Return the talukas as a JSON response
+        return response()->json($talukas);
+    }
 
-public function getVillages($talukaId)
-{
-    $villages = Village::where('taluka_id', $talukaId)->get();
-    return response()->json($villages);
-}
+    public function getVillages($talukaId)
+    {
+        $villages = Village::where('taluka_id', $talukaId)->get();
 
+        return response()->json($villages);
+    }
+
+    public function getSerialNumbers($villageId)
+    {
+        $serialNumbers = AcquisitionRegister::where('village_id', $villageId)->get();
+
+        return response()->json($serialNumbers);
+    }
+
+    public function getLaPurpose($serialNo)
+    {
+        $purpose = AcquisitionRegister::where('id', $serialNo)->with('land_acquisition')->first();
+
+        $purpose = $purpose->land_acquisition->land_acquisitions_name;
+
+        return response()->json(['data' => $purpose]);
+    }
 }

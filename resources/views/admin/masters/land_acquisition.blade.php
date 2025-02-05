@@ -1,6 +1,6 @@
 <x-admin.layout>
-    <x-slot name="title">Land Acquisition</x-slot>
-    <x-slot name="heading">Land Acquisition</x-slot>
+    <x-slot name="title">Purpose of Land Acquisition</x-slot>
+    <x-slot name="heading">Purpose of Land Acquisition</x-slot>
     {{-- <x-slot name="subheading">Test</x-slot> --}}
 
 
@@ -12,7 +12,7 @@
                         @csrf
 
                         <div class="card-header">
-                            <h4 class="card-title">Add Land Acquisition</h4>
+                            <h4 class="card-title">Add Purpose of Land Acquisition</h4>
                         </div>
                         <div class="card-body">
                             <div class="mb-3 row">
@@ -43,7 +43,7 @@
                     @csrf
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit Land Acquisition</h4>
+                            <h4 class="card-title">Edit Purpose of Land Acquisition</h4>
                         </div>
                         <div class="card-body py-2">
                             <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
@@ -86,7 +86,7 @@
                                 <thead>
                                     <tr>
 
-                                        <th>Land Acquisition Name</th>
+                                        <th>Purpose of Land Acquisition</th>
 
                                        {{-- <th>District Initial</th> --}}
 

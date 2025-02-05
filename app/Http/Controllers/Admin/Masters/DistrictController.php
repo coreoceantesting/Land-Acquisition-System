@@ -16,7 +16,6 @@ class DistrictController extends Controller
     {
         $districts = District::latest()->get();
 
-        // dd($districts);
         return view('admin.masters.districts')->with(['districts'=> $districts]);
     }
 

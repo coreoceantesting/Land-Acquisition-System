@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\District;
 use App\Models\Taluka;
 use App\Models\Village;
@@ -19,11 +20,10 @@ class AcquisitionRegisterController extends Controller
 
     public function index()
     {
-        $record_reg = AcquisitionRegister::with(['district', 'taluka', 'village','land_acquisition'])->paginate(10);
+        $record_reg = AcquisitionRegister::with(['district', 'taluka', 'village', 'land_acquisition'])->paginate(10);
         // dd($record_reg);
-        $acquisition_register =AcquisitionRegister ::all();
-        return view('acquisition_registers.record_register', compact('acquisition_register','record_reg'));
-
+        $acquisition_register = AcquisitionRegister::all();
+        return view('acquisition_registers.record_register', compact('acquisition_register', 'record_reg'));
     }
 
     public function create()
@@ -31,8 +31,9 @@ class AcquisitionRegisterController extends Controller
         $districts = District::all();
         $talukas = Taluka::all();
         $villages = Village::all();
-        $land_acquisitions=Land_Acquisition::all();
-        return view('acquisition_registers.register',compact('districts','talukas','villages','land_acquisitions'));
+        $land_acquisitions = Land_Acquisition::all();
+
+        return view('acquisition_registers.register', compact('districts', 'talukas', 'villages', 'land_acquisitions'));
     }
 
     public function store(StoreAcquisitionRegisterRequest $request)
@@ -79,17 +80,19 @@ class AcquisitionRegisterController extends Controller
             $land_acquisitions = Land_Acquisition::all();
 
 
-        return view('acquisition_registers.show', compact('acquisition_register','districts',
-                 'talukas',
+            return view('acquisition_registers.show', compact(
+                'acquisition_register',
+                'districts',
+                'talukas',
                 'villages',
-            'land_acquisitions'));
-    }catch (\Exception $e) {
-        return response()->json([
-            'error' => 'An error occurred while fetching the Acquisition Register.',
-            'message' => $e->getMessage(),
-        ], 500);
-    }
-
+                'land_acquisitions'
+            ));
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred while fetching the Acquisition Register.',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     public function edit($id)
@@ -139,7 +142,7 @@ class AcquisitionRegisterController extends Controller
 
             // Redirect to the show page with a success message
             return redirect()->route('acquisition_register.index', $acquisition_register->id)
-                             ->with('success', 'Acquisition Assistant updated successfully!');
+                ->with('success', 'Acquisition Assistant updated successfully!');
         } catch (\Exception $e) {
             // Rollback if any exception occurs
             DB::rollBack();
@@ -153,8 +156,7 @@ class AcquisitionRegisterController extends Controller
     }
     public function destroy(AcquisitionRegister $acquisition_register)
     {
-        try
-        {
+        try {
             // Check if the record exists before deleting
             if (!$acquisition_register) {
                 return response()->json(['error' => 'Record not found'], 404);
@@ -171,9 +173,7 @@ class AcquisitionRegisterController extends Controller
 
             // Return success response and redirect to the index route
             return redirect()->route('acquisition_register.index')->with('success', 'Acquisition Assistant deleted successfully!');
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             // Log the error message for debugging
             // \Log::error('Error deleting AcquisitionAssistant: ' . $e->getMessage());
 
@@ -184,6 +184,4 @@ class AcquisitionRegisterController extends Controller
             return response()->json(['error' => 'Failed to delete the AcquisitionAssistant', 'message' => $e->getMessage()], 500);
         }
     }
-    }
-
-
+}
