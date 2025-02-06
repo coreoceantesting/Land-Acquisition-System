@@ -18,7 +18,7 @@
                             <div class="mb-3 row">
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="district_name">District Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="district_name" name="district_name" type="text" placeholder="Enter District Name">
+                                    <input class="form-control" id="district_name" name="district_name" type="text" placeholder="Enter District Name" >
                                     <span class="text-danger is-invalid name_err"></span>
                                 </div>
                                 <div class="col-md-4">
@@ -204,8 +204,8 @@
                 if (!data.error)
                 {
                     $("#editForm input[name='edit_model_id']").val(data.district.id);
-                    $("#editForm input[name='district_name']").val(data.district.name);
-                    $("#editForm input[name='district_initial']").val(data.district.initial);
+                    $("#editForm input[name='district_name']").val(data.district.district_name);
+                    $("#editForm input[name='district_initial']").val(data.district.district_initial);
                 }
                 else
                 {

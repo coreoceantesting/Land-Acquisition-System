@@ -39,7 +39,7 @@
                                     <td>{{ optional($record->taluka)->taluka_name ?? 'No taluka' }}</td>
                                     <td>{{ optional($record->village)->village_name ?? 'No village' }}</td>
                                     {{-- <td></td> --}}
-                                    <td>{{ optional($record->sr_no)->sr_nos_in ?? 'No sr_nos' }}</td>
+                                    <td>{{ $record->sr_no_id ?? 'No sr_nos' }}</td>
                                     <td>{{ optional($record->land_acquisition)->land_acquisitions_name ?? 'No land_acquisitions_name' }}</td>
 
                                     <td>{{ $record->project_name }}</td>

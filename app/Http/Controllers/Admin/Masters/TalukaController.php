@@ -128,7 +128,7 @@ class TalukaController extends Controller
             $taluka->delete();
             DB::commit();
 
-            return response()->json(['success'=> 'Ward deleted successfully!']);
+            return response()->json(['success'=> 'Taluka deleted successfully!']);
         }
         catch(\Exception $e)
         {

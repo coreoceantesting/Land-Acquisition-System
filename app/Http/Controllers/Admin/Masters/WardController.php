@@ -43,7 +43,7 @@ class WardController extends Controller
             Ward::create( Arr::only( $input, Ward::getFillables() ) );
             DB::commit();
 
-            return response()->json(['success'=> 'Office created successfully!']);
+            return response()->json(['success'=> 'Ward created successfully!']);
         }
         catch(\Exception $e)
         {

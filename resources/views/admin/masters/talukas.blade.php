@@ -71,7 +71,7 @@
                             <div class="mb-3 row">
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="district_id">Select District Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="district_id" name="district_id" required>
+                                    <select class="form-select" id="district_id" name="district_id" required>
                                         <option value="" selected disabled>Select District</option>
                                         @foreach($districts as $district)
                                             <option value="{{ $district?->id }}">{{ $district?->district_name }}</option>
@@ -221,9 +221,9 @@
             success: function (data) {
                 if (!data.error) {
                     // Populate the edit form with data
-                    $("#editForm input[name='edit_model_id']").val(data.taluka.id);
-                    $("#editForm input[name='taluka_name']").val(data.taluka.name);
-                    $("#editForm input[name='initial']").val(data.taluka.initial);
+                    $("#editForm input[name='district_id']").val(data.taluka.district_id).trigger("change");;
+                    $("#editForm input[name='taluka_name']").val(data.taluka.taluka_name);
+                    $("#editForm input[name='taluka_ini']").val(data.taluka.taluka_ini);
 
                     // Show the form
                     $("#editContainer").show();
@@ -357,8 +357,8 @@
                         if (!data.error && !data.error2) {
                             swal("Success!", data.success, "success")
                                 .then((action) => {
-                                    window.location.reload();
-                                });
+                                    window.location.href = '{{ route('talukas.index') }}';
+                                  });
                         } else {
                             if (data.error) {
                                 swal("Error!", data.error, "error");

@@ -117,7 +117,7 @@ class LandAcquisitionController extends Controller
             $land_acquisition->delete();
             DB::commit();
 
-            return response()->json(['success' => 'Land_Acquisition deleted successfully!']);
+            return response()->json(['success' => 'Land Acquisition deleted successfully!']);
         } catch (\Exception $e) {
             return $this->respondWithAjax($e, 'deleting', 'Land_Acquisition');
         }

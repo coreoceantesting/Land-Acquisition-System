@@ -61,7 +61,7 @@
 
                                         <div class="col-md-4 mb-3">
                                             <label class="col-form-label" for="land_acquisitions_name">भूसंपादनाचे प्रयोजन / Purpose of land acquisition<span class="text-danger">*</span></label>
-                                            <input type="text" name="purpose_of_land" disabled id="purpose_of_land" class="form-control" value="">
+                                            <input type="text" name="purpose_of_land" readonly id="purpose_of_land" class="form-control" value="">
                                         </div>
 
 
