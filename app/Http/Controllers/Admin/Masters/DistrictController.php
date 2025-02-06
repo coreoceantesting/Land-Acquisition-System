@@ -25,8 +25,6 @@ class DistrictController extends Controller
     public function create()
     {
         // return view('admin.masters.districts');
-
-
     }
 
     /**
@@ -44,14 +42,14 @@ class DistrictController extends Controller
             $input = $request->validated();
 
             // Create the district and retrieve the created instance
-            $district = District::create(Arr::only($input, District::getFillables()));
+            District::create(Arr::only($input, District::getFillables()));
 
             DB::commit();
 
             // Return the created district in the response
             return response()->json([
                 'success' => 'District created successfully!',
-                'data' => $district
+
             ]);
         }
         catch (\Exception $e)
@@ -76,12 +74,14 @@ class DistrictController extends Controller
      */
     public function edit(District $district)
     {
+
         if ($district)
         {
             $response = [
                 'result' => 1,
                 'district' => $district,
             ];
+            // return view('admin.masters.districts', compact('district'));
         }
         else
         {
@@ -102,7 +102,7 @@ class DistrictController extends Controller
             $district->update( Arr::only( $input, District::getFillables() ) );
             DB::commit();
 
-            return response()->json(['success'=> 'Ward updated successfully!']);
+            return response()->json(['success'=> 'District updated successfully!']);
         }
         catch(\Exception $e)
         {
@@ -121,7 +121,7 @@ class DistrictController extends Controller
             $district->delete();
             DB::commit();
 
-            return response()->json(['success'=> 'Ward deleted successfully!']);
+            return response()->json(['success'=> 'District deleted successfully!']);
         }
         catch(\Exception $e)
         {

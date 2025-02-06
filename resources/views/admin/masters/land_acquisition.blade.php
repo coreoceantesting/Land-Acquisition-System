@@ -195,9 +195,9 @@
                 editFormBehaviour();
                 if (!data.error)
                 {
-                    $("#editForm input[name='edit_model_id']").val(data.district.id);
-                    $("#editForm input[name='name']").val(data.district.name);
-                    $("#editForm input[name='initial']").val(data.district.initial);
+                    $("#editForm input[name='edit_model_id']").val(data.land_acquisition.id);
+                    $("#editForm input[name='land_acquisitions_name']").val(data.land_acquisition.land_acquisitions_name);
+
                 }
                 else
                 {

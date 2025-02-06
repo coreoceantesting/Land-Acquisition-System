@@ -62,7 +62,9 @@ class AcquisitionAssistantController extends Controller
 
             $request['is_userdiff'] = Auth::user()->roles[0]->id ?? null;
             $request['user_id'] = Auth::user()->id;
-            $acquisition_assistant = AcquisitionAssistant::create($request->all());
+            $request->land_acquisition_id = Land_Acquisition::where('land_acquisitions_name', $request->purpose_of_land)->value('id');
+
+            $acquisition_assistant = AcquisitionAssistant::create( Arr::only($request->validated(), AcquisitionAssistant::getFillables()));
             // dd($request->all());
 
             foreach ($request->survey_or_group as $index => $surveyOrGroup) {

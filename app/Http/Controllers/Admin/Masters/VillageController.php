@@ -130,7 +130,7 @@ class VillageController extends Controller
             $village->delete();
             DB::commit();
 
-            return response()->json(['success'=> 'Ward deleted successfully!']);
+            return response()->json(['success'=> 'Village deleted successfully!']);
         }
         catch(\Exception $e)
         {

@@ -72,7 +72,7 @@
                                     @foreach($sr_nos as $sr_no)
                                         <option value="{{ $sr_no->id }}"
                                             {{ old('sr_no_id', $acquisitionAssistant->sr_no_id ?? '') == $sr_no->id ? 'selected' : '' }}>
-                                            {{ $sr_no->sr_nos_in }}
+                                            {{ $sr_no->sr_no_id }}
                                         </option>
                                     @endforeach
                                 </select>
