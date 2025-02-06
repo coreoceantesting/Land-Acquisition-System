@@ -31,7 +31,6 @@ class StoreUserRequest extends FormRequest
             'confirm_password' => 'required|same:password',
             'officer_id' => 'nullable',
             'district_id'=>'nullable',
-            'taluka_id'=>'nullable'
         ];
     }
 }

@@ -60,6 +60,7 @@ class DefaultLoginUserSeeder extends Seeder
             'mobile' => '9999999993',
             'password' => Hash::make('12345678'),
             'officer_id' => null,
+            'district_id' => 2,
         ]);
         $user->assignRole([$officerRole->id]);
 
@@ -78,6 +79,7 @@ class DefaultLoginUserSeeder extends Seeder
             'mobile' => '9999999994',
             'password' => Hash::make('12345678'),
             'officer_id' => 3,
+            'district_id' => 2,
         ]);
         $user->assignRole([$assistantOfficerRole->id]);
 
@@ -96,6 +98,7 @@ class DefaultLoginUserSeeder extends Seeder
             'mobile' => '9999999995',
             'password' => Hash::make('12345678'),
             'officer_id' => null,
+            'district_id' => 2,
         ]);
         $user->assignRole([$divisionalRole->id]);
 
@@ -114,6 +117,7 @@ class DefaultLoginUserSeeder extends Seeder
             'mobile' => '9999999996',
             'password' => Hash::make('12345678'),
             'officer_id' => 3,
+            'district_id' => 2,
         ]);
         $user->assignRole([$subDivisionalRole->id]);
 

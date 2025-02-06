@@ -30,8 +30,8 @@ class UserController extends Controller
         $users = User::whereNot('id', Auth::user()->id)->latest()->get();
         $roles = Role::orderBy('id', 'DESC')->whereNot('name', 'like', '%super%')->get();
         $districts = District::all();
-        $talukas = Taluka::all();
-        return view('admin.users')->with(['users'=> $users, 'roles'=> $roles, 'districts'=> $districts, 'talukas'=>$talukas]);
+
+        return view('admin.users')->with(['users'=> $users, 'roles'=> $roles, 'districts'=> $districts]);
     }
 
     /**
@@ -40,8 +40,8 @@ class UserController extends Controller
     public function create()
     {
         $districts = District::all();
-        $talukas = Taluka::all();
-        return view('admin.create_user', compact('districts', 'talukas'));
+
+        return view('admin.create_user', compact('districts'));
     }
 
     /**
@@ -51,12 +51,13 @@ class UserController extends Controller
     {
         try
         {
-
             DB::beginTransaction();
+
             $input = $request->validated();
             $input['password'] = Hash::make($input['password']);
             $user = User::create( Arr::only( $input, Auth::user()->getFillable() ) );
             DB::table('model_has_roles')->insert(['role_id'=> $input['role'], 'model_type'=> 'App\Models\User', 'model_id'=> $user->id]);
+
             DB::commit();
 
             return response()->json(['success'=> 'User created successfully!']);
@@ -81,32 +82,49 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::whereNot('name', 'like', '%super%')->get();
-        $user->loadMissing('roles');
+        $user->loadMissing(['roles']);
         $districts = District::all();
-        $talukas = Taluka::all();
+        $userOfficerHtml = '';
 
-        if ($user)
+        if($user->officer_id)
         {
-
-            $roleHtml = '<span>
-                <option value="">--Select Role --</option>';
-                foreach($roles as $role):
-                    $is_select = $role->id == $user->roles[0]->id ? "selected" : "";
-                    $roleHtml .= '<option value="'.$role->id.'" '.$is_select.'>'.$role->name.'</option>';
+            $user->loadMissing(['officer.roles']);
+            $userOfficers = User::withWhereHas('roles', fn ($q) => $q->where('id', $user->officer->roles[0]->id))->get();
+            $userOfficerHtml = '<span>
+                <option value="">--Select User Officer --</option>';
+                foreach($userOfficers as $userOfficer):
+                    $is_select = $userOfficer->id == $user->officer_id ? "selected" : "";
+                    $userOfficerHtml .= '<option value="'.$userOfficer->id.'" '.$is_select.'>'.$userOfficer->name.'</option>';
                 endforeach;
-            $roleHtml .= '</span>';
+            $userOfficerHtml .= '</span>';
+        }
+
+        $roleHtml = '<span>
+            <option value="">--Select Role --</option>';
+            foreach($roles as $role):
+                $is_select = $role->id == $user->roles[0]->id ? "selected" : "";
+                $roleHtml .= '<option value="'.$role->id.'" '.$is_select.'>'.$role->name.'</option>';
+            endforeach;
+        $roleHtml .= '</span>';
+
+        $districtHtml = '<span>
+            <option value="">--Select Role --</option>';
+            foreach($districts as $district):
+                $is_select = $district->id == $district->district_id ? "selected" : "";
+                $districtHtml .= '<option value="'.$district->id.'" '.$is_select.'>'.$district->name.'</option>';
+            endforeach;
+        $districtHtml .= '</span>';
+
 
 
             $response = [
                 'result' => 1,
                 'user' => $user,
                 'roleHtml' => $roleHtml,
+                'userOfficerHtml' => $userOfficerHtml,
+                'districtHtml' => $districtHtml,
             ];
-        }
-        else
-        {
-            $response = ['result' => 0];
-        }
+
         return $response;
     }
 
@@ -242,11 +260,8 @@ class UserController extends Controller
 
     public function getOfficers($roleId)
     {
-        // Fetch officers based on the selected role
-        $officers = User::whereHas('roles', function ($query) use ($roleId) {
-            $query->where('role_id', $roleId);  // Fetch users with the selected role
-        })->with('roles')->get(['id', 'name']);  // Return only 'id' and 'name' of the officers
+        $officers = User::withWhereHas('roles', fn ($query) => $query->where('role_id', $roleId) )->get(['id', 'name']);
 
-        return response()->json($officers);  // Return the officers as JSON
+        return response()->json($officers);
     }
 }

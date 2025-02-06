@@ -74,26 +74,26 @@ class PermissionTableSeeder extends Seeder
                 'name' => 'roles.assign',
                 'group' => 'roles',
             ],
-            [
-                'id' => 13,
-                'name' => 'wards.view',
-                'group' => 'wards',
-            ],
-            [
-                'id' => 14,
-                'name' => 'wards.create',
-                'group' => 'wards',
-            ],
-            [
-                'id' => 15,
-                'name' => 'wards.edit',
-                'group' => 'wards',
-            ],
-            [
-                'id' => 16,
-                'name' => 'wards.delete',
-                'group' => 'wards',
-            ],
+            // [
+            //     'id' => 13,
+            //     'name' => 'wards.view',
+            //     'group' => 'wards',
+            // ],
+            // [
+            //     'id' => 14,
+            //     'name' => 'wards.create',
+            //     'group' => 'wards',
+            // ],
+            // [
+            //     'id' => 15,
+            //     'name' => 'wards.edit',
+            //     'group' => 'wards',
+            // ],
+            // [
+            //     'id' => 16,
+            //     'name' => 'wards.delete',
+            //     'group' => 'wards',
+            // ],
             [
                 'id' => 17,
                 'name' => 'districts.view',
@@ -154,26 +154,26 @@ class PermissionTableSeeder extends Seeder
                 'name' => 'villages.delete',
                 'group' => 'villages',
             ],
-            [
-                'id' => 29,
-                'name' => 'sr_nos.view',
-                'group' => 'sr_nos',
-            ],
-            [
-                'id' => 30,
-                'name' => 'sr_nos.create',
-                'group' => 'sr_nos',
-            ],
-            [
-                'id' => 31,
-                'name' => 'sr_nos.edit',
-                'group' => 'sr_nos',
-            ],
-            [
-                'id' => 32,
-                'name' => 'sr_nos.delete',
-                'group' => 'sr_nos',
-            ],
+            // [
+            //     'id' => 29,
+            //     'name' => 'sr_nos.view',
+            //     'group' => 'sr_nos',
+            // ],
+            // [
+            //     'id' => 30,
+            //     'name' => 'sr_nos.create',
+            //     'group' => 'sr_nos',
+            // ],
+            // [
+            //     'id' => 31,
+            //     'name' => 'sr_nos.edit',
+            //     'group' => 'sr_nos',
+            // ],
+            // [
+            //     'id' => 32,
+            //     'name' => 'sr_nos.delete',
+            //     'group' => 'sr_nos',
+            // ],
             [
                 'id' => 33,
                 'name' => 'land_acquisitions.view',
@@ -194,46 +194,46 @@ class PermissionTableSeeder extends Seeder
                 'name' => 'land_acquisitions.delete',
                 'group' => 'land_acquisitions',
             ],
-            [
-                'id' => 37,
-                'name' => 'bundles.view',
-                'group' => 'bundles',
-            ],
-            [
-                'id' => 38,
-                'name' => 'bundles.create',
-                'group' => 'bundles',
-            ],
-            [
-                'id' => 39,
-                'name' => 'bundles.edit',
-                'group' => 'bundles',
-            ],
-            [
-                'id' =>40,
-                'name' => 'bundles.delete',
-                'group' => 'bundles',
-            ],
-            [
-                'id' => 41,
-                'name' => 'years.view',
-                'group' => 'years',
-            ],
-            [
-                'id' => 42,
-                'name' => 'years.create',
-                'group' => 'years',
-            ],
-            [
-                'id' => 43,
-                'name' => 'years.edit',
-                'group' => 'years',
-            ],
-            [
-                'id' =>44,
-                'name' => 'years.delete',
-                'group' => 'years',
-            ],
+            // [
+            //     'id' => 37,
+            //     'name' => 'bundles.view',
+            //     'group' => 'bundles',
+            // ],
+            // [
+            //     'id' => 38,
+            //     'name' => 'bundles.create',
+            //     'group' => 'bundles',
+            // ],
+            // [
+            //     'id' => 39,
+            //     'name' => 'bundles.edit',
+            //     'group' => 'bundles',
+            // ],
+            // [
+            //     'id' =>40,
+            //     'name' => 'bundles.delete',
+            //     'group' => 'bundles',
+            // ],
+            // [
+            //     'id' => 41,
+            //     'name' => 'years.view',
+            //     'group' => 'years',
+            // ],
+            // [
+            //     'id' => 42,
+            //     'name' => 'years.create',
+            //     'group' => 'years',
+            // ],
+            // [
+            //     'id' => 43,
+            //     'name' => 'years.edit',
+            //     'group' => 'years',
+            // ],
+            // [
+            //     'id' =>44,
+            //     'name' => 'years.delete',
+            //     'group' => 'years',
+            // ],
             [
                 'id' => 45,
                 'name' => 'designations.view',

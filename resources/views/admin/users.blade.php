@@ -38,10 +38,10 @@
                             </div>
                             <div class="col-md-4 mt-3">
                                 <label class="col-form-label" for="role">Select User Type / Role <span class="text-danger">*</span></label>
-                                <select class="js-example-basic-single col-sm-12" id="role" name="role">
+                                <select class="js-example-basic-single col-sm-12 form-select" id="role" name="role">
                                     <option value="">--Select Role--</option>
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role->id }}" data-role-name="{{ $role->name }}">{{ $role->name }}</option>
+                                        <option value="{{ $role->id }}" data-role-name="{{ $role->id }}">{{ $role->name }}</option>
                                     @endforeach
                                 </select>
                                 <span class="text-danger is-invalid role_err"></span>
@@ -49,12 +49,13 @@
 
                             <div class="col-md-4 mt-3" id="officerField" style="display: none;">
                                 <label class="col-form-label" for="officer_id">Select User Officer <span class="text-danger">*</span></label>
-                                <select class="js-example-basic-single col-sm-12" id="officer_id" name="officer_id">
+                                <select class="js-example-basic-single col-sm-12 form-select" id="officer_id" name="officer_id">
                                     <option value="">--Select Officer--</option>
                                 </select>
                                 <span class="text-danger is-invalid officer_id_err"></span>
                             </div>
-                            <div class="col-md-4">
+
+                            <div class="col-md-4 mt-3">
                                 <label class="col-form-label" for="district_name"> जिल्हा/ District <span class="text-danger">*</span></label>
                                 <select name="district_id" id="district_name" class="form-select" required>
                                     <option value="">जिल्हा निवडा</option>
@@ -64,13 +65,13 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-4">
+                            {{-- <div class="col-md-4">
                                 <label class="col-form-label" for="taluka_name">तालुका / Taluka <span class="text-danger">*</span></label>
                                 <select name="taluka_id" id="taluka_id" class="form-select" required>
                                     <option value="">तालुका निवडा</option>
                                     <!-- Dynamic taluka options will be inserted here -->
                                 </select>
-                            </div>
+                            </div> --}}
 
 
                             <div class="col-md-4 mt-3">
@@ -134,7 +135,7 @@
 
                             <div class="col-md-4 mt-3">
                                 <label class="col-form-label">Select User Type / Role <span class="text-danger">*</span></label>
-                                <select class="js-example-basic-single col-sm-12" name="role">
+                                <select class="js-example-basic-single col-sm-12 form-select" name="role">
                                     <option value="">--Select Role--</option>
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->id }}">{{ $role->name }}</option>
@@ -143,13 +144,13 @@
                                 <span class="text-danger is-invalid role_err"></span>
                             </div>
 
-                            {{-- <div class="col-md-4 mt-3" id="officerField" style="display: none;">
+                            <div class="col-md-4 mt-3 d-none" id="editOfficerField" >
                                 <label class="col-form-label" for="officer_id">Select User Officer <span class="text-danger">*</span></label>
-                                <select class="js-example-basic-single col-sm-12" id="officer_id" name="officer_id">
-                                    <option value="">--Select Officer--</option>
+                                <select class="js-example-basic-single col-sm-12 form-select" id="officer_id" name="officer_id">
+                                    <option value="" selected disabled>--Select Officer--</option>
                                 </select>
                                 <span class="text-danger is-invalid officer_id_err"></span>
-                            </div> --}}
+                            </div>
 
                             <div class="col-md-4">
                                 <label class="col-form-label" for="district_name"> जिल्हा/ District <span class="text-danger">*</span></label>
@@ -161,13 +162,6 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="taluka_name">तालुका / Taluka <span class="text-danger">*</span></label>
-                                <select name="taluka_id" id="taluka_id" class="form-select" required>
-                                    <option value="">तालुका निवडा</option>
-                                    <!-- Dynamic taluka options will be inserted here -->
-                                </select>
-                            </div>
 
                         </div>
 
@@ -497,16 +491,23 @@
             },
             success: function(data, textStatus, jqXHR) {
                 editFormBehaviour();
+                console.log(data);
+
 
                 if (!data.error) {
                     $("#editForm input[name='edit_model_id']").val(data.user.id);
-                    $("#editForm input[name='dob']").val(data.user.dob);
-                    data.user.gender == 'm' ? $("#editForm input[name='gender'][value='m']").prop("checked", true) : $("#editForm input[name='gender'][value='f']").prop("checked", true);
                     $("#editForm select[name='role']").html(data.roleHtml);
+                    $("#editForm select[name='district_id']").html(data.districtHtml);
                     $("#editForm input[name='name']").val(data.user.name);
                     $("#editForm input[name='email']").val(data.user.email);
                     $("#editForm input[name='mobile']").val(data.user.mobile);
-                    $("#editForm select[name='ward_id']").html(data.wardHtml);
+                    $("#editOfficerField").addClass("d-none");
+                    if(data.user.officer_id)
+                    {
+                        $("#editOfficerField").removeClass("d-none");
+                        $("#editForm select[name='officer_id']").html(data.userOfficerHtml);
+                    }
+
                 } else {
                     swal("Error!", data.error, "error");
                 }
@@ -661,23 +662,20 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        // Handle role change event
+
         $('#role').on('change', function () {
-            var roleId = $(this).val();  // Get selected role ID
-
-
+            var roleId = $(this).val();
             var mappedRoleId = null;
 
-            if (roleId == 4) {
-                mappedRoleId = 3;
-            } else if (roleId == 6) {
-                mappedRoleId = 5;
+            if (roleId == 3) {
+                mappedRoleId = 2;
+            } else if (roleId == 5) {
+                mappedRoleId = 4;
             } else {
                 mappedRoleId = roleId;
             }
 
             if (mappedRoleId) {
-
                 $.ajax({
                     url: '/get-officers/' + mappedRoleId,
                     type: 'GET',
@@ -707,12 +705,12 @@
             const selectedRole = roleSelect.options[roleSelect.selectedIndex].getAttribute("data-role-name");
 
             // Only show officer_id field for these roles
-            const allowedRoles = ["Land Acquisition Assistant Officer", "Sub-Divisional Assistant Officer"];
+            const allowedRoles = ["3", "5"];
 
             if (allowedRoles.includes(selectedRole)) {
-                officerField.style.display = "block"; // Show field
+                officerField.style.display = "block";
             } else {
-                officerField.style.display = "none"; // Hide field
+                officerField.style.display = "none";
             }
         });
     });
