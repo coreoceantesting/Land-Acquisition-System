@@ -95,6 +95,7 @@ class LandAcquisitionController extends Controller
      */
     public function update(UpdateLandAcquisitionRequest $request, Land_Acquisition $land_acquisition)
     {
+
         try {
             DB::beginTransaction();
             $input = $request->validated();

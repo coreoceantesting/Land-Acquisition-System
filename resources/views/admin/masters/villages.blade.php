@@ -27,12 +27,12 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="village_name"> Village Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="village_name" name="village_name" type="text" placeholder="Enter taluka initial">
+                                    <input class="form-control" id="village_name" name="village_name" type="text" placeholder="Enter Village initial">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="village_init"> Village Initial <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="village_init" name="village_init" type="text" placeholder="Enter taluka initial">
+                                    <input class="form-control" id="village_init" name="village_init" type="text" placeholder="Enter Village initial">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                             <div class="mb-3 row">
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="taluka_id">Select Taluka Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="taluka_id" name="taluka_id" required>
+                                    <select class="form-select" id="taluka_id" name="taluka_id" required>
                                         <option value="" selected disabled>Select Taluka</option>
                                         @foreach($talukas as $taluka)
                                             <option value="{{ $taluka->id }}">{{ $taluka->taluka_name }}</option>
@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="village_init"> Village Initial <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="village_init" name="village_init" type="text" placeholder="Enter taluka initial">
+                                    <input class="form-control" id="village_init" name="village_init" type="text" placeholder="Enter Village initial">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
                             </div>
@@ -219,7 +219,8 @@
                     $("#editContainer").show();
                     $("#editForm input[name='edit_model_id']").val(data.village.id);
                     $("#editForm select[name='taluka_id']").val(data.village.taluka_id); // Dropdown value
-                    $("#editForm input[name='village_name']").val(data.village.name);
+                    $("#editForm input[name='village_name']").val(data.village.village_name);
+                    $("#editForm input[name='village_init']").val(data.village.village_init);
                 } else {
                     alert(data.error);
                 }

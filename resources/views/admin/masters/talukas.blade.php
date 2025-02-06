@@ -221,7 +221,8 @@
             success: function (data) {
                 if (!data.error) {
                     // Populate the edit form with data
-                    $("#editForm input[name='district_id']").val(data.taluka.district_id).trigger("change");;
+                    $("#editForm input[name='edit_model_id']").val(data.taluka.id);
+                    $("#editForm select[name='district_id']").val(data.taluka.district_id);
                     $("#editForm input[name='taluka_name']").val(data.taluka.taluka_name);
                     $("#editForm input[name='taluka_ini']").val(data.taluka.taluka_ini);
 

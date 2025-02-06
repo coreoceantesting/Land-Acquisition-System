@@ -193,9 +193,9 @@
                 editFormBehaviour();
                 if (!data.error)
                 {
-                    $("#editForm input[name='edit_model_id']").val(data.designation.id);
-                    $("#editForm input[name='designation_name']").val(data.designation.name);
-                    $("#editForm input[name='designation_initial']").val(data.designation.initial);
+                    $("#editForm input[name='edit_model_id']").val(data.Designation.id);
+                    $("#editForm input[name='designation_name']").val(data.Designation.designation_name);
+
                 }
                 else
                 {

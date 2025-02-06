@@ -103,7 +103,7 @@ class DesignationController extends Controller
             $designation->update( Arr::only( $input, Designation::getFillables() ) );
             DB::commit();
 
-            return response()->json(['success'=> 'Ward updated successfully!']);
+            return response()->json(['success'=> 'Designations updated successfully!']);
         }
         catch(\Exception $e)
         {

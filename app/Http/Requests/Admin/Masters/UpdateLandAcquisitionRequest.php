@@ -1,4 +1,3 @@
-
 <?php
 
 namespace App\Http\Requests\Admin\Masters;
@@ -24,14 +23,6 @@ class UpdateLandAcquisitionRequest extends FormRequest
     {
         return [
             'land_acquisitions_name' => 'required',
-
         ];
     }
 }
-
-
-
-
-
-
-
