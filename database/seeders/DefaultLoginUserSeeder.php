@@ -17,13 +17,13 @@ class DefaultLoginUserSeeder extends Seeder
     public function run(): void
     {
 
-        // Super Admin Seeder ##
+        // Super Admin / Collector Seeder ##
         $superAdminRole = Role::updateOrCreate(['name'=> 'Super Admin']);
         $permissions = Permission::pluck('id','id')->all();
         $superAdminRole->syncPermissions($permissions);
 
         $user = User::updateOrCreate([
-            'email' => 'superadmin@gmail.com'
+            'id' => '1',
         ],[
             'name' => 'Super Admin',
             'email' => 'superadmin@gmail.com',
@@ -35,19 +35,105 @@ class DefaultLoginUserSeeder extends Seeder
 
 
         // Admin Seeder ##
-        $adminRole = Role::updateOrCreate(['name'=> 'Admin']);
-        $permissions = Permission::pluck('id','id')->all();
-        $adminRole->syncPermissions($permissions);
-
         $user = User::updateOrCreate([
-            'email' => 'admin@gmail.com'
+            'id' => '2',
         ],[
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
+            'name' => 'Collector',
+            'email' => 'collector@gmail.com',
             'mobile' => '9999999992',
             'password' => Hash::make('12345678')
         ]);
-        $user->assignRole([$adminRole->id]);
+        $user->assignRole([$superAdminRole->id]);
+
+
+
+        // Officer Seeder ##
+        $officerRole = Role::updateOrCreate(['name'=> 'Officer']);
+        $permissions = Permission::pluck('id','id')->all();
+        $officerRole->syncPermissions($permissions);
+
+        $user = User::updateOrCreate([
+            'id' => '3',
+        ],[
+            'name' => 'Officer',
+            'email' => 'officer@gmail.com',
+            'mobile' => '9999999993',
+            'password' => Hash::make('12345678'),
+            'officer_id' => null,
+        ]);
+        $user->assignRole([$officerRole->id]);
+
+
+
+        // Assistant Officer Seeder ##
+        $assistantOfficerRole = Role::updateOrCreate(['name'=> 'Assistant Officer']);
+        $permissions = Permission::pluck('id','id')->all();
+        $assistantOfficerRole->syncPermissions($permissions);
+
+        $user = User::updateOrCreate([
+            'id' => '4',
+        ],[
+            'name' => 'Assistant Officer',
+            'email' => 'assistant.officer@gmail.com',
+            'mobile' => '9999999994',
+            'password' => Hash::make('12345678'),
+            'officer_id' => 3,
+        ]);
+        $user->assignRole([$assistantOfficerRole->id]);
+
+
+
+        // Divisional Seeder ##
+        $divisionalRole = Role::updateOrCreate(['name'=> 'Divisional']);
+        $permissions = Permission::pluck('id','id')->all();
+        $divisionalRole->syncPermissions($permissions);
+
+        $user = User::updateOrCreate([
+            'id' => '5',
+        ],[
+            'name' => 'Divisional Officer',
+            'email' => 'divisional@gmail.com',
+            'mobile' => '9999999995',
+            'password' => Hash::make('12345678'),
+            'officer_id' => null,
+        ]);
+        $user->assignRole([$divisionalRole->id]);
+
+
+
+        // Sub-Divisional Officer Seeder ##
+        $subDivisionalRole = Role::updateOrCreate(['name'=> 'Sub Divisional']);
+        $permissions = Permission::pluck('id','id')->all();
+        $subDivisionalRole->syncPermissions($permissions);
+
+        $user = User::updateOrCreate([
+            'id' => '6',
+        ],[
+            'name' => 'Sub Divisional',
+            'email' => 'sub.divisional@gmail.com',
+            'mobile' => '9999999996',
+            'password' => Hash::make('12345678'),
+            'officer_id' => 3,
+        ]);
+        $user->assignRole([$subDivisionalRole->id]);
+
+
+
+        // Other User Seeder ##
+        $otherRole = Role::updateOrCreate(['name'=> 'Other']);
+        $permissions = Permission::pluck('id','id')->all();
+        $otherRole->syncPermissions($permissions);
+
+        $user = User::updateOrCreate([
+            'id' => '7',
+        ],[
+            'name' => 'Other',
+            'email' => 'other@gmail.com',
+            'mobile' => '9999999997',
+            'password' => Hash::make('12345678'),
+            'district_id' => 2,
+        ]);
+        $user->assignRole([$otherRole->id]);
 
     }
 }

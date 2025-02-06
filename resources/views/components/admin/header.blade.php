@@ -175,7 +175,7 @@
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-inline-block ms-1 fw-semibold user-name-text">{{ ucfirst(auth()->user()->name) }}</span>
 
-                                @if(!Auth::user()->hasRole(['Super Admin', 'Land Acquisition Officer', 'Sub-Divisional Officer']))
+                                @if(!Auth::user()->hasRole(['Super Admin', 'Officer', 'Sub-Divisional']))
     <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">
         Taluka: {{ auth()->check() && auth()->user()->taluka ? auth()->user()->taluka->taluka_name : '' }}
     </span>

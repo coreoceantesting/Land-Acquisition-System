@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::table('acquisition_assistants', function (Blueprint $table) {
             $table->date('updated_date')->after('acquisition_officer_remark')->nullable();
+            $table->integer('is_userdiff')->after('acquisition_officer_remark')->nullable();
+            $table->integer('user_id')->after('acquisition_officer_remark')->nullable();
         });
     }
 
@@ -21,6 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('acquisition_assistants', function (Blueprint $table) {
+            $table->dropColumn('updated_date');
+            $table->dropColumn('is_userdiff');
+            $table->dropColumn('user_id');
+        });
     }
 };

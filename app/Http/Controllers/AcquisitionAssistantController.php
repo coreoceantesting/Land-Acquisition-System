@@ -307,8 +307,8 @@ class AcquisitionAssistantController extends Controller
             'sr_no',
             'land_acquisition'
         ])->where('acquisition_officer_status', 0)
-            ->when($userRole == 'Land Acquisition Officer', fn($q) => $q->where('district_id', $user->district_id))
-            ->when($userRole == 'Land Acquisition Assistant Officer', fn($q) => $q->where('user_id', $user->id))
+            ->when($userRole == 'Officer', fn($q) => $q->where('district_id', $user->district_id))
+            ->when($userRole == 'Assistant Officer', fn($q) => $q->where('user_id', $user->id))
             ->paginate(10);
 
         // $acquisition_assistants = AcquisitionAssistant::all();
@@ -386,8 +386,8 @@ class AcquisitionAssistantController extends Controller
             'sr_no',
             'land_acquisition'
         ])->where('acquisition_officer_status', 1)
-            ->when($userRole == 'Land Acquisition Officer', fn($q) => $q->where('district_id', $user->district_id))
-            ->when($userRole == 'Land Acquisition Assistant Officer', fn($q) => $q->where('user_id', $user->id))
+            ->when($userRole == 'Officer', fn($q) => $q->where('district_id', $user->district_id))
+            ->when($userRole == 'Assistant Officer', fn($q) => $q->where('user_id', $user->id))
             ->paginate(10);
 
 
@@ -412,8 +412,8 @@ class AcquisitionAssistantController extends Controller
             'sr_no',
             'land_acquisition'
         ])->where('acquisition_officer_status', 2)
-            ->when($userRole == 'Land Acquisition Officer', fn($q) => $q->where('district_id', $user->district_id))
-            ->when($userRole == 'Land Acquisition Assistant Officer', fn($q) => $q->where('user_id', $user->id))
+            ->when($userRole == 'Officer', fn($q) => $q->where('district_id', $user->district_id))
+            ->when($userRole == 'Assistant Officer', fn($q) => $q->where('user_id', $user->id))
             ->paginate(10);
 
 

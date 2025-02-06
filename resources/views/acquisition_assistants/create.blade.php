@@ -118,9 +118,8 @@
                                         <div class="col-md-4 mb-3">
                                             <label class="col-form-label" for="law">भूसंपादन कोणत्या कायद्यानुसार झाले ? / Land acquisition was done according to which law? <span class="text-danger">*</span></label>
                                             <select name="law" id="law" class="form-select" required>
-                                                <option value="">भूसंपादनाचे कायद्यानुसार</option>
-                                                <option value="1">THE NATIONAL GREEN TRIBUNAL ACT, 2010/
-                                                    राष्ट्रीय हरित न्यायाधिकरण कायदा, २०१०</option>
+                                                <option value=""> -- भूसंपादनाचे कायद्यानुसार निवडा -- </option>
+                                                <option value="1">THE NATIONAL GREEN TRIBUNAL ACT, 2010/राष्ट्रीय हरित न्यायाधिकरण कायदा, २०१०</option>
                                                 <option value="2">THE MUSSALMAN WAKF ACT, 1923/मुस्लिम वक्फ कायदा, १९२३</option>
                                             </select>
                                         </div>

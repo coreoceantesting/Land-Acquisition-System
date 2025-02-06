@@ -77,11 +77,6 @@
 
 
 
-    <button onclick="topFunction()" class="btn btn-primary btn-icon" id="back-to-top">
-        <i class="ri-arrow-up-line"></i>
-    </button>
-
-
 
     <div id="preloader">
         <div id="status">

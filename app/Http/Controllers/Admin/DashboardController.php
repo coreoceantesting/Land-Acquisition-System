@@ -24,7 +24,7 @@ class DashboardController extends Controller
             $pending_count = AcquisitionAssistant::where('acquisition_officer_status', 0)->count();
             $approved_count = AcquisitionAssistant::where('acquisition_officer_status', 1)->count();
             $reject_count = AcquisitionAssistant::where('acquisition_officer_status', 2)->count();
-        } elseif ($user->hasRole('Land Acquisition Officer')) {
+        } elseif ($user->hasRole('Officer')) {
             // Land Acquisition Officer: Filter by assigned user IDs
             $acquisition_assistants = AcquisitionAssistant::whereIn('user_id', $userIds)->count();
             $pending_count = AcquisitionAssistant::where('acquisition_officer_status', 0)->whereIn('user_id', $userIds)->count();
