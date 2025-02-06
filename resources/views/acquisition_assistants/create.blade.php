@@ -1,7 +1,7 @@
 <x-admin.layout>
     <x-slot name="title">Form</x-slot>
     <x-slot name="heading">Form</x-slot>
-
+    @if(!Auth::user()->hasRole([ 'Land Acquisition Officer', 'Sub-Divisional']))
     <div class="row" id="addContainer">
         <div class="col-sm-12">
             <div class="card">
@@ -26,7 +26,7 @@
                                         <div class="col-md-4 mb-3">
                                             <label class="col-form-label" for="district_name"> जिल्हा/ District <span class="text-danger">*</span></label>
                                             <select name="district_id" id="district_name" class="form-select" required>
-                                                <option value="">जिल्हा निवडा</option>
+                                                <option value=""disabled selected>--जिल्हा निवडा--</option>
                                                 @foreach ($districts as $district)
                                                     <option value="{{ $district->id }}">{{ $district->district_name }}</option>
                                                 @endforeach
@@ -36,7 +36,7 @@
                                         <div class="col-md-4 mb-3">
                                             <label class="col-form-label" for="taluka_name">तालुका / Taluka <span class="text-danger">*</span></label>
                                             <select name="taluka_id" id="taluka_id" class="form-select" required>
-                                                <option value="">तालुका निवडा</option>
+                                                <option value="" disabled selected>--तालुका निवडा--</option>
                                                 <!-- Dynamic taluka options will be inserted here -->
                                             </select>
                                         </div>
@@ -44,7 +44,7 @@
                                         <div class="col-md-4 mb-3">
                                             <label class="col-form-label" for="village_name">गाव / Village <span class="text-danger">*</span></label>
                                             <select name="village_id" id="village_id" class="form-select" required>
-                                                <option value="">गाव निवडा</option>
+                                                <option value="" disabled selected>--गाव निवडा--</option>
                                                 <!-- Dynamic village options will be inserted here -->
                                             </select>
                                         </div>
@@ -52,10 +52,8 @@
                                         <div class="col-md-4 mb-3">
                                             <label class="col-form-label" for="sr_nos_in">निवाडा क्र. / Sr.No<span class="text-danger">*</span></label>
                                             <select name="sr_no_id" id="sr_no_id" class="form-select" required>
-                                                <option value="">निवाडा क्र. निवडा </option>
-                                                @foreach ($sr_nos as $sr_no)
-                                                    <option value="{{ $sr_no->id }}">{{ $sr_no->sr_nos_in }}</option>
-                                                @endforeach
+                                                <option value="" disabled selected>--निवाडा क्र. निवडा--</option>
+
                                             </select>
                                         </div>
 
@@ -74,7 +72,7 @@
                                         <div class="col-md-4 mb-3">
                                             <label class="col-form-label" for="year">भूसंपादनाचे वर्ष / Year <span class="text-danger">*</span></label>
                                             <select name="year_id" id="year_id" class="form-select" required>
-                                                <option value="">भूसंपादनाचे वर्ष निवडा</option>
+                                                <option value="" disabled selected>--भूसंपादनाचे वर्ष निवडा--</option>
                                                 @foreach ($years as $year)
                                                     <option value="{{ $year->id }}">{{ $year->year }}</option>
                                                 @endforeach
@@ -84,7 +82,7 @@
 
                                         <div class="col-md-4 mb-3">
                                             <label class="col-form-label" for="acquisition_board_name">भूसंपादन मंडळाचे नाव /Name of Land Acquisition Board<span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="acquisition_board_name" id="acquisition_board_name" cols="30" rows="2" placeholder="भूसंपादन मंडळाचे नाव" required>{{ $abattoirLicense->full_address ?? '' }}</textarea>
+                                            <textarea class="form-control" name="acquisition_board_name" id="acquisition_board_name" cols="30" rows="2" placeholder="भूसंपादन मंडळाचे नाव" required></textarea>
                                             <span class="text-danger is-invalid full_address_err"></span>
                                         </div>
 
@@ -98,7 +96,7 @@
                                         <div class="col-md-4 mb-3">
                                             <label class="col-form-label" for="designation">निवाडा घोषित करणारे तत्कालन भूसंपादन अधिकाऱ्याचे पदनाम / Designation <span class="text-danger">*</span></label>
                                             <select name="designation" id="designation" class="form-select" required>
-                                                <option value=""> -- भूसंपादन अधिकाऱ्याचे पदनाम निवडा -- </option>
+                                                <option value="" disabled selected> -- भूसंपादन अधिकाऱ्याचे पदनाम निवडा -- </option>
                                                 @foreach ($designations as $designation)
                                                     <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
                                                 @endforeach
@@ -109,7 +107,7 @@
                                             <label class="col-form-label" for="acquisition_proposal">भूसंपादन प्रस्ताव /
                                                 Land acquisition proposal<span class="text-danger">*</span></label>
                                             <select name="acquisition_proposal" id="acquisition_proposal" class="form-select" required>
-                                                <option value=""> -- भूसंपादन प्रस्ताव निवडा -- </option>
+                                                <option value=""disabled selected> -- भूसंपादन प्रस्ताव निवडा -- </option>
                                                 <option value="1">पूर्ण</option>
                                                 <option value="2">सुरु</option>
                                             </select>
@@ -118,7 +116,7 @@
                                         <div class="col-md-4 mb-3">
                                             <label class="col-form-label" for="law">भूसंपादन कोणत्या कायद्यानुसार झाले ? / Land acquisition was done according to which law? <span class="text-danger">*</span></label>
                                             <select name="law" id="law" class="form-select" required>
-                                                <option value=""> -- भूसंपादनाचे कायद्यानुसार निवडा -- </option>
+                                                <option value="" disabled selected> -- भूसंपादनाचे कायद्यानुसार निवडा -- </option>
                                                 <option value="1">THE NATIONAL GREEN TRIBUNAL ACT, 2010/राष्ट्रीय हरित न्यायाधिकरण कायदा, २०१०</option>
                                                 <option value="2">THE MUSSALMAN WAKF ACT, 1923/मुस्लिम वक्फ कायदा, १९२३</option>
                                             </select>
@@ -148,7 +146,7 @@
                                                     <tr>
                                                         <th>
                                                             <select name="survey_or_group[]" class="form-select" required>
-                                                                <option value="">सर्वे / गट क्र. निवडा</option>
+                                                                <option value="" disabled selected>--सर्वे / गट क्र. निवडा--</option>
                                                                 <option value="1">सर्वे क्र.</option>
                                                                 <option value="2">गट क्र.</option>
                                                             </select>
@@ -220,6 +218,7 @@
             </div>
         </div>
     </div>
+    @endif
     </div>
 
 

@@ -18,7 +18,7 @@
                             <div class="mb-3 row">
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="taluka_id">Select Taluka Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <select class="form-control" id="taluka_id" name="taluka_id" required>
+                                    <select class="form-select" id="taluka_id" name="taluka_id" required>
                                         <option value="" selected disabled>Select Taluka</option>
                                         @foreach($talukas as $taluka)
                                             <option value="{{ $taluka->id }}">{{ $taluka->taluka_name }}</option>

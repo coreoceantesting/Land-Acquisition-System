@@ -1,6 +1,6 @@
 <x-admin.layout>
-    <x-slot name="title">Show Acquisition Assistant</x-slot>
-    <x-slot name="heading">Show Acquisition Assistant</x-slot>
+    <x-slot name="title">Edit Acquisition Assistant</x-slot>
+    <x-slot name="heading">Edit Acquisition Assistant</x-slot>
 
 <form  class="theme-form" name="showForm" id="showForm" enctype="multipart/form-data" action="{{ route('acquisition_assistant.show', $acquisitionAssistant->id) }}" method="POST">
     <div class="card-header">
