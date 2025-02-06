@@ -108,7 +108,9 @@
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
+                                @if(!Auth::user()->hasRole([ 'Land Acquisition Officer', 'Sub-Divisional']))
                                 <a href="{{ route('acquisition_register.create') }}" class="nav-link {{ request()->routeIs('acquisition_register.create') ? 'active' : '' }}" data-key="t-horizontal">Register</a>
+                         @endif
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('acquisition_register.index') }}" class="nav-link {{ request()->routeIs('acquisition_register.index') ? 'active' : '' }}" data-key="t-horizontal">Registered List</a>
@@ -129,7 +131,9 @@
                         <ul class="nav nav-sm flex-column">
 
                             <li class="nav-item">
+                                @if(!Auth::user()->hasRole([ 'Land Acquisition Officer', 'Sub-Divisional']))
                                 <a href="{{ route('acquisition_assistant.create') }}" class="nav-link {{ request()->routeIs('acquisition_assistant.create') ? 'active' : '' }}" data-key="t-horizontal">Filled Records</a>
+                           @endif
                             </li>
                             {{-- <li class="nav-item">
                                 <a href="" class="nav-link {{request()->routeIs('acquisition_assistant.create') ? 'active' : ''}}"  data-key="t-horizontal">Total Land Acquisition  Form Records</a>

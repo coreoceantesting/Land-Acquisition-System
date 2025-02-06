@@ -19,7 +19,7 @@
                             <div class="col-md-4">
                                 <label class="col-form-label" for="district_name"> जिल्हा/ District <span class="text-danger">*</span></label>
                                 <select name="district_id" id="district_name" class="form-select" required>
-                                    <option value="">जिल्हा निवडा</option>
+                                    <option value="" disabled selected>--जिल्हा निवडा--</option>
                                     @foreach($districts as $district)
                                     <option value="{{ $district->id }}">{{ $district->district_name }}</option>
                                     @endforeach
@@ -29,7 +29,7 @@
                             <div class="col-md-4">
                                 <label class="col-form-label" for="taluka_name">तालुका / Taluka <span class="text-danger">*</span></label>
                                 <select name="taluka_id" id="taluka_id" class="form-select" required>
-                                    <option value="">तालुका निवडा</option>
+                                    <option value="" disabled selected>--तालुका निवडा--</option>
                                     <!-- Dynamic taluka options will be inserted here -->
                                 </select>
                             </div>
@@ -37,7 +37,7 @@
                             <div class="col-md-4">
                                 <label class="col-form-label" for="village_name">गाव / Village <span class="text-danger">*</span></label>
                                 <select name="village_id" id="village_id" class="form-select" required>
-                                    <option value="">गाव निवडा</option>
+                                    <option value="" disabled selected>--गाव निवडा--</option>
                                     <!-- Dynamic village options will be inserted here -->
                                 </select>
                             </div>
@@ -52,7 +52,7 @@
                                 <label class="col-form-label" for="land_acquisitions_name">भूसंपादनाचे प्रयोजन  /
                                     Purpose of land acquisition<span class="text-danger">*</span></label>
                                 <select name="land_acquisition_id" id="land_acquisition_id" class="form-select" required>
-                                    <option value="">भूसंपादनाचे प्रयोजन</option>
+                                    <option disabled selected> -- भूसंपादनाचे प्रयोजन -- </option>
                                     @foreach($land_acquisitions as $land_acquisition)
 
                                     <option value="{{ $land_acquisition->id }}">{{ $land_acquisition->land_acquisitions_name }}</option>

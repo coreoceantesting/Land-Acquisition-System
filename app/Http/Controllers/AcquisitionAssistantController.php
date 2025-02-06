@@ -162,10 +162,11 @@ class AcquisitionAssistantController extends Controller
             $sr_nos = Srno::all();
             $land_acquisitions = Land_Acquisition::all();
             $years = Year::all();
+            $designations =Designation::all();
             $acquisitionAssistantSizes = AcquisitionAssistantSize::where('acquisition_assistant_id', $id)->get();
 
             // Return the edit view with the data
-            return view('acquisition_assistants.edit', compact('acquisitionAssistant', 'districts', 'talukas', 'villages', 'sr_nos', 'land_acquisitions', 'years', 'acquisitionAssistantSizes'));
+            return view('acquisition_assistants.edit', compact('acquisitionAssistant', 'districts', 'talukas', 'villages', 'sr_nos', 'land_acquisitions', 'years','designations', 'acquisitionAssistantSizes'));
         } catch (\Exception $e) {
             // In case of error, catch the exception and show a message
             return response()->json([

@@ -7,8 +7,11 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Land Acquisition Assistance Records</h4>
+                    {{-- @if(!Auth::user()->hasRole(['Super Admin']))
                     <a href="{{ route('acquisition_assistant.create') }}" class="btn btn-primary btn-sm float-end">Add New</a>
+                     @endif --}}
                 </div>
+
                 <div class="card-body" style="overflow-x: auto; white-space: nowrap;">
                     <table class="table table-bordered table-striped">
                         <thead>

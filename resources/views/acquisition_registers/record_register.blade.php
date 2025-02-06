@@ -39,13 +39,13 @@
                                     <td>{{ $record->bundle ?? 'No bundle' }}</td>
 
                                     <td>
-                                        <a href="{{ route('acquisition_register.show', $record->id) }}" class="btn btn-sm btn-warning">View</a>
-                                        <form  id="delete-form-{{ $record->id }}" action="{{ route('acquisition_register.destroy', $record->id) }}" method="POST" class="d-inline" >
+                                        <a href="{{ route('acquisition_register.show', $record->id) }}" class="btn btn-sm btn-success">View</a>
+                                        {{-- <form  id="delete-form-{{ $record->id }}" action="{{ route('acquisition_register.destroy', $record->id) }}" method="POST" class="d-inline" >
                                             @csrf
                                             @method('DELETE')
                                             <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $record->id }})">Delete</button>
                                         </form>
-                                        <a href="{{ route('acquisition_register.edit', $record->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                        <a href="{{ route('acquisition_register.edit', $record->id) }}" class="btn btn-sm btn-warning">Edit</a> --}}
 
                                     </td>
 
