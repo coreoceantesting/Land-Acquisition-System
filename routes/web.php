@@ -76,8 +76,8 @@ Route::middleware(['auth', 'PreventBackHistory', 'firewall.all'])->group(functio
     // ->name('acquisition_register.record');
 
     Route::resource('acquisition_register', AcquisitionRegisterController::class);
-    Route::get('acquisition_register/{id}', [AcquisitionRegisterController::class, 'show'])
-        ->name('acquisition_register.show');
+    // Route::get('acquisition_register/{id}', [AcquisitionRegisterController::class, 'show'])
+    //     ->name('acquisition_register.show');
 
     Route::post('/acquisition_assistant/{id}/approve', [AcquisitionAssistantController::class, 'approve'])
         ->name('acquisition_assistant.approve');

@@ -89,7 +89,7 @@
                                         <div class="col-md-4 mb-3">
                                             <label class="col-form-label" for="description">वर्णन / Description</label>
                                             <input class="form-control" id="description" name="description" type="text" placeholder="वर्णन">
-                                            <span class="text-danger is-invalid applicant_name_err"></span>
+                                            <span class="text-danger is-invalid description_err"></span>
                                         </div>
 
                                         <div class="col-md-4 mb-3">

@@ -22,22 +22,22 @@ class StoreAcquisitionAssistantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'district_id'=>'required',
-            'taluka_id'=>'required',
-            'village_id'=>'required',
-            'sr_no_id'=>'required',
-            'land_acquisition_id'=>'nullable',
-            'purpose_of_land'=>'required',
-            'project_name'=>'required',
-            'year_id'=>'required',
-            'acquisition_board_name'=>'required',
-            // 'description'=>'required',
-            'designation'=>'required',
-         'acquisition_proposal'=>'required',
-            'law'=>'required',
-            'survey_or_group'=>'required',
-            'number'=>'required',
-            'area'=>'required'
+            'district_id' => 'required',
+            'taluka_id' => 'required',
+            'village_id' => 'required',
+            'sr_no_id' => 'required',
+            'land_acquisition_id' => 'nullable',
+            'purpose_of_land' => 'required',
+            'project_name' => 'required',
+            'year_id' => 'required',
+            'acquisition_board_name' => 'required',
+            'designation' => 'required',
+            'description' => 'nullable',
+            'acquisition_proposal' => 'required',
+            'law' => 'required',
+            'survey_or_group' => 'required',
+            'number' => 'required',
+            'area' => 'required'
 
         ];
     }

@@ -331,6 +331,11 @@ class PermissionTableSeeder extends Seeder
                 'name' => 'record_auth.completed',
                 'group' => 'record_auth',
             ],
+            [
+                'id' => 64,
+                'name' => 'la_record.detail',
+                'group' => 'la_record',
+            ],
         ];
 
         foreach ($permissions as $permission)

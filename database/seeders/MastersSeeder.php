@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Designation;
 use App\Models\District;
+use App\Models\Land_Acquisition;
 use App\Models\Taluka;
 use App\Models\Village;
 use App\Models\Year;
@@ -268,6 +270,87 @@ class MastersSeeder extends Seeder
                 'taluka_id' => $village['taluka_id'],
                 'village_name' => $village['village_name'],
                 'village_init' => $village['village_init']
+            ]);
+        }
+
+
+
+
+        // Purpose Seeder
+        $landAcquisitions = [
+            [
+                'id' => 1,
+                'land_acquisitions_name' => 'land acquisition purpose 1',
+            ],
+            [
+                'id' => 2,
+                'land_acquisitions_name' => 'land acquisition purpose 2',
+            ],
+            [
+                'id' => 3,
+                'land_acquisitions_name' => 'land acquisition purpose 3',
+            ],
+            [
+                'id' => 4,
+                'land_acquisitions_name' => 'land acquisition purpose 4',
+            ],
+            [
+                'id' => 5,
+                'land_acquisitions_name' => 'land acquisition purpose 5',
+            ],
+            [
+                'id' => 6,
+                'land_acquisitions_name' => 'land acquisition purpose 6',
+            ],
+            [
+                'id' => 7,
+                'land_acquisitions_name' => 'land acquisition purpose 7',
+            ],
+            [
+                'id' => 8,
+                'land_acquisitions_name' => 'land acquisition purpose 8',
+            ],
+            [
+                'id' => 9,
+                'land_acquisitions_name' => 'land acquisition purpose 9',
+            ],
+            [
+                'id' => 10,
+                'land_acquisitions_name' => 'land acquisition purpose 10',
+            ],
+        ];
+
+        foreach ($landAcquisitions as $landAcquisition)
+        {
+            Land_Acquisition::updateOrCreate([
+                'id' => $landAcquisition['id']
+            ], [
+                'id' => $landAcquisition['id'],
+                'land_acquisitions_name' => $landAcquisition['land_acquisitions_name']
+            ]);
+        }
+
+
+
+        // Designation Seeder
+        $designations = [
+            [
+                'id' => 1,
+                'designation_name' => 'Clerk',
+            ],
+            [
+                'id' => 2,
+                'designation_name' => 'Assistant',
+            ],
+        ];
+
+        foreach ($designations as $designation)
+        {
+            Designation::updateOrCreate([
+                'id' => $designation['id']
+            ], [
+                'id' => $designation['id'],
+                'designation_name' => $designation['designation_name']
             ]);
         }
 
