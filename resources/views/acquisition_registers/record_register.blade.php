@@ -6,7 +6,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Land Acquisition Assistance Records</h4>
+                    <h4 class="card-title">Land Acquisition  Records</h4>
                     {{-- <a href="{{ route('acquisition_registers.create') }}" class="btn btn-primary btn-sm float-end">Add New</a> --}}
                 </div>
                 <div class="card-body" style="overflow-x: auto; white-space: nowrap;">

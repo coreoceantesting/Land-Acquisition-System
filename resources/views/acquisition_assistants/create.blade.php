@@ -53,7 +53,6 @@
                                             <label class="col-form-label" for="sr_nos_in">निवाडा क्र. / Sr.No<span class="text-danger">*</span></label>
                                             <select name="sr_no_id" id="sr_no_id" class="form-select" required>
                                                 <option value="" disabled selected>--निवाडा क्र. निवडा--</option>
-
                                             </select>
                                         </div>
 

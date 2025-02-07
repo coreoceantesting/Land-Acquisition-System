@@ -14,6 +14,7 @@ use App\Models\AcquisitionAssistantSize;
 use App\Models\Year;
 use App\Http\Requests\Assistant\StoreAcquisitionAssistantRequest;
 use App\Http\Requests\Assistant\UpdateAcquisitionAssistantRequest;
+use App\Models\AcquisitionRegister;
 use App\Models\Designation;
 use App\Models\User;
 use Illuminate\Support\Arr;
@@ -62,10 +63,11 @@ class AcquisitionAssistantController extends Controller
 
             $request['is_userdiff'] = Auth::user()->roles[0]->id ?? null;
             $request['user_id'] = Auth::user()->id;
-            $request->land_acquisition_id = Land_Acquisition::where('land_acquisitions_name', $request->purpose_of_land)->value('id');
+            $input = $request->validated();
+            $input['land_acquisition_id'] = Land_Acquisition::where('land_acquisitions_name', $request->purpose_of_land)->value('id');
+            $input['sr_no_id'] = AcquisitionRegister::where('id', $request->sr_no_id)->value('sr_no');
 
-            $acquisition_assistant = AcquisitionAssistant::create( Arr::only($request->validated(), AcquisitionAssistant::getFillables()));
-            // dd($request->all());
+            $acquisition_assistant = AcquisitionAssistant::create( Arr::only($input, AcquisitionAssistant::getFillables()));
 
             foreach ($request->survey_or_group as $index => $surveyOrGroup) {
 

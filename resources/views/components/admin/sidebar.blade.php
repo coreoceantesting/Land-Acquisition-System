@@ -132,7 +132,7 @@
 
                             <li class="nav-item">
                                 @if(!Auth::user()->hasRole([ 'Land Acquisition Officer', 'Sub-Divisional']))
-                                <a href="{{ route('acquisition_assistant.create') }}" class="nav-link {{ request()->routeIs('acquisition_assistant.create') ? 'active' : '' }}" data-key="t-horizontal">Filled Records</a>
+                                <a href="{{ route('acquisition_assistant.create') }}" class="nav-link {{ request()->routeIs('acquisition_assistant.create') ? 'active' : '' }}" data-key="t-horizontal">Fill Record</a>
                            @endif
                             </li>
                             {{-- <li class="nav-item">

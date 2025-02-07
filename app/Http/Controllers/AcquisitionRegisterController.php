@@ -41,8 +41,6 @@ class AcquisitionRegisterController extends Controller
         try {
             DB::beginTransaction();
 
-
-
             $acquisition_register = AcquisitionRegister::create($request->all());
 
             DB::commit();
