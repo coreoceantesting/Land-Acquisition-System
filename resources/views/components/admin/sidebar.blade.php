@@ -98,27 +98,30 @@
                     </li>
                 @endcan
 
-                <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->routeIs('acquisition_register.create') || request()->routeIs('acquisition_register.record') ? 'active' : 'collapsed' }}" href="#sidebarLandAcquisition1" data-bs-toggle="collapse"
-                        role="button" aria-expanded="false" aria-controls="sidebarLandAcquisition1">
-                        <i class="ri-layout-3-line"></i>
-                        <span data-key="t-layouts">Land Acquisition Register</span>
-                    </a>
-                    <div class="collapse menu-dropdown {{ request()->routeIs('acquisition_register.create') || request()->routeIs('acquisition_register.index') ? 'show' : '' }}" id="sidebarLandAcquisition1">
-                        <ul class="nav nav-sm flex-column">
+                @canany(['la_register.view', 'la_register.create', 'la_register.edit', 'la_register.delete'])
+                    <li class="nav-item">
+                        <a class="nav-link menu-link {{ request()->routeIs('acquisition_register.create') || request()->routeIs('acquisition_register.record') ? 'active' : 'collapsed' }}" href="#sidebarLandAcquisition1" data-bs-toggle="collapse"
+                            role="button" aria-expanded="false" aria-controls="sidebarLandAcquisition1">
+                            <i class="ri-layout-3-line"></i>
+                            <span data-key="t-layouts">Land Acquisition Register</span>
+                        </a>
+                        <div class="collapse menu-dropdown {{ request()->routeIs('acquisition_register.create') || request()->routeIs('acquisition_register.index') ? 'show' : '' }}" id="sidebarLandAcquisition1">
+                            <ul class="nav nav-sm flex-column">
+                                @can('la_register.create')
+                                    <li class="nav-item">
+                                        <a href="{{ route('acquisition_register.create') }}" class="nav-link {{ request()->routeIs('acquisition_register.create') ? 'active' : '' }}" data-key="t-horizontal">Register</a>
+                                    </li>
+                                @endcan
+                                @can('la_register.view')
+                                    <li class="nav-item">
+                                        <a href="{{ route('acquisition_register.index') }}" class="nav-link {{ request()->routeIs('acquisition_register.index') ? 'active' : '' }}" data-key="t-horizontal">Registered List</a>
+                                    </li>
+                                @endcan
 
-                            <li class="nav-item">
-                                @if(!Auth::user()->hasRole([ 'Land Acquisition Officer', 'Sub-Divisional']))
-                                <a href="{{ route('acquisition_register.create') }}" class="nav-link {{ request()->routeIs('acquisition_register.create') ? 'active' : '' }}" data-key="t-horizontal">Register</a>
-                         @endif
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('acquisition_register.index') }}" class="nav-link {{ request()->routeIs('acquisition_register.index') ? 'active' : '' }}" data-key="t-horizontal">Registered List</a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endcanany
 
                 <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->routeIs('acquisition_assistant.pending') || request()->routeIs('acquisition_assistant.create') || request()->routeIs('acquisition_assistant.approved') || request()->routeIs('acquisition_assistant.rejected') || request()->routeIs('acquisition_assistant.land_acquisition') || request()->routeIs('acquisition_assistant.complete_reco_auth') ? 'active' : 'collapsed' }}"
