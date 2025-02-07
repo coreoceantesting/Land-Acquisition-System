@@ -108,10 +108,10 @@ class UserController extends Controller
         $roleHtml .= '</span>';
 
         $districtHtml = '<span>
-            <option value="">--Select Role --</option>';
+            <option value="">--Select District --</option>';
             foreach($districts as $district):
-                $is_select = $district->id == $district->district_id ? "selected" : "";
-                $districtHtml .= '<option value="'.$district->id.'" '.$is_select.'>'.$district->name.'</option>';
+                $is_select = $district->id == $user->district_id ? "selected" : "";
+                $districtHtml .= '<option value="'.$district->id.'" '.$is_select.'>'.$district->district_name.'</option>';
             endforeach;
         $districtHtml .= '</span>';
 
@@ -136,10 +136,12 @@ class UserController extends Controller
         try
         {
             DB::beginTransaction();
+
             $input = $request->validated();
             $user->update( Arr::only( $input, Auth::user()->getFillable() ) );
             $user->roles()->detach();
             DB::table('model_has_roles')->insert(['role_id'=> $input['role'], 'model_type'=> 'App\Models\User', 'model_id'=> $user->id]);
+
             DB::commit();
 
             return response()->json(['success'=> 'User updated successfully!']);
