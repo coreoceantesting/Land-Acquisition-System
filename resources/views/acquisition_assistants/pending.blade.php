@@ -73,7 +73,9 @@
 
 
                                     <td>
-                                        <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-success">View</a>
+                                        @can('la_record.detail')
+                                            <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-success">View</a>
+                                        @endcan
 
                                         @if ($record->acquisition_officer_status == 0)
                                             @can('la_record.edit')

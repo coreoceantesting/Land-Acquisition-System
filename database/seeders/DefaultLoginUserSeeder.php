@@ -49,7 +49,7 @@ class DefaultLoginUserSeeder extends Seeder
 
         // Officer Seeder ##
         $officerRole = Role::updateOrCreate(['name'=> 'Officer']);
-        $permissions = Permission::whereIn('id', [49,50,51,52,53,54,57,58,59,60,61,62,63])->pluck('id','id');
+        $permissions = Permission::whereIn('id', [49,50,51,52,53,54,57,58,59,60,61,62,63,64])->pluck('id','id');
         $officerRole->syncPermissions($permissions);
 
         $user = User::updateOrCreate([
@@ -87,7 +87,7 @@ class DefaultLoginUserSeeder extends Seeder
 
         // Divisional Seeder ##
         $divisionalRole = Role::updateOrCreate(['name'=> 'Divisional']);
-        $permissions = Permission::whereIn('id', [49,50,51,52,53,54,57,58,59,60,61,62,63])->pluck('id','id');
+        $permissions = Permission::whereIn('id', [49,50,51,52,53,54,57,58,59,60,61,62,63,64])->pluck('id','id');
         $divisionalRole->syncPermissions($permissions);
 
         $user = User::updateOrCreate([

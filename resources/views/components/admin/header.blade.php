@@ -174,13 +174,10 @@
 
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-inline-block ms-1 fw-semibold user-name-text">{{ ucfirst(auth()->user()->name) }}</span>
-
-                                @if(!Auth::user()->hasRole(['Super Admin', 'Land Acquisition Officer', 'Sub-Divisional']))
-    <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">
-        Taluka: {{ auth()->check() && auth()->user()->taluka ? auth()->user()->taluka->taluka_name : '' }}
-    </span>
-@endif
-                        </span>
+                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">
+                                    Role: {{ auth()->user()->roles[0]->name }}
+                                </span>
+                            </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <h6 class="dropdown-header">
@@ -240,9 +237,9 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
 
-            $("#change-theme-button").click(function(e){
+            $("#change-theme-button").click(function(e) {
                 e.preventDefault();
 
                 $.ajax({
@@ -251,8 +248,7 @@
                     data: {
                         '_token': "{{ csrf_token() }}",
                     },
-                    success: function(data, textStatus, jqXHR)
-                    {
+                    success: function(data, textStatus, jqXHR) {
                         console.log("theme color changed");
                     },
                     error: function(error, jqXHR, textStatus, errorThrown) {

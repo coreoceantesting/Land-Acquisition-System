@@ -59,15 +59,13 @@ class AcquisitionAssistantController extends Controller
         try {
             DB::beginTransaction();
 
-            // $input = $request->validated();
-
             $request['is_userdiff'] = Auth::user()->roles[0]->id ?? null;
             $request['user_id'] = Auth::user()->id;
             $input = $request->validated();
             $input['land_acquisition_id'] = Land_Acquisition::where('land_acquisitions_name', $request->purpose_of_land)->value('id');
             $input['sr_no_id'] = AcquisitionRegister::where('id', $request->sr_no_id)->value('sr_no');
 
-            $acquisition_assistant = AcquisitionAssistant::create( Arr::only($input, AcquisitionAssistant::getFillables()));
+            $acquisition_assistant = AcquisitionAssistant::create(Arr::only($input, AcquisitionAssistant::getFillables()));
 
             foreach ($request->survey_or_group as $index => $surveyOrGroup) {
 
@@ -114,15 +112,9 @@ class AcquisitionAssistantController extends Controller
     {
 
         try {
-            // Fetch the Acquisition Assistant and its related data
             $acquisitionAssistant = AcquisitionAssistant::findOrFail($id);
-            // $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year','sr_no', 'land_acquisition'])->paginate(10);
-
-
-            // Fetch related Acquisition Assistant Sizes
             $acquisitionAssistantSizes = AcquisitionAssistantSize::where('acquisition_assistant_id', $id)->get();
 
-            // Fetch other related data (for dropdowns, etc.)
             $districts = District::all();
             $talukas = Taluka::all();
             $villages = Village::all();
@@ -130,7 +122,7 @@ class AcquisitionAssistantController extends Controller
             $land_acquisitions = Land_Acquisition::all();
             $years = Year::all();
 
-            // Return the show view with the data
+
             return view('acquisition_assistants.show', compact(
                 'acquisitionAssistant',
                 'acquisitionAssistantSizes',
@@ -164,11 +156,11 @@ class AcquisitionAssistantController extends Controller
             $sr_nos = Srno::all();
             $land_acquisitions = Land_Acquisition::all();
             $years = Year::all();
-            $designations =Designation::all();
+            $designations = Designation::all();
             $acquisitionAssistantSizes = AcquisitionAssistantSize::where('acquisition_assistant_id', $id)->get();
 
             // Return the edit view with the data
-            return view('acquisition_assistants.edit', compact('acquisitionAssistant', 'districts', 'talukas', 'villages', 'sr_nos', 'land_acquisitions', 'years','designations', 'acquisitionAssistantSizes'));
+            return view('acquisition_assistants.edit', compact('acquisitionAssistant', 'districts', 'talukas', 'villages', 'sr_nos', 'land_acquisitions', 'years', 'designations', 'acquisitionAssistantSizes'));
         } catch (\Exception $e) {
             // In case of error, catch the exception and show a message
             return response()->json([
@@ -282,7 +274,6 @@ class AcquisitionAssistantController extends Controller
 
     public function reject(Request $request, $id)
     {
-        // dd('dsfdg');
         $acquisitionAssistant = AcquisitionAssistant::find($id);
 
         if (!$acquisitionAssistant) {
@@ -302,8 +293,6 @@ class AcquisitionAssistantController extends Controller
         $user = Auth::user();
         $userRole = $user->roles()->first();
 
-        // dd($userRole);
-        // Fetch records with necessary relationships
         $records = AcquisitionAssistant::with([
             'district',
             'taluka',
@@ -316,7 +305,6 @@ class AcquisitionAssistantController extends Controller
             ->when($userRole == 'Assistant Officer', fn($q) => $q->where('user_id', $user->id))
             ->paginate(10);
 
-        // $acquisition_assistants = AcquisitionAssistant::all();
 
         return view('acquisition_assistants.pending', compact('records'));
     }
@@ -334,17 +322,9 @@ class AcquisitionAssistantController extends Controller
     {
         $acquisition_assistants = AcquisitionAssistant::all();
 
-        // $acquisitionAssistant=AcquisitionAssistant::all();
-
-        // Fetch records with required relationships
         $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year', 'land_acquisition'])->whereIn('acquisition_proposal', [1])
-            // Use `where` instead of `whereIn` for a single value
             ->paginate(10);
 
-        // Fetch all acquisition assistants
-
-
-        // Return the view with data
         return view('acquisition_assistants.complete_reco_auth', compact('acquisition_assistants', 'records'));
     }
 
