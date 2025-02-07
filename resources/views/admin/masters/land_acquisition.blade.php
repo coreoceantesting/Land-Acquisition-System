@@ -18,7 +18,7 @@
                             <div class="mb-3 row">
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="land_acquisitions_name">Land Acquisition Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="land_acquisitions_name" name="land_acquisitions_name" type="text" placeholder="Enter District Name">
+                                    <input class="form-control" id="land_acquisitions_name" name="land_acquisitions_name" type="text" placeholder="Enter Land Acquisition Name">
                                     <span class="text-danger is-invalid name_err"></span>
                                 </div>
 

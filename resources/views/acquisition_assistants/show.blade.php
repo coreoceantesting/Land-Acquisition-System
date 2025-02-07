@@ -173,11 +173,12 @@
                 </div>
             </div>
 
-            <br>
-            <a href="{{ route('acquisition_assistant.pending') }}" class="btn btn-primary btn-danger">Cancel</a>
+
 
             <div class="row my-3">
+
                 <div class="col-4">
+                    <a href="{{ route('acquisition_assistant.pending') }}" class="btn btn-primary">Cancel</a>
                     @can()
                         @if (($acquisitionAssistant->acquisition_officer_status == 0) || ($acquisitionAssistant->divisional_officer_status = 0))
                             <button type="button" class="btn btn-success approve-btn" data-id="{{ $acquisitionAssistant->id }}">

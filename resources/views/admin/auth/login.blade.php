@@ -129,11 +129,11 @@ margin-left:94%
                     </div>
 
                     <div class="col-lg-6 col-md-6 col-12 d-md-none d-lg-none d-xl-none d-sm-block d-block mobile-view-bgcolor">
-                        <img src="" style="width: 100%" alt="">
+                        <img src="{{ asset('img/maha_logo.png') }}" style="width: 100%" alt="">
                     </div>
                     <div class="col-lg-6 col-md-6 col-12 mobile-view-bgcolor">
-                        <div class="d-flex justify-content-center mt-3" style="margin-bottom:30%">
-                            <img src="" style="width: 30%;">
+                        <div class="d-flex justify-content-center mt-3">
+                            <img src="{{ asset('img/maha_logo.png') }}" style="width: 30%;">
                         </div>
                         <div class="text-center mt-3">
                             <h3><b>Land Acquisition System</b></h3>
