@@ -254,6 +254,83 @@ class PermissionTableSeeder extends Seeder
                 'name' => 'designations.delete',
                 'group' => 'designations',
             ],
+
+
+            [
+                'id' => 49,
+                'name' => 'la_register.view',
+                'group' => 'la_register',
+            ],
+            [
+                'id' => 50,
+                'name' => 'la_register.create',
+                'group' => 'la_register',
+            ],
+            [
+                'id' => 51,
+                'name' => 'la_register.edit',
+                'group' => 'la_register',
+            ],
+            [
+                'id' => 52,
+                'name' => 'la_register.delete',
+                'group' => 'la_register',
+            ],
+            [
+                'id' => 53,
+                'name' => 'la_record.view',
+                'group' => 'la_record',
+            ],
+            [
+                'id' => 54,
+                'name' => 'la_record.create',
+                'group' => 'la_record',
+            ],
+            [
+                'id' => 55,
+                'name' => 'la_record.edit',
+                'group' => 'la_record',
+            ],
+            [
+                'id' => 56,
+                'name' => 'la_record.delete',
+                'group' => 'la_record',
+            ],
+            [
+                'id' => 57,
+                'name' => 'la_record.pending-list',
+                'group' => 'la_record',
+            ],
+            [
+                'id' => 58,
+                'name' => 'la_record.approved-list',
+                'group' => 'la_record',
+            ],
+            [
+                'id' => 59,
+                'name' => 'la_record.rejected-list',
+                'group' => 'la_record',
+            ],
+            [
+                'id' => 60,
+                'name' => 'la_record.approve',
+                'group' => 'la_record',
+            ],
+            [
+                'id' => 61,
+                'name' => 'la_record.reject',
+                'group' => 'la_record',
+            ],
+            [
+                'id' => 62,
+                'name' => 'record_auth.in_process',
+                'group' => 'record_auth',
+            ],
+            [
+                'id' => 63,
+                'name' => 'record_auth.completed',
+                'group' => 'record_auth',
+            ],
         ];
 
         foreach ($permissions as $permission)

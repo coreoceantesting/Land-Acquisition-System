@@ -49,7 +49,7 @@ class DefaultLoginUserSeeder extends Seeder
 
         // Officer Seeder ##
         $officerRole = Role::updateOrCreate(['name'=> 'Officer']);
-        $permissions = Permission::pluck('id','id')->all();
+        $permissions = Permission::pluck('id','id')->whereIn('id', [49,50,51,52,53,54,57,58,59,60,61,62,63]);
         $officerRole->syncPermissions($permissions);
 
         $user = User::updateOrCreate([
@@ -68,7 +68,7 @@ class DefaultLoginUserSeeder extends Seeder
 
         // Assistant Officer Seeder ##
         $assistantOfficerRole = Role::updateOrCreate(['name'=> 'Assistant Officer']);
-        $permissions = Permission::pluck('id','id')->all();
+        $permissions = Permission::pluck('id','id')->whereIn('id', [53,54,55,56,57,58,59,62,63]);
         $assistantOfficerRole->syncPermissions($permissions);
 
         $user = User::updateOrCreate([
@@ -87,7 +87,7 @@ class DefaultLoginUserSeeder extends Seeder
 
         // Divisional Seeder ##
         $divisionalRole = Role::updateOrCreate(['name'=> 'Divisional']);
-        $permissions = Permission::pluck('id','id')->all();
+        $permissions = Permission::pluck('id','id')->whereIn('id', [49,50,51,52,53,54,57,58,59,60,61,62,63]);
         $divisionalRole->syncPermissions($permissions);
 
         $user = User::updateOrCreate([
@@ -106,7 +106,7 @@ class DefaultLoginUserSeeder extends Seeder
 
         // Sub-Divisional Officer Seeder ##
         $subDivisionalRole = Role::updateOrCreate(['name'=> 'Sub Divisional']);
-        $permissions = Permission::pluck('id','id')->all();
+        $permissions = Permission::pluck('id','id')->whereIn('id', [53,54,55,56,57,58,59,62,63]);
         $subDivisionalRole->syncPermissions($permissions);
 
         $user = User::updateOrCreate([
