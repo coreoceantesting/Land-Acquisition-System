@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Masters;
 use App\Http\Controllers\Admin\Controller;
 use App\Http\Requests\Admin\Masters\UpdateVillageRequest;
 use App\Http\Requests\Admin\Masters\StoreVillageRequest;
+use App\Models\District;
 use App\Models\Village;
 use App\Models\Taluka;
 use Illuminate\Http\Request;
@@ -14,10 +15,11 @@ class VillageController extends Controller
 {
     public function index()
     {
+
         $villages = Village::with('taluka')->latest()->get();
         $talukas = Taluka::all();
-
-        return view('admin.masters.villages')->with(['villages'=>  $villages,  'talukas' =>  $talukas]);
+        $districts = District::all();
+        return view('admin.masters.villages')->with(['villages'=>  $villages,  'talukas' =>  $talukas,'districts'=>$districts]);
     }
 
     /**
@@ -25,9 +27,11 @@ class VillageController extends Controller
      */
     public function create()
     {
+
         // return view('admin.masters.districts');
+        $districts = District::all();
         $talukas = Taluka::all();
-        return view('admin.masters.create_village')->with([
+        return view('admin.masters.create_village')->with(['districts'=>$districts,
             'talukas' => $talukas // Pass districts to the create view
         ]);
     }
@@ -37,6 +41,7 @@ class VillageController extends Controller
      */
     public function store(StoreVillageRequest $request)
     {
+
 
         try
         {

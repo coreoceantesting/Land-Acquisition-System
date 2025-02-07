@@ -151,7 +151,7 @@
                                 @endcan
                                 @can('la_record.rejected-list')
                                     <li class="nav-item">
-                                        <a href="{{ route('acquisition_assistant.rejected') }}" class="nav-link  {{ request()->routeIs('acquisition_assistant.rejected') ? 'active' : '' }}" data-key="t-horizontal">Rejected Records</a>
+                                        <a href="{{ route('acquisition_assistant.rejected') }}" class="nav-link  {{ request()->routeIs('acquisition_assistant.rejected') ? 'active' : '' }}" data-key="t-horizontal">Recorrection Records</a>
                                     </li>
                                 @endcan
 

@@ -104,6 +104,12 @@
             </div>
 
         </div>
+<br>
+<a href="{{ route('acquisition_register.index') }}" class="btn btn-primary btn-danger">Cancel</a>
+
+
+</div>
+
 
         {{-- <h2> Status Details</h2>
         <table>
