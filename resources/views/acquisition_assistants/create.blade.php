@@ -1,53 +1,53 @@
 <x-admin.layout>
     <x-slot name="title">Land Acquisition Fill Record</x-slot>
     <x-slot name="heading">Land Acquisition Fill Record</x-slot>
-    @if(!Auth::user()->hasRole([ 'Land Acquisition Officer', 'Sub-Divisional']))
-    <div class="row" id="addContainer">
-        <div class="col-sm-12">
-            <div class="card">
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        <div>{{ $error }}</div>
-                    @endforeach
-                @endif
+    @if (!Auth::user()->hasRole(['Land Acquisition Officer', 'Sub-Divisional']))
+        <div class="row" id="addContainer">
+            <div class="col-sm-12">
+                <div class="card">
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div>{{ $error }}</div>
+                        @endforeach
+                    @endif
 
-                <div class="row" id="addContainer">
-                    <div class="col-sm-12">
-                        <div class="card">
-                            <form class="theme-form" name="addForm" id="addForm" enctype="multipart/form-data">
-                                @csrf
+                    <div class="row" id="addContainer">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <form class="theme-form" name="addForm" id="addForm" enctype="multipart/form-data">
+                                    @csrf
 
-                                <div class="card-header">
-                                    <h4 class="card-title">Land Acquisition Fill Record</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="mb-3 row">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Land Acquisition Fill Record</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3 row">
 
-                                        <div class="col-md-4 mb-3">
-                                            <label class="col-form-label" for="district_name"> जिल्हा/ District <span class="text-danger">*</span></label>
-                                            <select name="district_id" id="district_name" class="form-select" required>
-                                                <option value=""disabled selected>--जिल्हा निवडा--</option>
-                                                @foreach ($districts as $district)
-                                                    <option value="{{ $district->id }}">{{ $district->district_name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label class="col-form-label" for="district_name"> जिल्हा/ District <span class="text-danger">*</span></label>
+                                                <select name="district_id" id="district_name" class="form-select" required>
+                                                    <option value=""disabled selected>--जिल्हा निवडा--</option>
+                                                    @foreach ($districts as $district)
+                                                        <option value="{{ $district->id }}">{{ $district->district_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
 
-                                        <div class="col-md-4 mb-3">
-                                            <label class="col-form-label" for="taluka_name">तालुका / Taluka <span class="text-danger">*</span></label>
-                                            <select name="taluka_id" id="taluka_id" class="form-select" required>
-                                                <option value="" disabled selected>--तालुका निवडा--</option>
-                                                <!-- Dynamic taluka options will be inserted here -->
-                                            </select>
-                                        </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label class="col-form-label" for="taluka_name">तालुका / Taluka <span class="text-danger">*</span></label>
+                                                <select name="taluka_id" id="taluka_id" class="form-select" required>
+                                                    <option value="" disabled selected>--तालुका निवडा--</option>
+                                                    <!-- Dynamic taluka options will be inserted here -->
+                                                </select>
+                                            </div>
 
-                                        <div class="col-md-4 mb-3">
-                                            <label class="col-form-label" for="village_name">गाव / Village <span class="text-danger">*</span></label>
-                                            <select name="village_id" id="village_id" class="form-select" required>
-                                                <option value="" disabled selected>--गाव निवडा--</option>
-                                                <!-- Dynamic village options will be inserted here -->
-                                            </select>
-                                        </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label class="col-form-label" for="village_name">गाव / Village <span class="text-danger">*</span></label>
+                                                <select name="village_id" id="village_id" class="form-select" required>
+                                                    <option value="" disabled selected>--गाव निवडा--</option>
+                                                    <!-- Dynamic village options will be inserted here -->
+                                                </select>
+                                            </div>
 
                                         <div class="col-md-4 mb-3">
                                             <label class="col-form-label" for="sr_nos_in">निवाडा क्र. / SR.No<span class="text-danger">*</span></label>
@@ -56,188 +56,178 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-4 mb-3">
-                                            <label class="col-form-label" for="land_acquisitions_name">भूसंपादनाचे प्रयोजन / Purpose of land acquisition<span class="text-danger">*</span></label>
-                                            <input type="text" name="purpose_of_land" readonly id="purpose_of_land" class="form-control" value="">
+                                            <div class="col-md-4 mb-3">
+                                                <label class="col-form-label" for="land_acquisitions_name">भूसंपादनाचे प्रयोजन / Purpose of land acquisition<span class="text-danger">*</span></label>
+                                                <input type="text" name="purpose_of_land" readonly id="purpose_of_land" class="form-control" value="">
+                                            </div>
+
+
+                                            <div class="col-md-4 mb-3">
+                                                <label class="col-form-label" for="project_name">प्रकल्पाचे नाव / Project Name <span class="text-danger">*</span></label>
+                                                <input class="form-control" id="project_name" name="project_name" type="text" placeholder="Enter Applicant Name">
+                                                <span class="text-danger is-invalid applicant_name_err"></span>
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label class="col-form-label" for="year">भूसंपादनाचे वर्ष / Year <span class="text-danger">*</span></label>
+                                                <select name="year_id" id="year_id" class="form-select" required>
+                                                    <option value="" disabled selected>--भूसंपादनाचे वर्ष निवडा--</option>
+                                                    @foreach ($years as $year)
+                                                        <option value="{{ $year->id }}">{{ $year->year }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+
+                                            <div class="col-md-4 mb-3">
+                                                <label class="col-form-label" for="acquisition_board_name">भूसंपादन मंडळाचे नाव /Name of Land Acquisition Board<span class="text-danger">*</span></label>
+                                                <textarea class="form-control" name="acquisition_board_name" id="acquisition_board_name" cols="30" rows="2" placeholder="भूसंपादन मंडळाचे नाव" required></textarea>
+                                                <span class="text-danger is-invalid full_address_err"></span>
+                                            </div>
+
+
+                                            <div class="col-md-4 mb-3">
+                                                <label class="col-form-label" for="description">वर्णन / Description</label>
+                                                <input class="form-control" id="description" name="description" type="text" placeholder="वर्णन">
+                                                <span class="text-danger is-invalid description_err"></span>
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label class="col-form-label" for="designation">निवाडा घोषित करणारे तत्कालन भूसंपादन अधिकाऱ्याचे पदनाम / Designation <span class="text-danger">*</span></label>
+                                                <select name="designation" id="designation" class="form-select" required>
+                                                    <option value="" disabled selected> -- भूसंपादन अधिकाऱ्याचे पदनाम निवडा -- </option>
+                                                    @foreach ($designations as $designation)
+                                                        <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label class="col-form-label" for="acquisition_proposal">भूसंपादन प्रस्ताव /
+                                                    Land acquisition proposal<span class="text-danger">*</span></label>
+                                                <select name="acquisition_proposal" id="acquisition_proposal" class="form-select" required>
+                                                    <option value=""disabled selected> -- भूसंपादन प्रस्ताव निवडा -- </option>
+                                                    <option value="1">पूर्ण</option>
+                                                    <option value="2">सुरु</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-4 mb-3">
+                                                <label class="col-form-label" for="law">भूसंपादन कोणत्या कायद्यानुसार झाले ? / Land acquisition was done according to which law? <span class="text-danger">*</span></label>
+                                                <select name="law" id="law" class="form-select" required>
+                                                    <option value="" disabled selected> -- भूसंपादनाचे कायद्यानुसार निवडा -- </option>
+                                                    <option value="1">THE NATIONAL GREEN TRIBUNAL ACT, 2010/राष्ट्रीय हरित न्यायाधिकरण कायदा, २०१०</option>
+                                                    <option value="2">THE MUSSALMAN WAKF ACT, 1923/मुस्लिम वक्फ कायदा, १९२३</option>
+                                                </select>
+                                            </div>
                                         </div>
 
-
-                                        <div class="col-md-4 mb-3">
-                                            <label class="col-form-label" for="project_name">प्रकल्पाचे नाव / Project Name <span class="text-danger">*</span></label>
-                                            <input class="form-control" id="project_name" name="project_name" type="text" placeholder="Enter Applicant Name">
-                                            <span class="text-danger is-invalid applicant_name_err"></span>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>सर्वे / गट क्र. निवडा</th>
+                                                            <th>क्रमांक</th>
+                                                            <th>क्षेत्र (हेक्टर)</th>
+                                                            <th>
+                                                                <button class="btn btn-primary btn-sm" type="button" id="addMoreSegregationButton">Add More</button>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="AcquisitionAssistantBody">
+                                                        <!-- Initial row (this can be used as a template) -->
+                                                        <tr>
+                                                            <th>
+                                                                <select name="survey_or_group[]" class="form-select" required>
+                                                                    <option value="" disabled selected>--सर्वे / गट क्र. निवडा--</option>
+                                                                    <option value="1">सर्वे क्र.</option>
+                                                                    <option value="2">गट क्र.</option>
+                                                                </select>
+                                                            </th>
+                                                            <th>
+                                                                <input class="form-control" name="number[]" type="number" placeholder="सर्वे / गट क्र. ">
+                                                            </th>
+                                                            <th>
+                                                                <input class="form-control" name="area[]" type="number" placeholder="सर्वे / गट क्र. ">
+                                                            </th>
+                                                            <th>
+                                                                {{-- <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button> --}}
+                                                            </th>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
 
-                                        <div class="col-md-4 mb-3">
-                                            <label class="col-form-label" for="year">भूसंपादनाचे वर्ष / Year <span class="text-danger">*</span></label>
-                                            <select name="year_id" id="year_id" class="form-select" required>
-                                                <option value="" disabled selected>--भूसंपादनाचे वर्ष निवडा--</option>
-                                                @foreach ($years as $year)
-                                                    <option value="{{ $year->id }}">{{ $year->year }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                        <!-- JavaScript to handle Add and Delete functionality -->
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                const addMoreButton = document.getElementById('addMoreSegregationButton');
+                                                const acquisitionAssistantBody = document.getElementById('AcquisitionAssistantBody');
 
+                                                // Add new row when "Add More" button is clicked
+                                                addMoreButton.addEventListener('click', function() {
+                                                    const newRow = document.createElement('tr');
+                                                    newRow.innerHTML = `
+                                                            <th>
+                                                                <select name="survey_or_group[]" class="form-select" required>
+                                                                    <option value="">सर्वे / गट क्र. निवडा</option>
+                                                                    <option value="1">सर्वे क्र.</option>
+                                                                    <option value="2">गट क्र.</option>
+                                                                </select>
+                                                            </th>
+                                                            <th>
+                                                                <input class="form-control" name="number[]" type="number" placeholder="सर्वे / गट क्र. ">
+                                                            </th>
+                                                            <th>
+                                                                <input class="form-control" name="area[]" type="number" placeholder="सर्वे / गट क्र. ">
+                                                            </th>
+                                                            <th>
+                                                                <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>
+                                                            </th>
+                                                        `;
+                                                    acquisitionAssistantBody.appendChild(newRow);
+                                                });
 
-                                        <div class="col-md-4 mb-3">
-                                            <label class="col-form-label" for="acquisition_board_name">भूसंपादन मंडळाचे नाव /Name of Land Acquisition Board<span class="text-danger">*</span></label>
-                                            <textarea class="form-control" name="acquisition_board_name" id="acquisition_board_name" cols="30" rows="2" placeholder="भूसंपादन मंडळाचे नाव" required></textarea>
-                                            <span class="text-danger is-invalid full_address_err"></span>
-                                        </div>
-
-
-                                        <div class="col-md-4 mb-3">
-                                            <label class="col-form-label" for="description">वर्णन / Description</label>
-                                            <input class="form-control" id="description" name="description" type="text" placeholder="वर्णन">
-                                            <span class="text-danger is-invalid description_err"></span>
-                                        </div>
-
-                                        <div class="col-md-4 mb-3">
-                                            <label class="col-form-label" for="designation">निवाडा घोषित करणारे तत्कालन भूसंपादन अधिकाऱ्याचे पदनाम / Designation <span class="text-danger">*</span></label>
-                                            <select name="designation" id="designation" class="form-select" required>
-                                                <option value="" disabled selected> -- भूसंपादन अधिकाऱ्याचे पदनाम निवडा -- </option>
-                                                @foreach ($designations as $designation)
-                                                    <option value="{{ $designation->id }}">{{ $designation->designation_name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-4 mb-3">
-                                            <label class="col-form-label" for="acquisition_proposal">भूसंपादन प्रस्ताव /
-                                                Land acquisition proposal<span class="text-danger">*</span></label>
-                                            <select name="acquisition_proposal" id="acquisition_proposal" class="form-select" required>
-                                                <option value=""disabled selected> -- भूसंपादन प्रस्ताव निवडा -- </option>
-                                                <option value="1">पूर्ण</option>
-                                                <option value="2">सुरु</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="col-md-4 mb-3">
-                                            <label class="col-form-label" for="law">भूसंपादन कोणत्या कायद्यानुसार झाले ? / Land acquisition was done according to which law? <span class="text-danger">*</span></label>
-                                            <select name="law" id="law" class="form-select" required>
-                                                <option value="" disabled selected> -- भूसंपादनाचे कायद्यानुसार निवडा -- </option>
-                                                <option value="1">THE NATIONAL GREEN TRIBUNAL ACT, 2010/राष्ट्रीय हरित न्यायाधिकरण कायदा, २०१०</option>
-                                                <option value="2">THE MUSSALMAN WAKF ACT, 1923/मुस्लिम वक्फ कायदा, १९२३</option>
-                                            </select>
-                                        </div>
-
-
-
-
-                                        {{-- <input type="hidden" name="document_id" value="{{ $documentId }}"> --}}
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <table class="table table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>सर्वे / गट क्र. निवडा</th>
-                                                        <th>क्रमांक</th>
-                                                        <th>क्षेत्र (हेक्टर)</th>
-                                                        <th>
-                                                            <button class="btn btn-primary btn-sm" type="button" id="addMoreSegregationButton">Add More</button>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="AcquisitionAssistantBody">
-                                                    <!-- Initial row (this can be used as a template) -->
-                                                    <tr>
-                                                        <th>
-                                                            <select name="survey_or_group[]" class="form-select" required>
-                                                                <option value="" disabled selected>--सर्वे / गट क्र. निवडा--</option>
-                                                                <option value="1">सर्वे क्र.</option>
-                                                                <option value="2">गट क्र.</option>
-                                                            </select>
-                                                        </th>
-                                                        <th>
-                                                            <input class="form-control" name="number[]" type="number" placeholder="सर्वे / गट क्र. ">
-                                                        </th>
-                                                        <th>
-                                                            <input class="form-control" name="area[]" type="number" placeholder="सर्वे / गट क्र. ">
-                                                        </th>
-                                                        <th>
-                                                            {{-- <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button> --}}
-                                                        </th>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                    <!-- JavaScript to handle Add and Delete functionality -->
-                                    <script>
-                                        document.addEventListener('DOMContentLoaded', function() {
-                                            const addMoreButton = document.getElementById('addMoreSegregationButton');
-                                            const acquisitionAssistantBody = document.getElementById('AcquisitionAssistantBody');
-
-                                            // Add new row when "Add More" button is clicked
-                                            addMoreButton.addEventListener('click', function() {
-                                                const newRow = document.createElement('tr');
-                                                newRow.innerHTML = `
-                                        <th>
-                                            <select name="survey_or_group[]" class="form-select" required>
-                                                <option value="">सर्वे / गट क्र. निवडा</option>
-                                                <option value="1">सर्वे क्र.</option>
-                                                <option value="2">गट क्र.</option>
-                                            </select>
-                                        </th>
-                                        <th>
-                                            <input class="form-control" name="number[]" type="number" placeholder="सर्वे / गट क्र. ">
-                                        </th>
-                                        <th>
-                                            <input class="form-control" name="area[]" type="number" placeholder="सर्वे / गट क्र. ">
-                                        </th>
-                                        <th>
-                                            <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>
-                                        </th>
-                                    `;
-                                                acquisitionAssistantBody.appendChild(newRow);
+                                                // Remove row when the delete button is clicked
+                                                acquisitionAssistantBody.addEventListener('click', function(event) {
+                                                    if (event.target && event.target.classList.contains('deleteButton')) {
+                                                        const row = event.target.closest('tr');
+                                                        row.remove();
+                                                    }
+                                                });
                                             });
-
-                                            // Remove row when the delete button is clicked
-                                            acquisitionAssistantBody.addEventListener('click', function(event) {
-                                                if (event.target && event.target.classList.contains('deleteButton')) {
-                                                    const row = event.target.closest('tr');
-                                                    row.remove();
-                                                }
-                                            });
-                                        });
-                                    </script>
+                                        </script>
 
 
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary" id="addSubmit">Submit</button>
-                                        <button type="reset" class="btn btn-warning">Reset</button>
-                                    </div>
-                            </form>
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary" id="addSubmit">Submit</button>
+                                            <button type="reset" class="btn btn-warning">Reset</button>
+                                        </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     @endif
     </div>
-
 
 </x-admin.layout>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Fetch district data from the Laravel route
         fetch('/admin/districts')
             .then(response => response.json())
             .then(data => {
                 const districtSelect = document.getElementById('district');
-
-                // Clear existing options
                 districtSelect.innerHTML = '<option value="">जिल्हा निवडा</option>';
 
-                // Populate the dropdown with district options
                 data.forEach(function(district) {
                     const option = document.createElement('option');
-                    option.value = district.id; // Use the 'id' from the database
-                    option.textContent = district.name; // Use the 'name' from the database
+                    option.value = district.id;
+                    option.textContent = district.name;
                     districtSelect.appendChild(option);
                 });
             })
@@ -341,17 +331,15 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        // When the district is selected, get talukas for that district
         $('#district_name').on('change', function() {
-            var districtId = $(this).val(); // Get selected district ID
+            var districtId = $(this).val();
 
             if (districtId) {
-                // AJAX request to get talukas based on the selected district
                 $.ajax({
-                    url: '/get-talukas/' + districtId, // Adjust with your route
+                    url: '/get-talukas/' + districtId,
                     type: 'GET',
                     success: function(data) {
-                        $('#taluka_id').empty(); // Clear the taluka dropdown
+                        $('#taluka_id').empty();
                         $('#taluka_id').append('<option value="">--तालुका निवडा--</option>');
                         $.each(data, function(key, value) {
                             $('#taluka_id').append('<option value="' + value.id + '">' + value.taluka_name + '</option>');
@@ -362,7 +350,6 @@
                     }
                 });
             } else {
-                // Clear the taluka dropdown if no district is selected
                 $('#taluka_id').empty().append('<option value="">--तालुका निवडा--</option>');
             }
         });
@@ -371,25 +358,25 @@
 <script>
     $(document).ready(function() {
         // When district is selected
-        $('#district_name').change(function() {
-            var districtId = $(this).val();
-            if (districtId) {
-                // Make AJAX request to get talukas for the selected district
-                $.ajax({
-                    url: '/talukas/' + districtId,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        var talukaDropdown = $('#taluka_id');
-                        talukaDropdown.empty(); // Clear existing options
-                        talukaDropdown.append('<option value="">तालुका निवडा</option>');
-                        $.each(data, function(key, taluka) {
-                            talukaDropdown.append('<option value="' + taluka.id + '">' + taluka.taluka_name + '</option>');
-                        });
-                    }
-                });
-            }
-        });
+        // $('#district_name').change(function() {
+        //     var districtId = $(this).val();
+        //     if (districtId) {
+        //         // Make AJAX request to get talukas for the selected district
+        //         $.ajax({
+        //             url: '/talukas/' + districtId,
+        //             type: 'GET',
+        //             dataType: 'json',
+        //             success: function(data) {
+        //                 var talukaDropdown = $('#taluka_id');
+        //                 talukaDropdown.empty(); // Clear existing options
+        //                 talukaDropdown.append('<option value="">तालुका निवडा</option>');
+        //                 $.each(data, function(key, taluka) {
+        //                     talukaDropdown.append('<option value="' + taluka.id + '">' + taluka.taluka_name + '</option>');
+        //                 });
+        //             }
+        //         });
+        //     }
+        // });
 
         // When taluka is selected
         $('#taluka_id').change(function() {

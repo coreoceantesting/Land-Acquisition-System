@@ -79,23 +79,15 @@ class AcquisitionAssistantController extends Controller
                     'area' => $area,
                 ]);
             }
-            // return($request);
-
-            // Commit the transaction
             DB::commit();
 
-            // Return success response
             return response()->json([
-                'success' => 'Acquisition Assistant created successfully!',
+                'success' => 'Land Acquisition Record created successfully!',
                 'data' => $acquisition_assistant,
             ]);
         } catch (\Exception $e) {
-            // Rollback the transaction if anything goes wrong
             DB::rollBack();
 
-            // Log the exception for debugging (optional but useful)
-
-            // Return an error response
             return response()->json([
                 'error' => 'An error occurred while creating the Acquisition Assistant.',
                 'message' => $e->getMessage(),
@@ -145,23 +137,26 @@ class AcquisitionAssistantController extends Controller
     public function edit($id)
     {
         try {
-            // Attempt to fetch the record by ID
-            $acquisitionAssistant = AcquisitionAssistant::findOrFail($id);
+            $user = auth()->user();
+            $acquisitionAssistant = AcquisitionAssistant::with('land_acquisition')->findOrFail($id);
 
-            // Fetch additional data for the edit form
-            $districts = District::all();
-            $talukas = Taluka::all();
-            $villages = Village::all();
-            $sr_nos = Srno::all();
+            $districts = District::where('id', $user->district_id)->get();
+            $talukas = Taluka::where('district_id', $user->district_id)->get();
+            $villages = Village::whereHas('taluka', fn($q) => $q->where('district_id', $user->district_id))->get();
+            $sr_nos = AcquisitionRegister::query()
+                                        ->select('sr_no', 'id')
+                                        ->where('district_id', $user->district_id)
+                                        ->where('taluka_id', $acquisitionAssistant->taluka_id)
+                                        ->get();
+
             $land_acquisitions = Land_Acquisition::all();
             $years = Year::all();
             $designations = Designation::all();
             $acquisitionAssistantSizes = AcquisitionAssistantSize::where('acquisition_assistant_id', $id)->get();
 
-            // Return the edit view with the data
+
             return view('acquisition_assistants.edit', compact('acquisitionAssistant', 'districts', 'talukas', 'villages', 'sr_nos', 'land_acquisitions', 'years', 'designations', 'acquisitionAssistantSizes'));
         } catch (\Exception $e) {
-            // In case of error, catch the exception and show a message
             return response()->json([
                 'error' => 'An error occurred while fetching the Acquisition Assistant for editing.',
                 'message' => $e->getMessage(),
@@ -173,44 +168,31 @@ class AcquisitionAssistantController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAcquisitionAssistantRequest $request, $id)
+    public function update(UpdateAcquisitionAssistantRequest $request, AcquisitionAssistant $acquisition_assistant)
     {
-
         try {
             DB::beginTransaction();
 
-            // Find the AcquisitionAssistant to update
-            $acquisitionAssistant = AcquisitionAssistant::find($id);
+            $input = $request->validated();
+            $acquisition_assistant->update( Arr::only( $input, AcquisitionAssistant::getFillables() ));
 
-            // Validate the request data
-            // $validated = $request->validated();
-
-            // Update the AcquisitionAssistant record
-            $acquisitionAssistant->update($request->all());
-
-            // Update or create associated AcquisitionAssistantSize records
+            AcquisitionAssistantSize::where('acquisition_assistant_id', $acquisition_assistant->id)->delete();
             foreach ($request->survey_or_group as $index => $surveyOrGroup) {
                 $number = $request->number[$index];
                 $area = $request->area[$index];
 
-                AcquisitionAssistantSize::updateOrCreate(
-                    ['acquisition_assistant_id' => $acquisitionAssistant->id, 'survey_or_group' => $surveyOrGroup],
-                    ['number' => $number, 'area' => $area]
-                );
+                AcquisitionAssistantSize::create([
+                                            'acquisition_assistant_id' => $acquisition_assistant->id,
+                                            'survey_or_group' => $surveyOrGroup,
+                                            'number' => $number,
+                                            'area' => $area,
+                                        ]);
             }
 
-            // Commit the transaction
             DB::commit();
-            // return($request);
 
-            // Redirect to the show page with a success message
-            return redirect()->route('acquisition_assistant.pending', $acquisitionAssistant->id)
-                ->with('success', 'Acquisition Assistant updated successfully!');
+            return response()->json([ 'success' => 'Acquisition Assistant updated successfully!']);
         } catch (\Exception $e) {
-            // Rollback if any exception occurs
-            DB::rollBack();
-
-            // Log or handle the exception if necessary
             return response()->json([
                 'error' => 'An error occurred while updating the Acquisition Assistant.',
                 'message' => $e->getMessage(),
@@ -257,18 +239,22 @@ class AcquisitionAssistantController extends Controller
 
     public function approve(Request $request, $id)
     {
-        //  dd($request);
         $acquisitionAssistant = AcquisitionAssistant::find($id);
 
         if (!$acquisitionAssistant) {
-            return redirect()->back()->with('error', 'Item not found.');
+            return response()->json(['error2'=> 'No data found']);
         }
 
-        $acquisitionAssistant->acquisition_officer_status = 1; // Approve
-        $acquisitionAssistant->acquisition_officer_remark = $request->input('remark');
-        $acquisitionAssistant->save();
-
-        return redirect()->route('acquisition_assistant.approved')->with('message', 'Item approved successfully.');
+        try
+        {
+            $acquisitionAssistant->acquisition_officer_status = 1;
+            $acquisitionAssistant->save();
+            return response()->json(['success'=> 'Item approved successfully!']);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(['error2'=> 'Something went wrong, please try again!']);
+        }
     }
 
     public function reject(Request $request, $id)
@@ -292,18 +278,12 @@ class AcquisitionAssistantController extends Controller
         $user = Auth::user();
         $userRole = $user->roles()->first();
 
-        $records = AcquisitionAssistant::with([
-            'district',
-            'taluka',
-            'village',
-            'year',
-            'sr_no',
-            'land_acquisition'
-        ])->latest()
-        ->where('acquisition_officer_status', 0)
-            ->when($userRole == 'Officer', fn($q) => $q->where('district_id', $user->district_id))
-            ->when($userRole == 'Assistant Officer', fn($q) => $q->where('user_id', $user->id))
-            ->paginate(10);
+        $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year', 'sr_no', 'land_acquisition'])
+                                    ->where('acquisition_officer_status', 0)
+                                    ->when($userRole == 'Officer', fn($q) => $q->where('district_id', $user->district_id))
+                                    ->when($userRole == 'Assistant Officer', fn($q) => $q->where('user_id', $user->id))
+                                    ->latest()
+                                    ->paginate(10);
 
 
         return view('acquisition_assistants.pending', compact('records'));
@@ -336,9 +316,8 @@ class AcquisitionAssistantController extends Controller
             'id' => 'required|exists:acquisition_assistants,id',
         ]);
         $acquisitionAssistant = AcquisitionAssistant::find($request->input('id'));
-        // dd($request->all());
-        if (!$acquisitionAssistant) {
 
+        if (!$acquisitionAssistant) {
             return redirect()->back()->with('error', 'Item not found.');
         }
 
@@ -356,27 +335,15 @@ class AcquisitionAssistantController extends Controller
 
     public function approved()
     {
-
         $user = Auth::user();
         $userRole = $user->roles()->first();
 
-        // Fetch records with necessary relationships
-
-
-        $records = AcquisitionAssistant::with([
-            'district',
-            'taluka',
-            'village',
-            'year',
-            'sr_no',
-            'land_acquisition'
-        ])->latest()
-        ->where('acquisition_officer_status', 1)
-            ->when($userRole == 'Officer', fn($q) => $q->where('district_id', $user->district_id))
-            ->when($userRole == 'Assistant Officer', fn($q) => $q->where('user_id', $user->id))
-            ->paginate(10);
-
-
+        $records = AcquisitionAssistant::with(['district','taluka','village','year','sr_no','land_acquisition'])
+                                ->where('acquisition_officer_status', 1)
+                                ->when($userRole == 'Officer', fn($q) => $q->where('district_id', $user->district_id))
+                                ->when($userRole == 'Assistant Officer', fn($q) => $q->where('user_id', $user->id))
+                                ->latest()
+                                ->paginate(10);
 
 
         return view('acquisition_assistants.approved', compact('records'));
@@ -387,21 +354,12 @@ class AcquisitionAssistantController extends Controller
         $user = Auth::user();
         $userRole = $user->roles()->first();
 
-        // Fetch records with necessary relationships
-
-
-        $records = AcquisitionAssistant::with([
-            'district',
-            'taluka',
-            'village',
-            'year',
-            // 'sr_no',
-            'land_acquisition'
-        ])->latest()
-        ->where('acquisition_officer_status', 2)
-            ->when($userRole == 'Officer', fn($q) => $q->where('district_id', $user->district_id))
-            ->when($userRole == 'Assistant Officer', fn($q) => $q->where('user_id', $user->id))
-            ->paginate(10);
+        $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year', 'sr_no', 'land_acquisition' ])
+                                    ->where('acquisition_officer_status', 2)
+                                    ->when($userRole == 'Officer', fn($q) => $q->where('district_id', $user->district_id))
+                                    ->when($userRole == 'Assistant Officer', fn($q) => $q->where('user_id', $user->id))
+                                    ->latest()
+                                    ->paginate(10);
 
 
         return view('acquisition_assistants.rejected', compact('records'));
@@ -410,10 +368,8 @@ class AcquisitionAssistantController extends Controller
 
     public function getTalukas($districtId)
     {
-        // Fetch talukas based on the selected district
         $talukas = Taluka::where('district_id', $districtId)->get(['id', 'taluka_name']);
 
-        // Return the talukas as a JSON response
         return response()->json($talukas);
     }
 

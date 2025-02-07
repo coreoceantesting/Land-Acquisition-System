@@ -45,7 +45,7 @@
                     <label class="col-form-label" for="sr_no_id">
                         निवाडा क्र. / Sr.No<span class="text-danger">*</span>
                     </label>
-                    <input type="text" readonly class="form-control" value="{{ $acquisitionAssistant->sr_no_id }}" >
+                    <input type="text" readonly class="form-control" value="{{ $acquisitionAssistant->sr_no_id }}">
                 </div>
 
                 <div class="col-md-4 mt-3">
@@ -84,7 +84,7 @@
 
                 <div class="col-md-4 mt-3">
                     <label class="col-form-label" for="acquisition_board_name">भूसंपादन मंडळाचे नाव / Name of Land Acquisition Board<span class="text-danger">*</span></label>
-                    <textarea class="form-control"  disabled readonly name="acquisition_board_name" id="acquisition_board_name" cols="30" rows="2" placeholder="Enter Applicant Address" required>{{ $acquisitionAssistant->acquisition_board_name ?? '' }}</textarea>
+                    <textarea class="form-control" disabled readonly name="acquisition_board_name" id="acquisition_board_name" cols="30" rows="2" placeholder="Enter Applicant Address" required>{{ $acquisitionAssistant->acquisition_board_name ?? '' }}</textarea>
                     <span class="text-danger is-invalid full_address_err"></span>
                     @error('acquisition_board_name')
                         <div class="text-danger">{{ $message }}</div>
@@ -94,7 +94,7 @@
 
                 <div class="col-md-4 mt-3">
                     <label class="col-form-label" for="description">वर्णन / Description<span class="text-danger">*</span></label>
-                    <input class="form-control" id="description"  disabled readonly name="description" type="text" placeholder="Enter Applicant Name" readonly value="{{ $acquisitionAssistant->description ?? '' }}">
+                    <input class="form-control" id="description" disabled readonly name="description" type="text" placeholder="Enter Applicant Name" readonly value="{{ $acquisitionAssistant->description ?? '' }}">
                     <span class="text-danger is-invalid applicant_name_err"></span>
 
                 </div>
@@ -176,41 +176,12 @@
             <br>
             <a href="{{ route('acquisition_assistant.pending') }}" class="btn btn-primary btn-danger">Cancel</a>
 
-
-            </div>
-
             <div class="row my-3">
                 <div class="col-4">
                     @if ((Auth::user()->hasRole(['Officer', 'Divisional']) && $acquisitionAssistant->acquisition_officer_status == 0) || ($acquisitionAssistant->divisional_officer_status = 0))
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#approveModal">
+                        <button type="button" class="btn btn-success approve-btn" data-id="{{ $acquisitionAssistant->id }}">
                             Approve
                         </button>
-
-                        <!-- Approve Modal -->
-                        <div class="modal fade" id="approveModal" tabindex="-1" aria-labelledby="approveModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form action="{{ route('acquisition_assistant.approve', $acquisitionAssistant->id) }}" method="POST">
-                                        @csrf
-
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="approveModalLabel">Approve with Remark</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="mb-3">
-                                                <label for="remark" class="form-label">Remark</label>
-                                                <textarea name="remark" id="remark" class="form-control" rows="4" required></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-success">Approve</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
 
                         <!-- Reject Button -->
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
@@ -250,8 +221,46 @@
 
     </form>
 
+    @push('scripts')
+        <script>
+            $("body").on("click", ".approve-btn", function(e) {
+                e.preventDefault();
+                $('.approve-btn').attr('disabled', true);
+                var model_id = $(this).attr("data-id");
+                var url = "{{ route('acquisition_assistant.approve', ':model_id') }}";
+
+                $.ajax({
+                    url: url.replace(':model_id', model_id),
+                    type: 'POST',
+                    data: {
+                        '_token': "{{ csrf_token() }}"
+                    },
+                    success: function(data, textStatus, jqXHR) {
+                        $('.approve-btn').attr('disabled', false);
+                        if (!data.error && !data.error2) {
+                            swal("Success!", data.success, "success")
+                            .then((action) => {
+                                window.location.reload();
+                            });
+                        } else {
+                            if (data.error) {
+                                swal("Error!", data.error, "error");
+                            } else {
+                                swal("Error!", data.error2, "error");
+                            }
+                        }
+                    },
+                    error: function(error, jqXHR, textStatus, errorThrown) {
+                        $('.approve-btn').attr('disabled', false);
+                        alert("Some thing went wrong");
+                    },
+                });
+            });
+        </script>
+    @endpush
 
 </x-admin.layout>
+
 
 @if (session('message'))
     <div class="alert alert-success">

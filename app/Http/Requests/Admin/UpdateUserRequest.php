@@ -27,6 +27,8 @@ class UpdateUserRequest extends FormRequest
             'name' => 'required',
             'email' => 'required|email',
             'mobile' => 'required|digits:10',
+            'officer_id' => 'nullable',
+            'district_id'=>'nullable',
         ];
     }
 }

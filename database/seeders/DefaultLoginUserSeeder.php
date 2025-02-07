@@ -116,7 +116,7 @@ class DefaultLoginUserSeeder extends Seeder
             'email' => 'sub.divisional@gmail.com',
             'mobile' => '9999999996',
             'password' => Hash::make('12345678'),
-            'officer_id' => 3,
+            'officer_id' => 5,
             'district_id' => 2,
         ]);
         $user->assignRole([$subDivisionalRole->id]);

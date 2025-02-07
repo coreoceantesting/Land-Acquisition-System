@@ -40,12 +40,16 @@
 
                                     <td>
                                         <a href="{{ route('acquisition_register.show', $record->id) }}" class="btn btn-sm btn-success">View</a>
-                                        {{-- <form  id="delete-form-{{ $record->id }}" action="{{ route('acquisition_register.destroy', $record->id) }}" method="POST" class="d-inline" >
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $record->id }})">Delete</button>
-                                        </form>
-                                        <a href="{{ route('acquisition_register.edit', $record->id) }}" class="btn btn-sm btn-warning">Edit</a> --}}
+                                        @can('la_register.edit')
+                                            <a href="{{ route('acquisition_register.edit', $record->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                        @endcan
+                                        @can('la_register.delete')
+                                            <form  id="delete-form-{{ $record->id }}" action="{{ route('acquisition_register.destroy', $record->id) }}" method="POST" class="d-inline" >
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $record->id }})">Delete</button>
+                                            </form>
+                                        @endcan
 
                                     </td>
 

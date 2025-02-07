@@ -152,7 +152,7 @@
                                 <span class="text-danger is-invalid officer_id_err"></span>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-4 mt-3">
                                 <label class="col-form-label" for="district_name"> जिल्हा/ District <span class="text-danger">*</span></label>
                                 <select name="district_id" id="district_name" class="form-select" required>
                                     <option value="">जिल्हा निवडा</option>
