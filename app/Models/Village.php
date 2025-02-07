@@ -11,12 +11,13 @@ class Village extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [ 'taluka_id','village_name','village_init', 'created_by', 'updated_by', 'deleted_by'];
+    protected $fillable = ['taluka_id', 'village_name', 'village_init', 'created_by', 'updated_by', 'deleted_by'];
 
     public $timestamps = true;
 
 
-    public function taluka(){
+    public function taluka()
+    {
         return $this->belongsTo(Taluka::class, 'taluka_id', 'id');
     }
     public static function booted()

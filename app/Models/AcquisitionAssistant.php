@@ -34,10 +34,9 @@ class AcquisitionAssistant extends BaseModel
         return $this->belongsTo(Year::class); // Adjust to your actual model
     }
 
-    // Define the land_acquisition relationship
     public function land_acquisition()
     {
-        return $this->belongsTo(Land_Acquisition::class); // Adjust to your actual model
+        return $this->belongsTo(Land_Acquisition::class);
     }
 
     public function sr_no()
