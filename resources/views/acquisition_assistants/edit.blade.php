@@ -203,7 +203,9 @@
                                                     @enderror
                                                 </th>
                                                 <th>
-                                                    {{-- <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button> --}}
+                                                    @if($loop->iteration > 1)
+                                                        <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>
+                                                    @endif
                                                 </th>
                                             </tr>
                                         @endforeach

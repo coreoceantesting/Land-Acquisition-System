@@ -178,41 +178,47 @@
 
             <div class="row my-3">
                 <div class="col-4">
-                    @if ((Auth::user()->hasRole(['Officer', 'Divisional']) && $acquisitionAssistant->acquisition_officer_status == 0) || ($acquisitionAssistant->divisional_officer_status = 0))
-                        <button type="button" class="btn btn-success approve-btn" data-id="{{ $acquisitionAssistant->id }}">
-                            Approve
-                        </button>
+                    @can()
+                        @if (($acquisitionAssistant->acquisition_officer_status == 0) || ($acquisitionAssistant->divisional_officer_status = 0))
+                            <button type="button" class="btn btn-success approve-btn" data-id="{{ $acquisitionAssistant->id }}">
+                                Approve
+                            </button>
 
-                        <!-- Reject Button -->
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
-                            Reject
-                        </button>
+                            <!-- Reject Button -->
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                                Reject
+                            </button>
 
-                        <!-- Reject Modal -->
-                        <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form action="{{ route('acquisition_assistant.reject', ['id' => $acquisitionAssistant->id]) }}" method="POST">
-                                        @csrf
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="rejectModalLabel">Reject with Remark</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="mb-3">
-                                                <label for="remark" class="form-label">Remark</label>
-                                                <textarea name="remark" id="remark" class="form-control" rows="4" required></textarea>
+                            <!-- Reject Modal -->
+                            <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form action="{{ route('acquisition_assistant.reject', ['id' => $acquisitionAssistant->id]) }}" method="POST">
+                                            @csrf
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="rejectModalLabel">Reject with Remark</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                            <button type="submit" class="btn btn-danger">Reject</button>
-                                        </div>
-                                    </form>
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label for="remark" class="form-label">Remark</label>
+                                                    <textarea name="remark" id="remark" class="form-control" rows="4" required></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-danger">Reject</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endif
+                        @endif
+                    @endcan
+
+                    @can('')
+
+                    @endcan
                 </div>
             </div>
 

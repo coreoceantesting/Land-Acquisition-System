@@ -97,8 +97,6 @@ class AcquisitionAssistantController extends Controller
 
 
 
-
-    // In your AcquisitionAssistantController.php
     public function show($id)
     {
 
