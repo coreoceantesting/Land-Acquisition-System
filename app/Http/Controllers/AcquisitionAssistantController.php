@@ -20,6 +20,7 @@ use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 // use App\Http\Requests\Assistant\UpdateAcquisitionAssistantRequest;
 // use GuzzleHttp\Psr7\Message;
@@ -86,7 +87,7 @@ class AcquisitionAssistantController extends Controller
                 'data' => $acquisition_assistant,
             ]);
         } catch (\Exception $e) {
-            DB::rollBack();
+            Log::info($e);
 
             return response()->json([
                 'error' => 'An error occurred while creating the Acquisition Assistant.',

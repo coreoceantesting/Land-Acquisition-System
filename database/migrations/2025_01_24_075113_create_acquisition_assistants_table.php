@@ -19,8 +19,7 @@ return new class extends Migration
             $table->foreign('taluka_id')->references('id')->on('talukas');
             $table->unsignedBigInteger('village_id')->nullable();
             $table->foreign('village_id')->references('id')->on('villages');
-            $table->unsignedBigInteger('sr_no_id')->nullable();
-            $table->foreign('sr_no_id')->references('id')->on('sr_nos');
+            $table->string('sr_no_id', 50);
             $table->unsignedBigInteger('land_acquisition_id')->nullable();
             $table->foreign('land_acquisition_id')->references('id')->on('land_acquisitions');
             $table->string('project_name')->nullable();
