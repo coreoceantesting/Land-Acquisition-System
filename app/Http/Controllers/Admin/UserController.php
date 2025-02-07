@@ -29,7 +29,7 @@ class UserController extends Controller
     {
         $users = User::whereNot('id', Auth::user()->id)->latest()->get();
         $roles = Role::orderBy('id', 'DESC')->whereNot('name', 'like', '%super%')->get();
-        $districts = District::all();
+        $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id) )->get();
 
         return view('admin.users')->with(['users'=> $users, 'roles'=> $roles, 'districts'=> $districts]);
     }
@@ -39,7 +39,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $districts = District::all();
+        $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id) )->get();
 
         return view('admin.create_user', compact('districts'));
     }
@@ -83,7 +83,7 @@ class UserController extends Controller
     {
         $roles = Role::whereNot('name', 'like', '%super%')->get();
         $user->loadMissing(['roles']);
-        $districts = District::all();
+        $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id) )->get();
         $userOfficerHtml = '';
 
         if($user->officer_id)

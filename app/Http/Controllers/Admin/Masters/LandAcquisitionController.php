@@ -29,9 +29,7 @@ class LandAcquisitionController extends Controller
      */
     public function create()
     {
-        // return view('admin.masters.districts');
-
-        $districts = District::all();  // Get all districts
+        $districts = District::all();
         return view('land_acquisition.create', compact('districts'));
     }
 

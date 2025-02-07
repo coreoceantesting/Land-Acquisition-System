@@ -38,7 +38,7 @@ class AcquisitionAssistantController extends Controller
 
     public function create()
     {
-        $districts = District::all();
+        $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id) )->get();
         $talukas = Taluka::all();
         $villages = Village::all();
         $sr_nos = Srno::all();
@@ -106,7 +106,7 @@ class AcquisitionAssistantController extends Controller
             $acquisitionAssistant = AcquisitionAssistant::findOrFail($id);
             $acquisitionAssistantSizes = AcquisitionAssistantSize::where('acquisition_assistant_id', $id)->get();
 
-            $districts = District::all();
+            $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id) )->get();
             $talukas = Taluka::all();
             $villages = Village::all();
             $sr_nos = Srno::all();

@@ -29,7 +29,7 @@ class AcquisitionRegisterController extends Controller
 
     public function create()
     {
-        $districts = District::all();
+        $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id) )->get();
         $talukas = Taluka::all();
         $villages = Village::all();
         $land_acquisitions = Land_Acquisition::all();
@@ -70,7 +70,7 @@ class AcquisitionRegisterController extends Controller
         try {
             $acquisition_register = AcquisitionRegister::find($id);
 
-            $districts = District::all();
+            $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id) )->get();
             $talukas = Taluka::all();
             $villages = Village::all();
             $land_acquisitions = Land_Acquisition::all();
@@ -96,7 +96,7 @@ class AcquisitionRegisterController extends Controller
         try {
             $acquisition_register = AcquisitionRegister::findOrFail($id);
 
-            $districts = District::all();
+            $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id) )->get();
             $talukas = Taluka::all();
             $villages = Village::all();
             $sr_nos = Srno::all();
