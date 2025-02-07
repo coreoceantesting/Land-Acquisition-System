@@ -87,6 +87,7 @@
                                                 </form>
                                             @endcan
                                         @endif
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>

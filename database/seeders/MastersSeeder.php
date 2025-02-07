@@ -5,8 +5,10 @@ namespace Database\Seeders;
 use App\Models\District;
 use App\Models\Taluka;
 use App\Models\Village;
+use App\Models\Year;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class MastersSeeder extends Seeder
 {
@@ -266,6 +268,22 @@ class MastersSeeder extends Seeder
                 'taluka_id' => $village['taluka_id'],
                 'village_name' => $village['village_name'],
                 'village_init' => $village['village_init']
+            ]);
+        }
+
+
+
+
+        // Years Seeder
+        $startYear = 1984;
+        $currentYear = date('Y');
+
+        for ($year = $startYear; $year <= $currentYear; $year++)
+        {
+            Year::updateOrCreate([
+                'year' => $year
+            ], [
+                'year' => $year,
             ]);
         }
     }
