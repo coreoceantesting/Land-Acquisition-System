@@ -1,12 +1,12 @@
 <x-admin.layout>
-    <x-slot name="title">Land Acquisition Assistance - List</x-slot>
-    <x-slot name="heading">Land Acquisition Assistance - List</x-slot>
+    <x-slot name="title">Land Acquisition Pending Records - List</x-slot>
+    <x-slot name="heading">Land Acquisition Pending Records - List</x-slot>
 
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Land Acquisition Assistance Records</h4>
+                    <h4 class="card-title">Land Acquisition Pending Records</h4>
                     {{-- @if (!Auth::user()->hasRole(['Super Admin']))
                     <a href="{{ route('acquisition_assistant.create') }}" class="btn btn-primary btn-sm float-end">Add New</a>
                      @endif --}}

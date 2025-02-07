@@ -1,12 +1,12 @@
 <x-admin.layout>
-    <x-slot name="title">Land Acquisition  - Record</x-slot>
-    <x-slot name="heading">Land Acquisition  - Record</x-slot>
+    <x-slot name="title">Record Authorization - In Process</x-slot>
+    <x-slot name="heading">Record Authorization - In Process</x-slot>
 
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Land Acquisition  Records</h4>
+                    <h4 class="card-title">Record Authorization - In Process</h4>
                     {{-- <a href="{{ route('acquisition_assistant.create') }}" class="btn btn-primary btn-sm float-end">Add New</a> --}}
                 </div>
                 <div class="card-body" style="overflow-x: auto; white-space: nowrap;">

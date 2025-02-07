@@ -1,6 +1,6 @@
 <x-admin.layout>
-    <x-slot name="title">Form</x-slot>
-    <x-slot name="heading">Form</x-slot>
+    <x-slot name="title">Land Acquisition Fill Record</x-slot>
+    <x-slot name="heading">Land Acquisition Fill Record</x-slot>
     @if(!Auth::user()->hasRole([ 'Land Acquisition Officer', 'Sub-Divisional']))
     <div class="row" id="addContainer">
         <div class="col-sm-12">
@@ -18,7 +18,7 @@
                                 @csrf
 
                                 <div class="card-header">
-                                    <h4 class="card-title">Land Acquisition Assistance </h4>
+                                    <h4 class="card-title">Land Acquisition Fill Record</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="mb-3 row">
