@@ -20,7 +20,8 @@ class AcquisitionRegisterController extends Controller
 
     public function index()
     {
-        $record_reg = AcquisitionRegister::with(['district', 'taluka', 'village', 'land_acquisition'])->paginate(10);
+        $record_reg = AcquisitionRegister::with(['district', 'taluka', 'village', 'land_acquisition'])->latest()->paginate(10);
+
 
         $acquisition_register = AcquisitionRegister::all();
         return view('acquisition_registers.record_register', compact('acquisition_register', 'record_reg'));
@@ -47,8 +48,8 @@ class AcquisitionRegisterController extends Controller
 
             // Return success response
             return response()->json([
-                'status' => 'success',
-                'message' => 'Data saved successfully!'
+                'success' => 'Acquisition Register created successfully!',
+                'data' => $acquisition_register,
             ]);
         } catch (\Exception $e) {
             // Rollback the transaction if anything goes wrong

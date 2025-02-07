@@ -43,8 +43,8 @@
                             </div>
 
                             <div class="col-md-4">
-                                <label class="col-form-label" for="sr_no">Sr.No<span class="text-danger">*</span></label>
-                                <input class="form-control" id="sr_no" name="sr_no" type="number" placeholder="Enter sr no">
+                                <label class="col-form-label" for="sr_no">निवाडा क्र. /SR.No<span class="text-danger">*</span></label>
+                                <input class="form-control" id="sr_no" name="sr_no" type="text" placeholder="Enter sr no">
                                 <span class="text-danger is-invalid applicant_name_err"></span>
                             </div>
 
@@ -79,22 +79,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="successModalLabel">Success</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p id="successMessage"></p> <!-- This is where the success message will be displayed -->
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
+
 </x-admin.layout>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -171,35 +156,42 @@
         }
     });
 });
-$(document).ready(function() {
-    // Listen for the form submission
-    $('#addForm').on('submit', function(e) {
-        e.preventDefault(); // Prevent default form submission
 
-        var formData = new FormData(this);
+$("#addForm").submit(function(e) {
+        e.preventDefault();
+        $("#addSubmit").prop('disabled', true);
 
+        var formdata = new FormData(this);
         $.ajax({
-            url: '{{ route("acquisition_register.store") }}',  // Route to your save function in Laravel
+            url: '{{ route('acquisition_register.store') }}',
             type: 'POST',
-            data: formData,
-            processData: false,  // Prevent jQuery from converting the data
-            contentType: false,  // Prevent jQuery from setting content type
-            success: function(response) {
-                if(response.status === 'success') {
-                    // Show success message in a custom modal popup
-                    $('#successModal').modal('show'); // Show the modal
-                    $('#successMessage').html(response.message); // Set the message in the modal
-                    // Optionally reset the form after success
-                    $('#addForm')[0].reset();
-                }
+            data: formdata,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                $("#addSubmit").prop('disabled', false);
+                if (!data.error2)
+                    swal("Successful!", data.success, "success")
+                    .then((action) => {
+                        window.location.href = '{{ route('acquisition_register.index') }}';
+                    });
+                else
+                    swal("Error!", data.error2, "error");
             },
-            error: function(xhr, status, error) {
-                // Handle errors here
-                alert('Error occurred: ' + error);
+            statusCode: {
+                422: function(responseObject, textStatus, jqXHR) {
+                    $("#addSubmit").prop('disabled', false);
+                    resetErrors();
+                    printErrMsg(responseObject.responseJSON.errors);
+                },
+                500: function(responseObject, textStatus, errorThrown) {
+                    $("#addSubmit").prop('disabled', false);
+                    swal("Error occured!", "Something went wrong please try again", "error");
+                }
             }
         });
+
     });
-});
 
 
 

@@ -17,7 +17,7 @@
                                 <th>जिल्हा / District</th>
                                 <th>तालुका / Taluka</th>
                                 <th>गाव / Village</th>
-                                 <th>Sr.No</th>
+                                 <th>निवाडा क्र. /SR.No</th>
                                   <th>भूसंपादनाचे प्रयोजन / Purpose of land acquisition</th>
                                    <th>Bundle No</th>
 
@@ -71,6 +71,7 @@
 </x-admin.layout>
 
 <script>
+
     @if(Session::has('success'))
         swal({
             title: "Successful!",

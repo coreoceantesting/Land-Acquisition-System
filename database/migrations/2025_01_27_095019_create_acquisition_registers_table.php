@@ -20,7 +20,7 @@ return new class extends Migration
                 $table->foreign('taluka_id')->references('id')->on('talukas');
                 $table->unsignedBigInteger('village_id')->nullable();
                 $table->foreign('village_id')->references('id')->on('villages');
-                $table->integer('sr_no')->nullable();
+                $table->string('sr_no', 50)->nullable();
                 $table->unsignedBigInteger('land_acquisition_id')->nullable();
                 $table->foreign('land_acquisition_id')->references('id')->on('land_acquisitions');
                 $table->string('bundle')->nullable();

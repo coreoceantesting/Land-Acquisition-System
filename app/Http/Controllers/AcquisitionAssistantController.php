@@ -29,8 +29,7 @@ class AcquisitionAssistantController extends Controller
     public function index()
     {
 
-        $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year', 'sr_no', 'land_acquisition'])
-            ->where('user_id', Auth::user()->id)->paginate(10);
+        $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year', 'sr_no', 'land_acquisition'])->latest()->where('user_id', Auth::user()->id)->paginate(10);
 
         $acquisition_assistants = AcquisitionAssistant::all();
 
@@ -293,7 +292,7 @@ class AcquisitionAssistantController extends Controller
 
     public function land_acquisition(Request $request)
     {
-        $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year', 'sr_no', 'land_acquisition'])->whereIn('acquisition_proposal', [2])->paginate(10);
+        $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year', 'sr_no', 'land_acquisition'])->latest()->whereIn('acquisition_proposal', [2])->paginate(10);
 
         $acquisition_assistants = AcquisitionAssistant::all();
         return view('acquisition_assistants.land_acquisition', compact('acquisition_assistants', 'records'));
@@ -303,7 +302,7 @@ class AcquisitionAssistantController extends Controller
     {
         $acquisition_assistants = AcquisitionAssistant::all();
 
-        $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year', 'land_acquisition'])->whereIn('acquisition_proposal', [1])
+        $records = AcquisitionAssistant::with(['district', 'taluka', 'village', 'year', 'land_acquisition'])->latest()->whereIn('acquisition_proposal', [1])
             ->paginate(10);
 
         return view('acquisition_assistants.complete_reco_auth', compact('acquisition_assistants', 'records'));

@@ -59,7 +59,7 @@
 
                             <div class="col-md-4 mt-3">
                                 <label class="col-form-label" for="sr_no_id">
-                                    निवाडा क्र. / Sr.No<span class="text-danger">*</span>
+                                    निवाडा क्र. / SR.No<span class="text-danger">*</span>
                                 </label>
                                 <select name="sr_no_id" id="sr_no_id" class="form-select" required>
                                     <option value="" disabled>निवाडा क्र. निवडा</option>
@@ -213,9 +213,11 @@
                         </div>
 
 
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary" id="editSubmit">Update</button>
-                            <button type="reset" class="btn btn-warning">Reset</button>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary" id="editSubmit">Update</button>
+                              <a href="{{ route('acquisition_assistant.pending') }}" class="btn btn-primary btn-danger">Cancel</a>
+
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -394,4 +396,17 @@
 
         });
     });
+</script>
+<Script>
+// document.getElementById('cancelButton').addEventListener('click', function() {
+//     // Perform an AJAX request if needed
+//     $.ajax({
+//         url: '/home', // Change this to your actual home route
+//         type: 'GET',
+//         success: function(response) {
+//             // Redirect to home page after AJAX request
+//             window.location.href = 'acquisition_assistant'; // Adjust as per your route
+//         }
+//     });
+// });
 </script>

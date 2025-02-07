@@ -11,31 +11,41 @@
                 <form class="theme-form" name="addForm" id="addForm" enctype="multipart/form-data">
                     @csrf
 
-                    <div class="card-header">
-                        <h4 class="card-title">Add Villages</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3 row">
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="taluka_id">Select Taluka Name / जिल्हा <span class="text-danger">*</span></label>
-                                <select class="form-select" id="taluka_id" name="taluka_id" required>
-                                    <option value="" selected disabled>Select Taluka</option>
-                                    @foreach ($talukas as $taluka)
-                                        <option value="{{ $taluka->id }}">{{ $taluka->taluka_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="village_name"> Village Name / जिल्हा <span class="text-danger">*</span></label>
-                                <input class="form-control" id="village_name" name="village_name" type="text" placeholder="Enter Village initial">
-                                <span class="text-danger is-invalid initial_err"></span>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="village_init"> Village Initial <span class="text-danger">*</span></label>
-                                <input class="form-control" id="village_init" name="village_init" type="text" placeholder="Enter Village initial">
-                                <span class="text-danger is-invalid initial_err"></span>
-                            </div>
+                        <div class="card-header">
+                            <h4 class="card-title">Add Villages</h4>
                         </div>
+                        <div class="card-body">
+
+                            <div class="mb-3 row">
+                                <div class="col-md-4">
+                                    <label class="col-form-label" for="district_id">Select District Name / जिल्हा <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="district_id" name="district_id" required>
+                                        <option value="" selected disabled>Select District</option>
+                                        @foreach($districts as $district)
+                                               <option value="{{ $district->id }}">{{ $district->district_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-form-label" for="taluka_id">Select Taluka Name / तालुका निवडा <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="taluka_id" name="taluka_id" required>
+                                        <option value="" selected disabled>Select Taluka</option>
+                                        @foreach($talukas as $taluka)
+                                            <option value="{{ $taluka->id }}">{{ $taluka->taluka_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-form-label" for="village_name"> Village Name / जिल्हा <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="village_name" name="village_name" type="text" placeholder="Enter Village initial">
+                                    <span class="text-danger is-invalid initial_err"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="col-form-label" for="village_init"> Village Initial <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="village_init" name="village_init" type="text" placeholder="Enter Village initial">
+                                    <span class="text-danger is-invalid initial_err"></span>
+                                </div>
+                            </div>
 
                     </div>
                     <div class="card-footer">
@@ -372,4 +382,33 @@
                 }
             });
     });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#district_id').on('change', function () {
+            var districtId = $(this).val();
+
+            if (districtId) {
+
+                $.ajax({
+                    url: '/get-talukas/' + districtId,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#taluka_id').empty();
+                        $('#taluka_id').append('<option value="">--तालुका निवडा--</option>');
+                        $.each(data, function (key, value) {
+                            $('#taluka_id').append('<option value="' + value.id + '">' + value.taluka_name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert("An error occurred while fetching talukas.");
+                    }
+                });
+            } else {
+                $('#taluka_id').empty().append('<option value="">--तालुका निवडा--</option>');
+            }
+        });
+    });
+
 </script>

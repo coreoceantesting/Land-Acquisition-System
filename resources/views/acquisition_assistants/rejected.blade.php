@@ -1,12 +1,12 @@
 <x-admin.layout>
-    <x-slot name="title">Land Acquisition Rejected Records- List</x-slot>
-    <x-slot name="heading">Land Acquisition Rejected Records - List</x-slot>
+    <x-slot name="title">Land Acquisition Recorrection Records- List</x-slot>
+    <x-slot name="heading">Land Acquisition Recorrection Records - List</x-slot>
 
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Land Acquisition  Rejected Records</h4>
+                    <h4 class="card-title">Land Acquisition  Recorrection Records</h4>
                     {{-- <a href="{{ route('acquisition_assistant.create') }}" class="btn btn-primary btn-sm float-end">Add New</a> --}}
                 </div>
                 <div class="card-body" style="overflow-x: auto; white-space: nowrap;">
@@ -39,7 +39,7 @@
                                     <td>{{ optional($record->taluka)->taluka_name ?? 'No taluka' }}</td>
                                     <td>{{ optional($record->village)->village_name ?? 'No village' }}</td>
                                     {{-- <td></td> --}}
-                                    <td>{{ optional($record->sr_no)->sr_nos_in ?? 'No sr_nos' }}</td>
+                                    <td>{{ $record->sr_no_id ?? 'No sr_nos' }}</td>
                                     <td>{{ optional($record->land_acquisition)->land_acquisitions_name ?? 'No land_acquisitions_name' }}</td>
 
                                     <td>{{ $record->project_name }}</td>
@@ -75,8 +75,8 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $record->id }})">Delete</button>
-                                        </form>
-                                        <a href="{{ route('acquisition_assistant.edit', $record->id) }}" class="btn btn-sm btn-warning">Edit</a> --}}
+                                        </form> --}}
+                                        <a href="{{ route('acquisition_assistant.edit', $record->id) }}" class="btn btn-sm btn-danger">Edit</a>
 
                                     </td>
                                         <td style="color: red">{{$record->acquisition_officer_remark}} </td>

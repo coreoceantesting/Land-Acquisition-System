@@ -173,6 +173,8 @@
                 </div>
             </div>
 
+            <br>
+            <a href="{{ route('acquisition_assistant.pending') }}" class="btn btn-primary btn-danger">Cancel</a>
 
             <div class="row my-3">
                 <div class="col-4">

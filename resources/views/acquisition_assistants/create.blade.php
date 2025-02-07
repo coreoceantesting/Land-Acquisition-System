@@ -49,12 +49,12 @@
                                                 </select>
                                             </div>
 
-                                            <div class="col-md-4 mb-3">
-                                                <label class="col-form-label" for="sr_nos_in">निवाडा क्र. / Sr.No<span class="text-danger">*</span></label>
-                                                <select name="sr_no_id" id="sr_no_id" class="form-select" required>
-                                                    <option value="" disabled selected>--निवाडा क्र. निवडा--</option>
-                                                </select>
-                                            </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="col-form-label" for="sr_nos_in">निवाडा क्र. / SR.No<span class="text-danger">*</span></label>
+                                            <select name="sr_no_id" id="sr_no_id" class="form-select" required>
+                                                <option value="" disabled selected>--निवाडा क्र. निवडा--</option>
+                                            </select>
+                                        </div>
 
                                             <div class="col-md-4 mb-3">
                                                 <label class="col-form-label" for="land_acquisitions_name">भूसंपादनाचे प्रयोजन / Purpose of land acquisition<span class="text-danger">*</span></label>

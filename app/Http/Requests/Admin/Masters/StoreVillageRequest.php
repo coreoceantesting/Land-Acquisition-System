@@ -22,6 +22,7 @@ class StoreVillageRequest extends FormRequest
     public function rules(): array
     {
         return [
+
             'village_name' => 'required',
             'taluka_id' => 'required',
             'village_init' =>'required',
