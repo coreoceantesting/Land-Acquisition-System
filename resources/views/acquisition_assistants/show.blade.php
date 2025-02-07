@@ -173,11 +173,12 @@
                 </div>
             </div>
 
-            <br>
-            <a href="{{ route('acquisition_assistant.pending') }}" class="btn btn-primary btn-danger">Cancel</a>
+
 
             <div class="row my-3">
+
                 <div class="col-4">
+                    <a href="{{ route('acquisition_assistant.pending') }}" class="btn btn-primary">Cancel</a>
                     @if ((Auth::user()->hasRole(['Officer', 'Divisional']) && $acquisitionAssistant->acquisition_officer_status == 0) || ($acquisitionAssistant->divisional_officer_status = 0))
                         <button type="button" class="btn btn-success approve-btn" data-id="{{ $acquisitionAssistant->id }}">
                             Approve
@@ -187,6 +188,7 @@
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
                             Reject
                         </button>
+
 
                         <!-- Reject Modal -->
                         <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">

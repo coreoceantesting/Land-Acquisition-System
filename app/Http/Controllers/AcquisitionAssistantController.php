@@ -192,7 +192,7 @@ class AcquisitionAssistantController extends Controller
 
             DB::commit();
 
-            return response()->json([ 'success' => 'Acquisition Assistant updated successfully!']);
+            return response()->json([ 'success' => 'Record Filled Successfully!']);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'An error occurred while updating the Acquisition Assistant.',
