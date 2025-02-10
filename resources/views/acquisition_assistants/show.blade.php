@@ -179,22 +179,24 @@
 
                 <div class="col-4">
                     <a href="{{ route('acquisition_assistant.pending') }}" class="btn btn-primary">Cancel</a>
-                    {{-- @can() --}}
                     @if ($acquisitionAssistant->acquisition_officer_status == 0 || ($acquisitionAssistant->divisional_officer_status = 0))
-                        <button type="button" class="btn btn-success approve-btn" data-id="{{ $acquisitionAssistant->id }}">
-                            Approve
-                        </button>
+                        @canany(['la_record.approve', 'la_record.reject'])
+                            <button type="button" class="btn btn-success approve-btn" data-id="{{ $acquisitionAssistant->id }}">
+                                Approve
+                            </button>
 
-                        <!-- Reject Button -->
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
-                            Reject
-                        </button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                                Reject
+                            </button>
+                        @endcanany
                     @endif
-                    {{-- @endcan --}}
 
-                    {{-- @can('')
+                    @can('la_record.change-status')
+                        <a href="#" class="btn btn-success changeStatusModel" data-bs-toggle="modal" data-bs-target="#statusModal" data-id="{{ $acquisitionAssistant->id }}" data-acquisition_proposal="{{ $acquisitionAssistant->acquisition_proposal }}" data-updated_date="{{ $acquisitionAssistant->updated_date }}">
+                            Change Status
+                        </a>
+                    @endcan
 
-                    @endcan --}}
                 </div>
             </div>
         </div>
@@ -226,6 +228,39 @@
         </div>
     </div>
 
+
+    {{-- Change status modal --}}
+    <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true" data-bs-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="statusChangeForm" enctype="multipart/form-data" action="{{ route('acquisition_assistant.complete_auth') }}" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="statusModalLabel">Change Status</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @csrf
+                        <input type="hidden" name="id" id="modelId">
+                        <div class="mb-3">
+                            <label for="acquisitionProposal" class="form-label">भूसंपादन प्रस्ताव / Land acquisition proposal</label>
+                            <select name="acquisition_proposal" id="acquisition_proposal" class="form-select" required>
+                                <option value="">भूसंपादन प्रस्ताव</option>
+                                <option value="1">पूर्ण</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updated_date" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="updated_date" name="updated_date" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="confirmStatusChange">Confirm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     @push('scripts')
         <script>
@@ -261,6 +296,19 @@
                         alert("Some thing went wrong");
                     },
                 });
+            });
+        </script>
+
+        {{-- Change Status JS --}}
+        <script>
+            $(document).ready(function() {
+                $('.changeStatusModel').click(function() {
+                    let id = $(this).attr('data-id');
+                    let acquisitionProposal = $(this).attr('data-acquisition_proposal');
+                    let updatedDate = $(this).attr('data-updated_date');
+                    $('#modelId').val(id);
+                    $('#statusModal').show();
+                })
             });
         </script>
     @endpush
