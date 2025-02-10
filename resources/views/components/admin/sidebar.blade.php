@@ -29,7 +29,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('dashboard') }}">
+                    <a class="nav-link menu-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
                         <i class="ri-dashboard-2-line"></i>
                         <span data-key="t-dashboards">Dashboard</span>
                     </a>
@@ -128,7 +128,7 @@
                         <a class="nav-link menu-link {{ request()->routeIs('acquisition_assistant.pending') || request()->segment(1) == 'acquisition_assistant' || request()->routeIs('acquisition_assistant.create') || request()->routeIs('acquisition_assistant.approved') || request()->routeIs('acquisition_assistant.rejected') || request()->routeIs('acquisition_assistant.land_acquisition') || request()->routeIs('acquisition_assistant.complete_reco_auth') ? 'active' : 'collapsed' }}"
                             href="#sidebarLandAcquisition" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLandAcquisition">
                             <i class="ri-layout-3-line"></i>
-                            <span data-key="t-layouts"> Land Acquisition Record</span>
+                            <span data-key="t-layouts">L.A. Record</span>
                         </a>
                         <div class="collapse menu-dropdown {{ request()->routeIs('acquisition_assistant.pending') || request()->segment(1) == 'acquisition_assistant' || request()->routeIs('acquisition_assistant.create') || request()->routeIs('acquisition_assistant.approved') || request()->routeIs('acquisition_assistant.rejected') ? 'show' : '' }}"
                             id="sidebarLandAcquisition">

@@ -2,51 +2,156 @@
     <x-slot name="title">Dashboard</x-slot>
     <x-slot name="heading">Dashboard</x-slot>
     {{-- <x-slot name="subheading">Test</x-slot> --}}
+
+    @push('styles')
+        <style>
+            .br-right{
+                border-right: 1px solid #eee !important;
+            }
+        </style>
+    @endpush
     <div class="row">
         <div class="col-12 px-0">
+
+            {{-- 1st section --}}
             <div class="row">
-                <div class="col-sm-6 col-xl-3 col-lg-6">
-                    <div class="card o-hidden border-0" style="background-color: #168eea !important">
-                        <div class="bg-blue b-r-4 card-body">
-                            <div class="media static-top-widget">
-                                <div class="media-body"><span class="m-0" >Total Districts</span>
-                                    <h4 class="mb-0 counter">45</h4><i class="icon-bg" data-feather="user"></i>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body d-flex gap-3 align-items-center">
+                            <div class="avatar-sm">
+                                <div class="avatar-title border bg-success-subtle border-success border-opacity-25 rounded-2 fs-17">
+                                    <i data-feather="box" class="icon-dual-success"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fs-15">{{ $districtCount }}</h5>
+                                <p class="mb-0 text-muted">Total Districts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body d-flex gap-3 align-items-center">
+                            <div class="avatar-sm">
+                                <div class="avatar-title border bg-info-subtle border-info border-opacity-25 rounded-2 fs-17">
+                                    <i data-feather="package" class="icon-dual-info"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fs-15">{{ $talukaCount }}</h5>
+                                <p class="mb-0 text-muted">Total Talukas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body d-flex gap-3 align-items-center">
+                            <div class="avatar-sm">
+                                <div class="avatar-title border bg-warning-subtle border-warning border-opacity-25 rounded-2 fs-17">
+                                    <i data-feather="home" class="icon-dual-warning"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fs-15">{{ $villageCount }}</h5>
+                                <p class="mb-0 text-muted">Total Villages</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            {{-- second section --}}
+            <div class="row mt-3">
+                <div class="col-12">
+                    <h3>Land Acquisition Records</h3>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Total Records</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-end justify-content-between mt-3">
+                                <div>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-2"><span class="counter-value" data-target="{{ $allRecords }}">{{ $allRecords }}</span></h4>
+                                    <a href="" class="">&nbsp;</a>
+                                </div>
+                                <div class="avatar-sm flex-shrink-0">
+                                    <span class="avatar-title bg-primary-subtle rounded fs-3">
+                                        <i class="bx bx-map-pin text-primary"></i>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-xl-3 col-lg-6">
-                    <div class="card o-hidden border-0">
-                        <div class="bg-success b-r-4 card-body">
-                            <div class="media static-top-widget">
-                                <div class="media-body"><span class="m-0">Total Taluka</span>
-                                    <h4 class="mb-0 counter"> 16 </h4><i class="icon-bg" data-feather="book"></i>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Pending Records</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-end justify-content-between mt-3">
+                                <div>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-2"><span class="counter-value" data-target="{{ $pendingRecords }}">{{ $pendingRecords }}</span></h4>
+                                    <a href="{{ route('acquisition_assistant.pending') }}" class="text-decoration-underline">View List</a>
+                                </div>
+                                <div class="avatar-sm flex-shrink-0">
+                                    <span class="avatar-title bg-info-subtle rounded fs-3">
+                                        <i class="bx bx-map-pin text-info"></i>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-xl-3 col-lg-6">
-                    <div class="card o-hidden border-0">
-                        <div class="bg-warning b-r-4 card-body">
-                            <div class="media static-top-widget">
-                                <div class="media-body"><span class="m-0">Total Village</span>
-                                    <h4 class="mb-0 counter"> 22 </h4><i class="icon-bg" data-feather="home"></i>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Approved Records</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-end justify-content-between mt-3">
+                                <div>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-2"><span class="counter-value" data-target="{{ $approvedRecords }}">{{ $approvedRecords }}</span></h4>
+                                    <a href="{{ route('acquisition_assistant.approved') }}" class="text-decoration-underline">View List</a>
+                                </div>
+                                <div class="avatar-sm flex-shrink-0">
+                                    <span class="avatar-title bg-success-subtle rounded fs-3">
+                                        <i class="bx bx-map-pin text-success"></i>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-6 col-xl-3 col-lg-6">
-                    <div class="card o-hidden border-0">
-                        <div class="bg-danger b-r-4 card-body">
-                            <div class="media static-top-widget">
-                                <div class="media-body"><span class="m-0">Total Office</span>
-                                    <h4 class="mb-0 counter"> 7 </h4><i class="icon-bg" data-feather="briefcase"></i>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card card-animate">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Recorrection Records</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-end justify-content-between mt-3">
+                                <div>
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-2"><span class="counter-value" data-target="{{ $recorrectionRecords }}">{{ $recorrectionRecords }}</span></h4>
+                                    <a href="{{ route('acquisition_assistant.rejected') }}" class="text-decoration-underline">View List</a>
+                                </div>
+                                <div class="avatar-sm flex-shrink-0">
+                                    <span class="avatar-title bg-danger-subtle rounded fs-3">
+                                        <i class="bx bx-map-pin text-danger"></i>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -54,530 +159,83 @@
                 </div>
             </div>
 
-            <div class="card rounded">
-                <div class="card-header px-2 py-3  fw-medium text-white text-truncate mb-0">
-                    <h4>Land Acquisition Record Details</h4>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 col-xl-3 col-lg-6">
-                        <div class="card o-hidden border-0" style="background-color: #168eea !important">
-                            <div class="bg-blue b-r-4 card-body">
-                                <div class="media static-top-widget">
-                                    <div class="media-body"><span class="m-0" >L.A Records</span>
-                                        <h4 class="mb-0 counter">45</h4><i class="icon-bg" data-feather="user"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-sm-6 col-xl-3 col-lg-6">
-                        <div class="card o-hidden border-0">
-                            <div class="bg-success b-r-4 card-body">
-                                <div class="media static-top-widget">
-                                    <div class="media-body"><span class="m-0">L.A Records Approved</span>
-                                        <h4 class="mb-0 counter"> 16 </h4><i class="icon-bg" data-feather="book"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-sm-6 col-xl-3 col-lg-6">
-                        <div class="card o-hidden border-0">
-                            <div class="bg-warning b-r-4 card-body">
-                                <div class="media static-top-widget">
-                                    <div class="media-body"><span class="m-0">L.A Records Reject</span>
-                                        <h4 class="mb-0 counter"> 22 </h4><i class="icon-bg" data-feather="home"></i>
+            {{-- third section --}}
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="card p-3">
+                        <h3 class="">Taluka Wise :</h3>
+                        <div class="row">
+                            @foreach ($talukasData as $talukaData)
+                                <div class="col-md-4 col-lg-4 col-xl-4 box-col-4">
+                                    <div class="card custom-card rounded">
+                                        <h5 class="card-header rounded bg-primary py-2 px-3 text-center text-light">({{ ucwords($talukaData[0]->taluka?->taluka_name) }}) - Total: {{ $talukaData->count() }}</h5>
+                                        <div class="card-body px-3">
+                                            <div class="row">
+                                                <div class="col-4 br-right text-center">
+                                                    <h6 class="mb-0">Pending</h6>
+                                                    <strong style="font-size:22px">{{ $talukaData->where('acquisition_officer_status', 0)->count() }} </strong> <br>
+                                                </div>
+                                                <div class="col-4 br-right text-center">
+                                                    <h6 class="mb-0">Approved</h6>
+                                                    <strong style="font-size:22px; display:inline-block;">{{ $talukaData->where('acquisition_officer_status', 1)->count() }}</strong> <br>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                    <h6 class="mb-0">Recorrection</h6>
+                                                    <strong style="font-size:22px; display:inline-block;">{{ $talukaData->where('acquisition_officer_status', 2)->count() }}</strong> <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="row">
+                                                <div class="col-6 br-right text-center">
+                                                    <h6 class="mb-0">In Process</h6>
+                                                    <strong style="font-size:22px">{{ $talukaData->where('acquisition_proposal', 1)->count() }}</strong> <br>
+                                                </div>
+                                                <div class="col-6 text-center">
+                                                    <h6 class="mb-0">Completed</h6>
+                                                    <strong style="font-size:22px; display:inline-block;">{{ $talukaData->where('acquisition_proposal', 2)->count() }}{{-- <span style="font-size:14px; display:inline-block;">(61%)</span> --}}
+                                                    </strong> <br>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-xl-3 col-lg-6">
-                        <div class="card o-hidden border-0">
-                            <div class="bg-danger b-r-4 card-body">
-                                <div class="media static-top-widget">
-                                    <div class="media-body"><span class="m-0">L.A Reocrd Recorrection</span>
-                                        <h4 class="mb-0 counter"> 7 </h4><i class="icon-bg" data-feather="briefcase"></i>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
-
             </div>
 
-
-
-    <div class="row">
-        <div class="col-xl-3 col-md-6">
-            <!-- card -->
-            <div class="card card-animate" >
-                <div class="card-body" style="background-color:#e2c636 !important ">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home icon-bg text-white"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-
-                    <div class="d-flex align-items-center" >
-                        <div class="flex-grow-1 overflow-hidden">
-                            <p class="text-uppercase fw-medium text-white text-truncate mb-0" style="color: white"> Total Land Acquisition</p>
-                        </div>
-
-                    </div>
-                    <div class="d-flex align-items-end justify-content-between mt-4">
-                        <div>
-                            <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                <span class="counter-value text-white" data-target="{{ $acquisition_assistants }}">0</span>
-                            </h4>
-                        </div>
-                        {{-- <div class="avatar-sm flex-shrink-0">
-                            <span class="avatar-title bg-primary-subtle rounded fs-3">
-                                <i class="bx bx-dollar-circle text-primary"></i>
-                            </span>
-                        </div> --}}
-                    </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
-
-        <div class="col-xl-3 col-md-6">
-            <!-- card -->
-            <div class="card card-animate">
-
-                <div class="card-body" style="background-color: #1b4c43 !important" >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book icon-bg text-white"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                    <div class="d-flex align-items-center">
-                        <div class="flex-grow-1 overflow-hidden">
-                         <p class="text-uppercase fw-medium text-white text-truncate mb-0" >Total Pending</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-end justify-content-between mt-4">
-                        <div>
-                            <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                <span class="counter-value text-white" data-target="{{ $pending_count }}">0</span>
-                            </h4>
-                        </div>
-                    </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
-
-        <div class="col-xl-3 col-md-6">
-            <!-- card -->
-            <div class="card card-animate" >
-                <div class="card-body" style="background-color:blue !important ">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book icon-bg text-white"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                    <div class="d-flex align-items-center">
-                        <div class="flex-grow-1 overflow-hidden">
-                            <p class="text-uppercase fw-medium text-white text-truncate mb-0">Total Approved</p>
-                        </div>
-
-                    </div>
-                    <div class="d-flex align-items-end justify-content-between mt-4">
-                        <div>
-                            <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                <span class="counter-value text-white" data-target="{{ $approved_count }}">0</span>
-                            </h4>
-                        </div>
-
-                    </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
-
-        <div class="col-xl-3 col-md-6">
-            <!-- card -->
-            <div class="card card-animate">
-                <div class="card-body" style="background-color: red !important">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book icon-bg text-white"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                    <div class="d-flex align-items-center">
-                        <div class="flex-grow-1 overflow-hidden">
-                            <p class="text-uppercase fw-medium text-white text-truncate mb-0"> Total Reject</p>
-                        </div>
-
-                    </div>
-                    <div class="d-flex align-items-end justify-content-between mt-4">
-                        <div>
-                            <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                <span class="counter-value text-white" data-target="{{ $reject_count }}">0</span>
-                            </h4>
-                        </div>
-
-                    </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
+        </div>
     </div>
 
 
 
-    <div class="card rounded">
-        <div class="card-header px-2 py-3 text-uppercase fw-medium text-white text-truncate mb-0">
-            <h4>Taluka Details</h4>
-        </div>
-        <div class="row">
-            <!-- PWD Department -->
-            <div class="col-md-6 col-lg-6 col-xl-6 box-col-6">
-                <div class="card custom-card rounded text-uppercase">
-                    <h6 class="card-header rounded bg-primary py-2 px-3 text-center text-white">Taluka Name</h6>
-                    <div class="card-body px-3">
-                        <div class="row">
-                            <div class="col-3 br-right text-center text-uppercase"  style="border-right: 1px solid black;">
-                                <h6 class="mb-0" >L.A Record
-                                    Total</h6>
-                                <strong style="font-size:22px"  class="counter-value" data-target="{{ $acquisition_assistants }}">0</strong><br>
-                            </div>
-                            <div class="col-3 br-right text-center text-uppercase"  style="border-right: 1px solid black;">
-                                <h6 class="mb-0">L.A Record
-                                    Pending</h6>
-                                <strong style="font-size:22px; display:inline-block;"  class="counter-value" data-target="{{ $pending_count }}" >0</strong>
 
-                            </div>
-                            <div class="col-3 text-center text-uppercase"  style="border-right: 1px solid black;">
-                                <h6 class="mb-0">L.A Record
-                                    Approved</h6>
-                                <strong style="font-size:22px; display:inline-block;"   class="counter-value" data-target="{{ $approved_count }}">0</strong>
-
-                            </div>
-                            <div class="col-3 text-center">
-                                <h6 class="mb-0">L.A Record Rejected</h6>
-                                <strong style="font-size:22px; display:inline-block;"  class="counter-value" data-target="{{ $reject_count }}">0</strong>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer row">
-                        <div class="col-4 col-sm-4 text-center" style="border-right: 1px solid black;">
-                            <h6 class="font-12">Total village</h6>
-                            <h3 class="font-16 text-center"><span class="counter">0</span></h3>
-                        </div>
-                        <div class="col-4 col-sm-4 text-center" style="border-right: 1px solid black;">
-                            <h6 class="font-12">L.A village count</h6>
-                            <h3 class="font-16 text-center"><span class="counter">0</span></h3>
-                        </div>
-                        <div class="col-4 col-sm-4 text-center" >
-                            <h6 class="font-12">No of L.A village count</h6>
-                            <h3 class="font-16 text-center"><span class="counter">0</span></h3>
-                        </div>
-                    </div>
-                    <div class="card-footer row  text-center">
-                        <div class="col-6 col-sm-6" style="border-right: 1px solid black;">
-                            <h6 class="font-12">L.A Complete Count</h6>
-                            <h3 class="font-16 text-center"><span class="counter">0</span></h3>
-                        </div>
-                        <div class="col-6 col-sm-6  text-center">
-                            <h6 class="font-12">L.a Inprocess count</h6>
-                            <h3 class="font-16 text-center"><span class="counter">0</span></h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Environment Department -->
-            <div class="col-md-6 col-lg-6 col-xl-6 box-col-6">
-                <div class="card custom-card rounded text-uppercase">
-                    <h6 class="card-header rounded bg-primary py-2 px-3 text-center text-white">Department</h6>
-                    <div class="card-body px-3">
-                        <div class="row">
-                            <div class="col-3 br-right text-center" style="border-right: 1px solid black;">
-                                <h6 class="mb-0">L.A Record Total</h6>
-                                <strong style="font-size:22px">7</strong><br>
-                            </div>
-                            <div class="col-3 br-right text-center" style="border-right: 1px solid black;">
-                                <h6 class="mb-0">L.A Record Pending</h6>
-                                <strong style="font-size:22px; display:inline-block;">7</strong>
-                                {{-- <span style="font-size:14px; display:inline-block;">(100%)</span><br> --}}
-                            </div>
-                            <div class="col-3 text-center" style="border-right: 1px solid black;">
-                                <h6 class="mb-0">L.A Record Approved</h6>
-                                <strong style="font-size:22px; display:inline-block;">0</strong>
-                                {{-- <span style="font-size:14px; display:inline-block;">(0%)</span><br> --}}
-                            </div>
-                            <div class="col-3 text-center">
-                                <h6 class="mb-0">L.A Record Rejected</h6>
-                                <strong style="font-size:22px; display:inline-block;">0</strong>
-                                {{-- <span style="font-size:14px; display:inline-block;">(0%)</span><br> --}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer row">
-
-
-                        <div class="col-4 col-sm-4 text-center" style="border-right: 1px solid black;">
-                            <h6 class="font-12">Total village</h6>
-                            <h3 class="font-16 text-center"><span class="counter">0</span></h3>
-                        </div>
-                        <div class="col-4 col-sm-4 text-center" style="border-right: 1px solid black;">
-                            <h6 class="font-12">L.A village count</h6>
-                            <h3 class="font-16 text-center"><span class="counter">0</span></h3>
-                        </div>
-                        <div class="col-4 col-sm-4 text-center">
-                            <h6 class="font-12">No of L.A village count</h6>
-                            <h3 class="font-16 text-center"><span class="counter">0</span></h3>
-                        </div>
-                    </div>
-
-                    <div class="card-footer row  text-center">
-                        <div class="col-6 col-sm-6" style="border-right: 1px solid black;">
-                            <h6 class="font-12">L.A Complete Count</h6>
-                            <h3 class="font-16 text-center"><span class="counter">0</span></h3>
-                        </div>
-                        <div class="col-6 col-sm-6  text-center">
-                            <h6 class="font-12">L.a Inprocess count</h6>
-                            <h3 class="font-16 text-center"><span class="counter">0</span></h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
-<br>
-    <div>
-
-        <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> <b>Taluka Name</b></p>
-
-        <div class="row">
-            <div class="col-xl-3 col-md-6">
-                <!-- card -->
-                <div class="card card-animate" >
-                    <div class="card-body" >
-                        <div class="d-flex align-items-center" style="color: blue">
-                            <div class="flex-grow-1 overflow-hidden">
-                                <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Land Acquisition Record <br>Total count</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-end justify-content-between mt-4">
-                            <div>
-                                <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                    <span class="counter-value" data-target="{{ $acquisition_assistants }}">0</span>
-                                </h4>
-                            </div>
-                            {{-- <div class="avatar-sm flex-shrink-0">
-                                <span class="avatar-title bg-primary-subtle rounded fs-3">
-                                    <i class="bx bx-dollar-circle text-primary"></i>
-                                </span>
-                            </div> --}}
-                        </div>
-                    </div><!-- end card body -->
-                </div><!-- end card -->
-            </div><!-- end col -->
-
-            <div class="col-xl-3 col-md-6">
-                <!-- card -->
-                <div class="card card-animate">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-grow-1 overflow-hidden">
-                             <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Land Acquisition Record <br> Pending count</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-end justify-content-between mt-4">
-                            <div>
-                                <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                    <span class="counter-value" data-target="{{ $pending_count }}">0</span>
-                                </h4>
-                            </div>
-                        </div>
-                    </div><!-- end card body -->
-                </div><!-- end card -->
-            </div><!-- end col -->
-
-            <div class="col-xl-3 col-md-6">
-                <!-- card -->
-                <div class="card card-animate">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-grow-1 overflow-hidden">
-                                <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Land Acquisition Record <br> Approved count</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-end justify-content-between mt-4">
-                            <div>
-                                <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                    <span class="counter-value" data-target="{{ $approved_count }}">0</span>
-                                </h4>
-                            </div>
-
-                        </div>
-                    </div><!-- end card body -->
-                </div><!-- end card -->
-            </div><!-- end col -->
-
-            <div class="col-xl-3 col-md-6">
-                <!-- card -->
-                <div class="card card-animate">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-grow-1 overflow-hidden">
-                                <p class="text-uppercase fw-medium text-muted text-truncate mb-0"> Land Acquisition Record <br> Rejected count</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-end justify-content-between mt-4">
-                            <div>
-                                <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                    <span class="counter-value" data-target="{{ $reject_count }}">0</span>
-                                </h4>
-                            </div>
-
-                        </div>
-                    </div><!-- end card body -->
-                </div><!-- end card -->
-            </div><!-- end col -->
-        </div>
-
-        <div class="row">
-            <div class="col-xl-4 col-md-6">
-                <!-- card -->
-                <div class="card card-animate" >
-                    <div class="card-body" >
-                        <div class="d-flex align-items-center" style="color: blue">
-                            <div class="flex-grow-1 overflow-hidden">
-                                <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Total village</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-end justify-content-between mt-4">
-                            <div>
-                                <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                    <span class="counter-value" data-target="{{ $village }}">0</span>
-                                </h4>
-                            </div>
-                            {{-- <div class="avatar-sm flex-shrink-0">
-                                <span class="avatar-title bg-primary-subtle rounded fs-3">
-                                    <i class="bx bx-dollar-circle text-primary"></i>
-                                </span>
-                            </div> --}}
-                        </div>
-                    </div><!-- end card body -->
-                </div><!-- end card -->
-            </div><!-- end col -->
-
-            <div class="col-xl-4 col-md-6">
-                <!-- card -->
-                <div class="card card-animate">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-grow-1 overflow-hidden">
-                             <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Land acquisition village count</p>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-end justify-content-between mt-4">
-                            <div>
-                                <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                    <span class="counter-value" data-target="{{ $pending_count }}">0</span>
-                                </h4>
-                            </div>
-                        </div>
-                    </div><!-- end card body -->
-                </div><!-- end card -->
-            </div><!-- end col -->
-
-            <div class="col-xl-4 col-md-6">
-                <!-- card -->
-                <div class="card card-animate">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-grow-1 overflow-hidden">
-                                <p class="text-uppercase fw-medium text-muted text-truncate mb-0">No of Land acquisition village count</p>
-                            </div>
-
-                        </div>
-                        <div class="d-flex align-items-end justify-content-between mt-4">
-                            <div>
-                                <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                    <span class="counter-value" data-target="{{ $approved_count }}">0</span>
-                                </h4>
-                            </div>
-
-                        </div>
-                    </div><!-- end card body -->
-                </div><!-- end card -->
-            </div><!-- end col -->
-
-            </div>
-    </div>
-    <div class="row">
-        <div class="col-xl-6 col-md-6">
-            <!-- card -->
-            <div class="card card-animate" >
-                <div class="card-body" >
-                    <div class="d-flex align-items-center" style="color: blue">
-                        <div class="flex-grow-1 overflow-hidden">
-                            <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Land acquisition Complete Count</p>
-                        </div>
-
-                    </div>
-                    <div class="d-flex align-items-end justify-content-between mt-4">
-                        <div>
-                            <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                <span class="counter-value" data-target="{{ $acquisition_assistants }}">0</span>
-                            </h4>
-                        </div>
-                        {{-- <div class="avatar-sm flex-shrink-0">
-                            <span class="avatar-title bg-primary-subtle rounded fs-3">
-                                <i class="bx bx-dollar-circle text-primary"></i>
-                            </span>
-                        </div> --}}
-                    </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
-
-        <div class="col-xl-6 col-md-6">
-            <!-- card -->
-            <div class="card card-animate">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-grow-1 overflow-hidden">
-                         <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Land acquisition Inprocess count</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-end justify-content-between mt-4">
-                        <div>
-                            <h4 class="fs-22 fw-semibold ff-secondary mb-4">
-                                <span class="counter-value" data-target="{{ $pending_count }}">0</span>
-                            </h4>
-                        </div>
-                    </div>
-                </div><!-- end card body -->
-            </div><!-- end card -->
-        </div><!-- end col -->
-
-<!-- end col -->
-
-        </div>
-</div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll('.counter-value').forEach(function (counter) {
-            let target = parseInt(counter.getAttribute('data-target'));
-            let count = 0;
-            let speed = 50;
-            let increment = target / speed;
-
-            function updateCount() {
-                count += increment;
-                if (count < target) {
-                    counter.innerText = Math.floor(count);
-                    setTimeout(updateCount, 10);
-                } else {
-                    counter.innerText = target;
-                }
-            }
-            updateCount();
-        });
-    });
-
-    </script>
     @push('scripts')
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.querySelectorAll('.counter-value').forEach(function(counter) {
+                    let target = parseInt(counter.getAttribute('data-target'));
+                    let count = 0;
+                    let speed = 50;
+                    let increment = target / speed;
+
+                    function updateCount() {
+                        count += increment;
+                        if (count < target) {
+                            counter.innerText = Math.floor(count);
+                            setTimeout(updateCount, 10);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    }
+                    updateCount();
+                });
+            });
+        </script>
     @endpush
 
 </x-admin.layout>
-
