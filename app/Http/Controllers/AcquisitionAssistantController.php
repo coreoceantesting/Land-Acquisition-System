@@ -249,7 +249,7 @@ class AcquisitionAssistantController extends Controller
         try {
             $acquisitionAssistant->acquisition_officer_status = 1;
             $acquisitionAssistant->save();
-            return response()->json(['success' => 'Item approved successfully!']);
+            return response()->json(['success' => 'Approved successfully!']);
         } catch (\Exception $e) {
             return response()->json(['error2' => 'Something went wrong, please try again!']);
         }
@@ -260,7 +260,7 @@ class AcquisitionAssistantController extends Controller
         $acquisitionAssistant = AcquisitionAssistant::find($id);
 
         if (!$acquisitionAssistant) {
-            return redirect()->back()->with('error', 'Item not found.');
+            return redirect()->back()->with('error', 'Not found.');
         }
         $acquisitionAssistant->acquisition_officer_status = 2; // Reject
         $acquisitionAssistant->acquisition_officer_remark = $request->input('remark');
@@ -268,7 +268,7 @@ class AcquisitionAssistantController extends Controller
         // Add remark
         $acquisitionAssistant->save();
 
-        return redirect()->route('acquisition_assistant.rejected')->with('message', 'Item rejected successfully.');
+        return redirect()->route('acquisition_assistant.rejected')->with('message', 'Rejected successfully.');
     }
 
     public function pending()
@@ -324,7 +324,7 @@ class AcquisitionAssistantController extends Controller
         $acquisitionAssistant = AcquisitionAssistant::find($request->input('id'));
 
         if (!$acquisitionAssistant) {
-            return redirect()->back()->with('error', 'Item not found.');
+            return redirect()->back()->with('error', 'Not found.');
         }
 
         // Update the acquisition proposal status and the date
@@ -334,7 +334,7 @@ class AcquisitionAssistantController extends Controller
 
         // Redirect to the complete_auth page with a success message
 
-        return redirect()->route('acquisition_assistant.complete_reco_auth')->with('message', 'Item approved successfully.');
+        return redirect()->route('acquisition_assistant.complete_reco_auth')->with('message', 'Approved successfully.');
     }
 
 
