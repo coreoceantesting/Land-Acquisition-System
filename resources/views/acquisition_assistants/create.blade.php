@@ -340,7 +340,7 @@
                     type: 'GET',
                     success: function(data) {
                         $('#taluka_id').empty();
-                        $('#taluka_id').append('<option value="">--तालुका निवडा--</option>');
+                        $('#taluka_id').append('<option value="">--Select Taluka--</option>');
                         $.each(data, function(key, value) {
                             $('#taluka_id').append('<option value="' + value.id + '">' + value.taluka_name + '</option>');
                         });
@@ -350,7 +350,7 @@
                     }
                 });
             } else {
-                $('#taluka_id').empty().append('<option value="">--तालुका निवडा--</option>');
+                $('#taluka_id').empty().append('<option value="">--Select Taluka--</option>');
             }
         });
     });
@@ -390,7 +390,7 @@
                     success: function(data) {
                         var villageDropdown = $('#village_id');
                         villageDropdown.empty(); // Clear existing options
-                        villageDropdown.append('<option value="">--गाव --</option>');
+                        villageDropdown.append('<option value="">--Village--</option>');
                         $.each(data, function(key, village) {
                             villageDropdown.append('<option value="' + village.id + '">' + village.village_name + '</option>');
                         });
@@ -411,7 +411,7 @@
                     success: function(data) {
                         var serialDropdown = $('#sr_no_id');
                         serialDropdown.empty();
-                        serialDropdown.append('<option value="">--निवाडा क्र. निवडा --</option>');
+                        serialDropdown.append('<option value="">--SR.No--</option>');
                         $.each(data, function(key, sr) {
                             serialDropdown.append('<option value="' + sr.id + '">' + sr.sr_no + '</option>');
                         });

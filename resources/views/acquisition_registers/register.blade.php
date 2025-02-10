@@ -96,7 +96,7 @@
                     type: 'GET',
                     success: function (data) {
                         $('#taluka_id').empty();  // Clear the taluka dropdown
-                        $('#taluka_id').append('<option value="">--तालुका निवडा--</option>');
+                        $('#taluka_id').append('<option value="">--Select Taluka--</option>');
                         $.each(data, function (key, value) {
                             $('#taluka_id').append('<option value="' + value.id + '">' + value.taluka_name + '</option>');
                         });
@@ -107,7 +107,7 @@
                 });
             } else {
                 // Clear the taluka dropdown if no district is selected
-                $('#taluka_id').empty().append('<option value="">--तालुका निवडा--</option>');
+                $('#taluka_id').empty().append('<option value="">--Select Taluka--</option>');
             }
         });
     });

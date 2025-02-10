@@ -10,9 +10,9 @@
     <div class="card-body">
         <div class="mb-3 row">
             <div class="col-md-4">
-                <label class="col-form-label" for="district_name">जिल्हा/ District <span class="text-danger">*</span></label>
+                <label class="col-form-label" for="district_name">District/जिल्हा<span class="text-danger">*</span></label>
                 <select name="district_id" id="district_name" class="form-select" required disabled readonly>
-                    <option value="">जिल्हा निवडा</option>
+                    <option value="">Select District</option>
                     @foreach($districts as $district)
                         <option value="{{ $district->id }}" {{ $district->id == $acquisition_register->district_id ? 'selected' : '' }} >
                             {{ $district->district_name }}
@@ -26,9 +26,9 @@
             </div>
 
             <div class="col-md-4">
-                <label class="col-form-label" for="taluka_name">तालुका / Taluka <span class="text-danger">*</span></label>
+                <label class="col-form-label" for="taluka_name">Taluka/तालुका <span class="text-danger">*</span></label>
                 <select name="taluka_id" id="taluka_id" class="form-select" required disabled readonly>
-                    <option value="" >तालुका निवडा</option>
+                    <option value="" >Select Taluka</option>
                     @foreach($talukas as $taluka)
                     <option value="{{ $taluka->id }}" {{ $taluka->id == $acquisition_register->taluka_id ? 'selected' : '' }} >{{ $taluka->taluka_name }}</option>
                     @endforeach
@@ -41,9 +41,9 @@
 
 
             <div class="col-md-4">
-                <label class="col-form-label" for="village_name">गाव / Village <span class="text-danger">*</span></label>
+                <label class="col-form-label" for="village_name">Village/ गाव<span class="text-danger">*</span></label>
                 <select name="village_id" id="village_id" class="form-select" required disabled readonly>
-                    <option value="" >गाव निवडा</option>
+                    <option value="" >Select Village</option>
                     @foreach($villages as $village)
                     <option value="{{ $village->id }}"  {{ $village->id == $acquisition_register->village_id ? 'selected' : '' }} >{{ $village->village_name }}</option>
                     @endforeach
@@ -72,7 +72,7 @@
             </div> --}}
 
             <div class="col-md-4">
-                <label class="col-form-label" for="sr_no">निवाडा क्र. / Sr.No<span class="text-danger">*</span></label>
+                <label class="col-form-label" for="sr_no">Sr.No/निवाडा क्र.<span class="text-danger">*</span></label>
                 <input class="form-control" id="sr_no" name="sr_no" type="number" placeholder="Enter Sr No" value="{{ old('sr_no', $acquisition_register->sr_no) }}" disabled readonly>
                 <span class="text-danger is-invalid applicant_name_err"></span>
 
@@ -83,7 +83,7 @@
                     भूसंपादनाचे प्रयोजन / Purpose of land acquisition<span class="text-danger">*</span>
                 </label>
                 <select name="land_acquisition_id" id="land_acquisition_id" class="form-select" required disabled readonly>
-                    <option value="" disabled>भूसंपादनाचे प्रयोजन</option>
+                    <option value="" disabled>Select land acquisition</option>
                     @foreach($land_acquisitions as $land_acquisition)
                         <option value="{{ $land_acquisition->id }}"
                             {{ old('land_acquisition_id', $acquisition_register->land_acquisition_id ?? '') == $land_acquisition->id ? 'selected' : '' }} disabled>
@@ -97,7 +97,7 @@
             </div>
 
             <div class="col-md-4">
-                <label class="col-form-label" for="bundle">Bundle No<span class="text-danger">*</span></label>
+                <label class="col-form-label" for="bundle">Bundle No/बंडल क्रमांक<span class="text-danger">*</span></label>
                 <input class="form-control" id="bundle" name="bundle" type="text" placeholder="Enter Bundle" value="{{ old('bundle', $acquisition_register->bundle) }}" disabled readonly>
                 <span class="text-danger is-invalid applicant_name_err"></span>
 

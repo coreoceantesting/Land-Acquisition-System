@@ -17,12 +17,12 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>जिल्हा/District</th>
-                                <th>तालुका/Taluka</th>
-                                <th>गाव/Village</th>
-                                <th>निवाडा क्र./ Sr.No</th>
-                                <th>भूसंपादनाचे प्रयोजन/Purpose of L.A</th>
-                                <th>प्रकल्पाचे नाव/Project Name</th>
+                                <th>District/जिल्हा/</th>
+                                <th>Taluka/तालुका</th>
+                                <th>Village/गाव</th>
+                                <th>Sr.No/निवाडा क्र.</th>
+                                <th>Purpose of L.A/भूसंपादनाचे प्रयोजन</th>
+                                <th>Project Name/प्रकल्पाचे नाव</th>
                                 {{-- <th>भूसंपादनाचे वर्ष / Year</th>
                              <th>   भूसंपादन मंडळाचे नाव / Name of Land Acquisition Board</th>
                                 <th>वर्णन / Description</th>

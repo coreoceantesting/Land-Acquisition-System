@@ -14,12 +14,12 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>जिल्हा / District</th>
-                                <th>तालुका / Taluka</th>
-                                <th>गाव / Village</th>
-                                 <th>निवाडा क्र. /SR.No</th>
-                                  <th>भूसंपादनाचे प्रयोजन / Purpose of land acquisition</th>
-                                   <th>Bundle No</th>
+                                <th> District/जिल्हा</th>
+                                <th> Taluka/तालुका </th>
+                                <th> Village/गाव</th>
+                                 <th>SR.No/निवाडा क्र.</th>
+                                  <th> Purpose of land acquisition/भूसंपादनाचे प्रयोजन /</th>
+                                   <th>Bundle No/बंडल क्रमांक</th>
 
                                 <th>Actions</th>
 
