@@ -17,7 +17,7 @@
                         <div class="card-body">
                             <div class="mb-3 row">
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="land_acquisitions_name">Land Acquisition Name / जिल्हा <span class="text-danger">*</span></label>
+                                    <label class="col-form-label" for="land_acquisitions_name">Land Acquisition Name / जमीन संपादनाचे नाव <span class="text-danger">*</span></label>
                                     <input class="form-control" id="land_acquisitions_name" name="land_acquisitions_name" type="text" placeholder="Enter Land Acquisition Name">
                                     <span class="text-danger is-invalid name_err"></span>
                                 </div>
@@ -43,13 +43,13 @@
                     @csrf
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit Purpose of Land Acquisition</h4>
+                            <h4 class="card-title">Edit Land Acquisition Name</h4>
                         </div>
                         <div class="card-body py-2">
                             <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
                             <div class="mb-3 row">
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="land_acquisitions_name">Land Acquisition Name <span class="text-danger">*</span></label>
+                                    <label class="col-form-label" for="land_acquisitions_name">Land Acquisition Name / जमीन संपादनाचे नाव  <span class="text-danger">*</span></label>
                                     <input class="form-control" id="land_acquisitions_name" name="land_acquisitions_name" type="text" placeholder="district Name">
                                     <span class="text-danger is-invalid name_err"></span>
                                 </div>
@@ -86,7 +86,7 @@
                                 <thead>
                                     <tr>
 
-                                        <th>Purpose of Land Acquisition</th>
+                                        <th>Land Acquisition Name</th>
 
                                        {{-- <th>District Initial</th> --}}
 

@@ -18,7 +18,7 @@
 
                             <div class="mb-3 row">
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="district_id">Select District Name / जिल्हा <span class="text-danger">*</span></label>
+                                    <label class="col-form-label" for="district_id">Select District Name / जिल्ह्याचे नाव निवडा <span class="text-danger">*</span></label>
                                     <select class="form-select" id="district_id" name="district_id" required>
                                         <option value="" selected disabled>Select District</option>
                                         @foreach($districts as $district)
@@ -27,7 +27,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="taluka_id">Select Taluka Name / तालुका निवडा <span class="text-danger">*</span></label>
+                                    <label class="col-form-label" for="taluka_id">Select Taluka Name / तालुक्याचे नाव निवडा <span class="text-danger">*</span></label>
                                     <select class="form-select" id="taluka_id" name="taluka_id" required>
                                         <option value="" selected disabled>Select Taluka</option>
                                         @foreach($talukas as $taluka)
@@ -36,13 +36,13 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="village_name"> Village Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="village_name" name="village_name" type="text" placeholder="Enter Village initial">
+                                    <label class="col-form-label" for="village_name"> Village Name / गावाचे नाव  <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="village_name" name="village_name" type="text" placeholder="Enter Village Name">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="village_init"> Village Initial <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="village_init" name="village_init" type="text" placeholder="Enter Village initial">
+                                    <label class="col-form-label" for="village_init"> Village Initial / गावाचे आद्याक्षर <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="village_init" name="village_init" type="text" placeholder="Enter Village Initial">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
                             </div>
@@ -66,13 +66,22 @@
                 @csrf
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit Taluka</h4>
+                        <h4 class="card-title">Edit Village</h4>
                     </div>
                     <div class="card-body py-2">
                         <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
                         <div class="mb-3 row">
                             <div class="col-md-4">
-                                <label class="col-form-label" for="taluka_id">Select Taluka Name / जिल्हा <span class="text-danger">*</span></label>
+                                <label class="col-form-label" for="district_id">Select District Name / जिल्ह्याचे नाव निवडा <span class="text-danger">*</span></label>
+                                <select class="form-select" id="district_id" name="district_id" required>
+                                    <option value="" selected disabled>Select District</option>
+                                    @foreach($districts as $district)
+                                           <option value="{{ $district->id }}">{{ $district->district_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="taluka_id">Select Taluka Name / तालुक्याचे नाव निवडा <span class="text-danger">*</span></label>
                                 <select class="form-select" id="taluka_id" name="taluka_id" required>
                                     <option value="" selected disabled>Select Taluka</option>
                                     @foreach ($talukas as $taluka)
@@ -81,12 +90,12 @@
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label class="col-form-label" for="village_name"> Village Name / जिल्हा <span class="text-danger">*</span></label>
+                                <label class="col-form-label" for="village_name"> Village Name / गावाचे नाव <span class="text-danger">*</span></label>
                                 <input class="form-control" id="village_name" name="village_name" type="text" placeholder="Enter village name">
                                 <span class="text-danger is-invalid initial_err"></span>
                             </div>
                             <div class="col-md-4">
-                                <label class="col-form-label" for="village_init"> Village Initial <span class="text-danger">*</span></label>
+                                <label class="col-form-label" for="village_init"> Village Initial / गावाचे आद्याक्षर <span class="text-danger">*</span></label>
                                 <input class="form-control" id="village_init" name="village_init" type="text" placeholder="Enter Village initial">
                                 <span class="text-danger is-invalid initial_err"></span>
                             </div>
@@ -122,8 +131,8 @@
                                 <tr>
 
                                     <th>Sr No.</th>
-
-                                    <th>taluka Name</th>
+                                    <th>District Name</th>
+                                    <th>Taluka Name</th>
                                     <th>Village Name</th>
                                     <th>Village Initial</th>
                                     {{--    <th>Office</th>
@@ -144,7 +153,7 @@
                                     <tr>
 
                                         <td>{{ $loop->iteration }}</td>
-
+                                <td>{{ $village->taluka?->district?->district_name }}</td>
                                         <td>{{ $village->taluka?->taluka_name }}</td>
 
                                         <td>{{ $village->village_name }}</td>
@@ -226,6 +235,7 @@
                 if (!data.error) {
                     $("#editContainer").show();
                     $("#editForm input[name='edit_model_id']").val(data.village.id);
+                    $("#editForm select[name='district_id']").val(data.village.taluka.district_id);
                     $("#editForm select[name='taluka_id']").val(data.village.taluka_id); // Dropdown value
                     $("#editForm input[name='village_name']").val(data.village.village_name);
                     $("#editForm input[name='village_init']").val(data.village.village_init);
@@ -384,31 +394,112 @@
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    $(document).ready(function () {
-        $('#district_id').on('change', function () {
-            var districtId = $(this).val();
+  $(document).ready(function () {
+    // Handle district change in both create and edit forms
+    function loadTalukas(districtId, talukaSelect) {
+        if (districtId) {
+            $.ajax({
+                url: '/get-talukas/' + districtId,
+                type: 'GET',
+                success: function (data) {
+                    talukaSelect.empty();
+                    talukaSelect.append('<option value="">-- Select Taluka --</option>');
+                    $.each(data, function (key, value) {
+                        talukaSelect.append('<option value="' + value.id + '">' + value.taluka_name + '</option>');
+                    });
+                },
+                error: function () {
+                    alert("An error occurred while fetching talukas.");
+                }
+            });
+        } else {
+            talukaSelect.empty().append('<option value="">-- Select Taluka --</option>');
+        }
+    }
 
-            if (districtId) {
+    // When district is changed in the create form
+    $('#district_id').on('change', function () {
+        loadTalukas($(this).val(), $('#taluka_id'));
+    });
 
-                $.ajax({
-                    url: '/get-talukas/' + districtId,
-                    type: 'GET',
-                    success: function (data) {
-                        $('#taluka_id').empty();
-                        $('#taluka_id').append('<option value="">--तालुका निवडा--</option>');
-                        $.each(data, function (key, value) {
-                            $('#taluka_id').append('<option value="' + value.id + '">' + value.taluka_name + '</option>');
-                        });
-                    },
-                    error: function () {
-                        alert("An error occurred while fetching talukas.");
-                    }
-                });
-            } else {
-                $('#taluka_id').empty().append('<option value="">--तालुका निवडा--</option>');
+    // When district is changed in the edit form
+    $('#editForm select[name="district_id"]').on('change', function () {
+        loadTalukas($(this).val(), $('#editForm select[name="taluka_id"]'));
+    });
+
+    // Handle Add District Modal (For both Create and Edit)
+    $('.add_district_btn').on('click', function () {
+        $('#addDistrictModal').show();
+    });
+
+    // Handle Save District (For both Create and Edit)
+    $('#save_district_btn').on('click', function () {
+        var districtName = $('#new_district_name').val().trim();
+
+        if (districtName === '') {
+            alert("Please enter a district name.");
+            return;
+        }
+
+        $.ajax({
+            url: '/add-district',
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                district_name: districtName
+            },
+            success: function (response) {
+                alert("District added successfully!");
+
+                // Append the new district to both create and edit dropdowns
+                $('#district_id, #editForm select[name="district_id"]').append(
+                    '<option value="' + response.id + '">' + response.district_name + '</option>'
+                );
+
+                $('#addDistrictModal').hide();
+                $('#new_district_name').val('');
+            },
+            error: function () {
+                alert("An error occurred while adding the district.");
             }
         });
     });
 
+    // When opening the edit form, automatically load talukas based on the selected district
+    $("#buttons-datatables").on("click", ".edit-element", function(e) {
+        e.preventDefault();
+        var model_id = $(this).attr("data-id");
+        var url = "{{ route('villages.edit', ':model_id') }}".replace(':model_id', model_id);
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(data) {
+                if (!data.error) {
+                    $("#editContainer").show();
+                    $("#editForm")[0].reset(); // Reset form
+                    $("#editForm input[name='edit_model_id']").val(data.village.id);
+                    $("#editForm select[name='district_id']").val(data.village.taluka.district_id);
+
+                    // Load talukas and set the selected taluka after data is fetched
+                    // setTimeout(function() {
+                    //     $("#editForm select[name='taluka_id']").val(data.village.taluka_id);
+                    // }, 500);
+                    $("#editForm select[name='taluka_id']").val(data.village.taluka_id);
+                    $("#editForm input[name='village_name']").val(data.village.village_name);
+                    $("#editForm input[name='village_init']").val(data.village.village_init);
+                } else {
+                    swal("Error!", data.error, "error");
+                }
+            },
+            error: function() {
+                swal("Error!", "Something went wrong. Please try again.", "error");
+            }
+        });
+    });
+});
+
 </script>
+

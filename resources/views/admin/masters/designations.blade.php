@@ -17,7 +17,7 @@
                         <div class="card-body">
                             <div class="mb-3 row">
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="designation_name">Designations Name <span class="text-danger">*</span></label>
+                                    <label class="col-form-label" for="designation_name">Designations Name / पदनामांचे नाव <span class="text-danger">*</span></label>
                                     <input class="form-control" id="designation_name" name="designation_name" type="text" placeholder="Enter Designations Name ">
                                     <span class="text-danger is-invalid name_err"></span>
                                 </div>
@@ -42,13 +42,13 @@
                     @csrf
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit designation</h4>
+                            <h4 class="card-title">Edit Designation</h4>
                         </div>
                         <div class="card-body py-2">
                             <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
                             <div class="mb-3 row">
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="designation_name">Designations Name  <span class="text-danger">*</span></label>
+                                    <label class="col-form-label" for="designation_name">Designations Name / पदनामांचे नाव  <span class="text-danger">*</span></label>
                                     <input class="form-control" id="designation_name" name="designation_name" type="text" placeholder="Designations Name " >
                                     <span class="text-danger is-invalid name_err"></span>
                                 </div>

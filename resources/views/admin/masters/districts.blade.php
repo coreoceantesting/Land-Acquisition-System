@@ -17,12 +17,12 @@
                         <div class="card-body">
                             <div class="mb-3 row">
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="district_name">District Name / जिल्हा <span class="text-danger">*</span></label>
+                                    <label class="col-form-label" for="district_name">District Name / जिल्ह्याचे नाव <span class="text-danger">*</span></label>
                                     <input class="form-control" id="district_name" name="district_name" type="text" placeholder="Enter District Name" >
                                     <span class="text-danger is-invalid name_err"></span>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="district_initial"> District Initial / जिल्हा <span class="text-danger">*</span></label>
+                                    <label class="col-form-label" for="district_initial"> District Initial / जिल्हा आद्याक्षर <span class="text-danger">*</span></label>
                                     <input class="form-control" id="district_initial" name="district_initial" type="text" placeholder="Enter District initial">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
@@ -47,18 +47,18 @@
                     @csrf
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Edit district</h4>
+                            <h4 class="card-title">Edit District</h4>
                         </div>
                         <div class="card-body py-2">
                             <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
                             <div class="mb-3 row">
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="district_name">District Name <span class="text-danger">*</span></label>
+                                    <label class="col-form-label" for="district_name">District Name / जिल्ह्याचे नाव <span class="text-danger">*</span></label>
                                     <input class="form-control" id="district_name" name="district_name" type="text" placeholder="District Name" >
                                     <span class="text-danger is-invalid name_err"></span>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="district_initial">Initial <span class="text-danger">*</span></label>
+                                    <label class="col-form-label" for="district_initial">District Initial / जिल्हा आद्याक्षर <span class="text-danger">*</span></label>
                                     <input class="form-control" id="district_initial" name="district_initial" type="text" placeholder="Enter district Initial" >
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>

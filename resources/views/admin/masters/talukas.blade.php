@@ -17,7 +17,7 @@
                         <div class="card-body">
                             <div class="mb-3 row">
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="district_id">Select District Name / जिल्हा <span class="text-danger">*</span></label>
+                                    <label class="col-form-label" for="district_id">Select District Name / जिल्ह्याचे नाव निवडा <span class="text-danger">*</span></label>
                                     <select class="form-select" id="district_id" name="district_id" required>
                                         <option value="" selected disabled>Select District</option>
                                         @foreach($districts as $district)
@@ -33,13 +33,13 @@
                                     @endforeach
                                 </select> --}}
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="taluka_name"> Taluka Name / जिल्हा <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="taluka_name" name="taluka_name" type="text" placeholder="Enter taluka initial">
+                                    <label class="col-form-label" for="taluka_name"> Taluka Name / तालुक्याचे नाव <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="taluka_name" name="taluka_name" type="text" placeholder="Enter Taluka Name">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="taluka_ini"> Taluka Initial / जिल्हा <span class="text-danger">*</span></label>
-                                    <input class="form-control" id="taluka_ini" name="taluka_ini" type="text" placeholder="Enter taluka initial">
+                                    <label class="col-form-label" for="taluka_ini"> Taluka Initial / तालुका आद्याक्षर <span class="text-danger">*</span></label>
+                                    <input class="form-control" id="taluka_ini" name="taluka_ini" type="text" placeholder="Enter Taluka Initial">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                             <input type="hidden" id="edit_model_id" name="edit_model_id" value="">
                             <div class="mb-3 row">
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="district_id">Select District Name / जिल्हा <span class="text-danger">*</span></label>
+                                    <label class="col-form-label" for="district_id">Select District Name / जिल्ह्याचे नाव निवडा <span class="text-danger">*</span></label>
                                     <select class="form-select" id="district_id" name="district_id" required>
                                         <option value="" selected disabled>Select District</option>
                                         @foreach($districts as $district)
@@ -79,12 +79,12 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="taluka_name">Taluka Name / जिल्हा <span class="text-danger">*</span></label>
+                                    <label class="col-form-label" for="taluka_name">Taluka Name / तालुक्याचे नाव <span class="text-danger">*</span></label>
                                     <input class="form-control" id="taluka_name" name="taluka_name" type="text" placeholder="Enter Taluka name">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="taluka_ini"> Taluka Initial / जिल्हा <span class="text-danger">*</span></label>
+                                    <label class="col-form-label" for="taluka_ini"> Taluka Initial / तालुका आद्याक्षर <span class="text-danger">*</span></label>
                                     <input class="form-control" id="taluka_ini" name="taluka_ini" type="text" placeholder="Enter taluka initial">
                                     <span class="text-danger is-invalid initial_err"></span>
                                 </div>

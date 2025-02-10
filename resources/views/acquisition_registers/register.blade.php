@@ -17,9 +17,9 @@
                         <div class="mb-3 row">
 
                             <div class="col-md-4">
-                                <label class="col-form-label" for="district_name"> जिल्हा/ District <span class="text-danger">*</span></label>
+                                <label class="col-form-label" for="district_name"> District/जिल्हा <span class="text-danger">*</span></label>
                                 <select name="district_id" id="district_name" class="form-select" required>
-                                    <option value="" disabled selected>--जिल्हा निवडा--</option>
+                                    <option value="" disabled selected>--Select District--</option>
                                     @foreach($districts as $district)
                                     <option value="{{ $district->id }}">{{ $district->district_name }}</option>
                                     @endforeach
@@ -27,32 +27,32 @@
                             </div>
 
                             <div class="col-md-4">
-                                <label class="col-form-label" for="taluka_name">तालुका / Taluka <span class="text-danger">*</span></label>
+                                <label class="col-form-label" for="taluka_name"> Taluka/ तालुका <span class="text-danger">*</span></label>
                                 <select name="taluka_id" id="taluka_id" class="form-select" required>
-                                    <option value="" disabled selected>--तालुका निवडा--</option>
+                                    <option value="" disabled selected>--Select Taluka--</option>
                                     <!-- Dynamic taluka options will be inserted here -->
                                 </select>
                             </div>
 
                             <div class="col-md-4">
-                                <label class="col-form-label" for="village_name">गाव / Village <span class="text-danger">*</span></label>
+                                <label class="col-form-label" for="village_name">Village/ गाव  <span class="text-danger">*</span></label>
                                 <select name="village_id" id="village_id" class="form-select" required>
-                                    <option value="" disabled selected>--गाव निवडा--</option>
+                                    <option value="" disabled selected>--Select Village--</option>
                                     <!-- Dynamic village options will be inserted here -->
                                 </select>
                             </div>
 
                             <div class="col-md-4">
-                                <label class="col-form-label" for="sr_no">निवाडा क्र. /SR.No<span class="text-danger">*</span></label>
+                                <label class="col-form-label" for="sr_no">SR.No/निवाडा क्र.<span class="text-danger">*</span></label>
                                 <input class="form-control" id="sr_no" name="sr_no" type="text" placeholder="Enter sr no">
                                 <span class="text-danger is-invalid applicant_name_err"></span>
                             </div>
 
                             <div class="col-md-4">
-                                <label class="col-form-label" for="land_acquisitions_name">भूसंपादनाचे प्रयोजन  /
-                                    Purpose of land acquisition<span class="text-danger">*</span></label>
+                                <label class="col-form-label" for="land_acquisitions_name">
+                                    Purpose of land acquisition/भूसंपादनाचे प्रयोजन<span class="text-danger">*</span></label>
                                 <select name="land_acquisition_id" id="land_acquisition_id" class="form-select" required>
-                                    <option disabled selected> -- भूसंपादनाचे प्रयोजन -- </option>
+                                    <option disabled selected> -- land acquisition -- </option>
                                     @foreach($land_acquisitions as $land_acquisition)
 
                                     <option value="{{ $land_acquisition->id }}">{{ $land_acquisition->land_acquisitions_name }}</option>
