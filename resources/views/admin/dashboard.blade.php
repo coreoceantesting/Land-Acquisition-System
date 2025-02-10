@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-12 px-0">
 
-            {{-- 1st section --}}
+            {{-- first section --}}
             <div class="row">
                 <div class="col-lg-4">
                     <div class="card">
@@ -67,91 +67,95 @@
             {{-- second section --}}
             <div class="row mt-3">
                 <div class="col-12">
-                    <h3>Land Acquisition Records</h3>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card card-animate">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Total Records</p>
+                    <div class="card p-3">
+                        <h3>Land Acquisition Records</h3>
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card card-animate">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1 overflow-hidden">
+                                                <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Total Records</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-end justify-content-between mt-3">
+                                            <div>
+                                                <h4 class="fs-22 fw-semibold ff-secondary mb-2"><span class="counter-value" data-target="{{ $allRecords }}">{{ $allRecords }}</span></h4>
+                                                <a href="" class="">&nbsp;</a>
+                                            </div>
+                                            <div class="avatar-sm flex-shrink-0">
+                                                <span class="avatar-title bg-primary-subtle rounded fs-3">
+                                                    <i class="bx bx-map-pin text-primary"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-end justify-content-between mt-3">
-                                <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-2"><span class="counter-value" data-target="{{ $allRecords }}">{{ $allRecords }}</span></h4>
-                                    <a href="" class="">&nbsp;</a>
-                                </div>
-                                <div class="avatar-sm flex-shrink-0">
-                                    <span class="avatar-title bg-primary-subtle rounded fs-3">
-                                        <i class="bx bx-map-pin text-primary"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card card-animate">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Pending Records</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-end justify-content-between mt-3">
-                                <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-2"><span class="counter-value" data-target="{{ $pendingRecords }}">{{ $pendingRecords }}</span></h4>
-                                    <a href="{{ route('acquisition_assistant.pending') }}" class="text-decoration-underline">View List</a>
-                                </div>
-                                <div class="avatar-sm flex-shrink-0">
-                                    <span class="avatar-title bg-info-subtle rounded fs-3">
-                                        <i class="bx bx-map-pin text-info"></i>
-                                    </span>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card card-animate">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1 overflow-hidden">
+                                                <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Pending Records</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-end justify-content-between mt-3">
+                                            <div>
+                                                <h4 class="fs-22 fw-semibold ff-secondary mb-2"><span class="counter-value" data-target="{{ $pendingRecords }}">{{ $pendingRecords }}</span></h4>
+                                                <a href="{{ route('acquisition_assistant.pending') }}" class="text-decoration-underline">View List</a>
+                                            </div>
+                                            <div class="avatar-sm flex-shrink-0">
+                                                <span class="avatar-title bg-info-subtle rounded fs-3">
+                                                    <i class="bx bx-map-pin text-info"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card card-animate">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Approved Records</p>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card card-animate">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1 overflow-hidden">
+                                                <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Approved Records</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-end justify-content-between mt-3">
+                                            <div>
+                                                <h4 class="fs-22 fw-semibold ff-secondary mb-2"><span class="counter-value" data-target="{{ $approvedRecords }}">{{ $approvedRecords }}</span></h4>
+                                                <a href="{{ route('acquisition_assistant.approved') }}" class="text-decoration-underline">View List</a>
+                                            </div>
+                                            <div class="avatar-sm flex-shrink-0">
+                                                <span class="avatar-title bg-success-subtle rounded fs-3">
+                                                    <i class="bx bx-map-pin text-success"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-end justify-content-between mt-3">
-                                <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-2"><span class="counter-value" data-target="{{ $approvedRecords }}">{{ $approvedRecords }}</span></h4>
-                                    <a href="{{ route('acquisition_assistant.approved') }}" class="text-decoration-underline">View List</a>
-                                </div>
-                                <div class="avatar-sm flex-shrink-0">
-                                    <span class="avatar-title bg-success-subtle rounded fs-3">
-                                        <i class="bx bx-map-pin text-success"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card card-animate">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-grow-1 overflow-hidden">
-                                    <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Recorrection Records</p>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-end justify-content-between mt-3">
-                                <div>
-                                    <h4 class="fs-22 fw-semibold ff-secondary mb-2"><span class="counter-value" data-target="{{ $recorrectionRecords }}">{{ $recorrectionRecords }}</span></h4>
-                                    <a href="{{ route('acquisition_assistant.rejected') }}" class="text-decoration-underline">View List</a>
-                                </div>
-                                <div class="avatar-sm flex-shrink-0">
-                                    <span class="avatar-title bg-danger-subtle rounded fs-3">
-                                        <i class="bx bx-map-pin text-danger"></i>
-                                    </span>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card card-animate">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-grow-1 overflow-hidden">
+                                                <p class="text-uppercase fw-medium text-muted text-truncate mb-0">Recorrection Records</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-end justify-content-between mt-3">
+                                            <div>
+                                                <h4 class="fs-22 fw-semibold ff-secondary mb-2"><span class="counter-value" data-target="{{ $recorrectionRecords }}">{{ $recorrectionRecords }}</span></h4>
+                                                <a href="{{ route('acquisition_assistant.rejected') }}" class="text-decoration-underline">View List</a>
+                                            </div>
+                                            <div class="avatar-sm flex-shrink-0">
+                                                <span class="avatar-title bg-danger-subtle rounded fs-3">
+                                                    <i class="bx bx-map-pin text-danger"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -162,6 +166,17 @@
 
 
             {{-- third section --}}
+            {{-- <div class="row mt-3">
+                <div class="col-12">
+                    <div class="card p-3">
+
+                    </div>
+                </div>
+            </div> --}}
+
+
+
+            {{-- fourth section --}}
             <div class="row mt-3">
                 <div class="col-12">
                     <div class="card p-3">

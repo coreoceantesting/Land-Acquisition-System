@@ -28,13 +28,12 @@ class DashboardController extends Controller
         $approvedRecords = AcquisitionAssistant::where('acquisition_officer_status', 1)->count();
         $recorrectionRecords = AcquisitionAssistant::where('acquisition_officer_status', 2)->count();
 
-        $talukasData = AcquisitionAssistant::query()
+        $data = AcquisitionAssistant::query()
                                             ->with('taluka')
                                             ->get();
 
-        $talukasData = $talukasData->groupBy('taluka_id')->values();
-
-        // dd($talukasData);
+        $talukasData = $data->groupBy('taluka_id')->values();
+        $districtData = $data->groupBy('district_id')->values();
 
 
         return view('admin.dashboard')->with([
@@ -46,6 +45,7 @@ class DashboardController extends Controller
                             'approvedRecords' => $approvedRecords,
                             'recorrectionRecords' => $recorrectionRecords,
                             'talukasData' => $talukasData,
+                            'districtData' => $districtData,
                         ]);
     }
 
