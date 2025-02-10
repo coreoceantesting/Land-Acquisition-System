@@ -191,11 +191,13 @@
                         @endcanany
                     @endif
 
-                    @can('la_record.change-status')
-                        <a href="#" class="btn btn-success changeStatusModel" data-bs-toggle="modal" data-bs-target="#statusModal" data-id="{{ $acquisitionAssistant->id }}" data-acquisition_proposal="{{ $acquisitionAssistant->acquisition_proposal }}" data-updated_date="{{ $acquisitionAssistant->updated_date }}">
-                            Change Status
-                        </a>
-                    @endcan
+                    @if ( request()->page_type == 'record_auth' )
+                        @can('la_record.change-status')
+                            <a href="#" class="btn btn-success changeStatusModel" data-bs-toggle="modal" data-bs-target="#statusModal" data-id="{{ $acquisitionAssistant->id }}" data-acquisition_proposal="{{ $acquisitionAssistant->acquisition_proposal }}" data-updated_date="{{ $acquisitionAssistant->updated_date }}">
+                                Change Status
+                            </a>
+                        @endcan
+                    @endif
 
                 </div>
             </div>

@@ -29,7 +29,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ route('dashboard') }}">
+                    <a class="nav-link menu-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
                         <i class="ri-dashboard-2-line"></i>
                         <span data-key="t-dashboards">Dashboard</span>
                     </a>
@@ -125,12 +125,12 @@
 
                 @canany(['la_record.view', 'la_record.create', 'la_record.edit', 'la_record.delete'])
                     <li class="nav-item">
-                        <a class="nav-link menu-link {{ request()->routeIs('acquisition_assistant.pending') || request()->segment(1) == 'acquisition_assistant' || request()->routeIs('acquisition_assistant.create') || request()->routeIs('acquisition_assistant.approved') || request()->routeIs('acquisition_assistant.rejected') || request()->routeIs('acquisition_assistant.land_acquisition') || request()->routeIs('acquisition_assistant.complete_reco_auth') ? 'active' : 'collapsed' }}"
+                        <a class="nav-link menu-link {{ request()->routeIs('acquisition_assistant.pending') || (request()->segment(1) == 'acquisition_assistant' && !request()->page_type) || request()->routeIs('acquisition_assistant.create') || request()->routeIs('acquisition_assistant.approved') || request()->routeIs('acquisition_assistant.rejected') || request()->routeIs('acquisition_assistant.land_acquisition') || request()->routeIs('acquisition_assistant.complete_reco_auth') ? 'active' : 'collapsed' }}"
                             href="#sidebarLandAcquisition" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLandAcquisition">
                             <i class="ri-layout-3-line"></i>
-                            <span data-key="t-layouts"> Land Acquisition Record</span>
+                            <span data-key="t-layouts">L.A. Record</span>
                         </a>
-                        <div class="collapse menu-dropdown {{ request()->routeIs('acquisition_assistant.pending') || request()->segment(1) == 'acquisition_assistant' || request()->routeIs('acquisition_assistant.create') || request()->routeIs('acquisition_assistant.approved') || request()->routeIs('acquisition_assistant.rejected') ? 'show' : '' }}"
+                        <div class="collapse menu-dropdown {{ request()->routeIs('acquisition_assistant.pending') || (request()->segment(1) == 'acquisition_assistant' && !request()->page_type) || request()->routeIs('acquisition_assistant.create') || request()->routeIs('acquisition_assistant.approved') || request()->routeIs('acquisition_assistant.rejected') ? 'show' : '' }}"
                             id="sidebarLandAcquisition">
                             <ul class="nav nav-sm flex-column">
 
@@ -162,12 +162,12 @@
 
                 @canany(['record_auth.in_process', 'record_auth.completed'])
                     <li class="nav-item">
-                        <a class="nav-link menu-link {{ request()->routeIs('acquisition_assistant.land_acquisition') || request()->routeIs('acquisition_assistant.complete_reco_auth') ? 'active' : 'collapsed' }}" href="#sidebarLandAcquisition5"
+                        <a class="nav-link menu-link {{ request()->routeIs('acquisition_assistant.land_acquisition') || request()->page_type || request()->routeIs('acquisition_assistant.complete_reco_auth') ? 'active' : 'collapsed' }}" href="#sidebarLandAcquisition5"
                             data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLandAcquisition5">
                             <i class="ri-layout-3-line"></i>
                             <span data-key="t-layouts">Record Authorization</span>
                         </a>
-                        <div class="collapse menu-dropdown {{ request()->routeIs('acquisition_assistant.land_acquisition') || request()->routeIs('acquisition_assistant.complete_reco_auth') ? 'show' : '' }}" id="sidebarLandAcquisition5">
+                        <div class="collapse menu-dropdown {{ request()->routeIs('acquisition_assistant.land_acquisition') || request()->page_type || request()->routeIs('acquisition_assistant.complete_reco_auth') ? 'show' : '' }}" id="sidebarLandAcquisition5">
                             <ul class="nav nav-sm flex-column">
 
                                 @can('record_auth.in_process')

@@ -68,12 +68,19 @@ class AcquisitionRegisterController extends Controller
     public function show($id)
     {
         try {
+            $user = auth()->user();
             $acquisition_register = AcquisitionRegister::find($id);
 
             $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id) )->get();
             $talukas = Taluka::all();
             $villages = Village::all();
             $land_acquisitions = Land_Acquisition::all();
+
+            // $sr_nos = AcquisitionRegister::query()
+            //                     ->select('sr_no', 'id')
+            //                     ->when(!$user->hasRole('Super Admin'), fn($q) => $q->where('district_id', $user->district_id))
+            //                     ->where('taluka_id', $acquisition_register->taluka_id)
+            //                     ->get();
 
 
             return view('acquisition_registers.show', compact(
@@ -94,12 +101,18 @@ class AcquisitionRegisterController extends Controller
     public function edit($id)
     {
         try {
+            $user = auth()->user();
             $acquisition_register = AcquisitionRegister::findOrFail($id);
 
             $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id) )->get();
             $talukas = Taluka::all();
             $villages = Village::all();
-            $sr_nos = Srno::all();
+            $sr_nos = AcquisitionRegister::query()
+                                ->select('sr_no', 'id')
+                                ->when(!$user->hasRole('Super Admin'), fn($q) => $q->where('district_id', $user->district_id))
+                                ->where('taluka_id', $acquisition_register->taluka_id)
+                                ->get();
+
             $land_acquisitions = Land_Acquisition::all();
 
 
