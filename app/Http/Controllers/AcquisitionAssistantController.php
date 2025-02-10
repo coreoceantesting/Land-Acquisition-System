@@ -139,13 +139,14 @@ class AcquisitionAssistantController extends Controller
             $acquisitionAssistant = AcquisitionAssistant::with('land_acquisition')->findOrFail($id);
 
             $districts = District::when(!$user->hasRole('Super Admin'), fn($q) => $q->where('id', $user->district_id))->get();
-            $talukas = Taluka::when(!$user->hasRole('Super Admin'), fn($q) => $q->where('id', $user->district_id))->get();
+            $talukas = Taluka::when(!$user->hasRole('Super Admin'), fn($q) => $q->where('district_id', $user->district_id))->get();
+            // dd($talukas);
 
             $villages = Village::when(!$user->hasRole('Super Admin'), fn($q) => $q->whereHas('taluka', fn($q) => $q->where('district_id', $user->district_id)))->get();
 
             $sr_nos = AcquisitionRegister::query()
                 ->select('sr_no', 'id')
-                ->when(!$user->hasRole('Super Admin'), fn($q) => $q->where('id', $user->district_id))
+                ->when(!$user->hasRole('Super Admin'), fn($q) => $q->where('district_id', $user->district_id))
                 ->where('taluka_id', $acquisitionAssistant->taluka_id)
                 ->get();
 
