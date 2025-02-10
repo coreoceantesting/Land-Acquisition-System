@@ -188,20 +188,20 @@
 
                 @canany(['users.view', 'roles.view'])
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="#sidebarLayouts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
+                        <a class="nav-link menu-link {{request()->routeIs('users.index') || request()->routeIs('roles.index') ? 'active' : 'collapsed' }}" href="#sidebarLayouts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
                             <i class="bx bx-user-circle"></i>
                             <span data-key="t-layouts">User Management</span>
                         </a>
-                        <div class="collapse menu-dropdown" id="sidebarLayouts">
+                        <div class="collapse menu-dropdown{{ request()->routeIs('users.index') || request()->routeIs('roles.index') ? 'show' : '' }}" id="sidebarLayouts">
                             <ul class="nav nav-sm flex-column">
                                 @can('users.view')
-                                    <li class="nav-item">
-                                        <a href="{{ route('users.index') }}" class="nav-link" data-key="t-horizontal">Users</a>
+                                    <li class="nav-item ">
+                                        <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}" data-key="t-horizontal">Users</a>
                                     </li>
                                 @endcan
                                 @can('roles.view')
-                                    <li class="nav-item">
-                                        <a href="{{ route('roles.index') }}" class="nav-link" data-key="t-horizontal">Roles</a>
+                                    <li class="nav-item ">
+                                        <a href="{{ route('roles.index') }}" class="nav-link {{request()->routeIs('roles.index') ? 'active' : '' }}" data-key="t-horizontal">Roles</a>
                                     </li>
                                 @endcan
                             </ul>
