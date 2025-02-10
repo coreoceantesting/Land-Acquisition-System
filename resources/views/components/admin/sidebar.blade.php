@@ -192,7 +192,7 @@
                             <i class="bx bx-user-circle"></i>
                             <span data-key="t-layouts">User Management</span>
                         </a>
-                        <div class="collapse menu-dropdown{{ request()->routeIs('users.index') || request()->routeIs('roles.index') ? 'show' : '' }}" id="sidebarLayouts">
+                        <div class="collapse menu-dropdown {{ request()->routeIs('users.index') || request()->routeIs('roles.index') ? 'show' : '' }}" id="sidebarLayouts">
                             <ul class="nav nav-sm flex-column">
                                 @can('users.view')
                                     <li class="nav-item ">
