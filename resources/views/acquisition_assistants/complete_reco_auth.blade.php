@@ -70,7 +70,7 @@
 
 
                                     <td>
-                                        <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-success">View</a>
+                                        <a href="{{ route('acquisition_assistant.show', $record->id) }}?{{ http_build_query(['page_type' => 'record_auth']) }}" class="btn btn-sm btn-success">View</a>
 
                                         {{-- <form id="delete-form-{{ $record->id }}" action="{{ route('acquisition_assistant.destroy', $record->id) }}" method="POST" class="d-inline">
                                             @csrf

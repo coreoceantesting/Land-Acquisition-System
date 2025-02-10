@@ -72,7 +72,7 @@
             </div> --}}
 
             <div class="col-md-4">
-                <label class="col-form-label" for="sr_no">Sr.No/निवाडा क्र.<span class="text-danger">*</span></label>
+                <label class="col-form-label" for="sr_no">SR. No/निवाडा क्र.<span class="text-danger">*</span></label>
                 <input class="form-control" id="sr_no" name="sr_no" type="number" placeholder="Enter Sr No" value="{{ old('sr_no', $acquisition_register->sr_no) }}" disabled readonly>
                 <span class="text-danger is-invalid applicant_name_err"></span>
 

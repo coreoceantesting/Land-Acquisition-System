@@ -185,7 +185,7 @@
                             @foreach ($talukasData as $talukaData)
                                 <div class="col-md-4 col-lg-4 col-xl-4 box-col-4">
                                     <div class="card custom-card rounded">
-                                        <h5 class="card-header rounded bg-primary py-2 px-3 text-center text-light">({{ ucwords($talukaData[0]->taluka?->taluka_name) }}) - Total: {{ $talukaData->count() }}</h5>
+                                        <h5 class="card-header rounded bg-primary py-2 px-3 text-center text-light">{{ ucwords($talukaData[0]->taluka?->taluka_name) }} - Total: {{ $talukaData->count() }}</h5>
                                         <div class="card-body px-3">
                                             <div class="row">
                                                 <div class="col-4 br-right text-center">

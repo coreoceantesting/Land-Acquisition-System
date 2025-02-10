@@ -37,7 +37,7 @@
 
                                     <td>{{ $record->project_name }}</td>
                                     <td>
-                                        <a href="{{ route('acquisition_assistant.show', $record->id) }}" class="btn btn-sm btn-success">View</a>
+                                        <a href="{{ route('acquisition_assistant.show', $record->id) }}?{{ http_build_query(['page_type' => 'record_auth']) }}" class="btn btn-sm btn-success">View</a>
                                     </td>
                                     <td>
                                         <a href="#" class="btn btn-sm btn-success changeStatusModel" data-bs-toggle="modal" data-bs-target="#statusModal" data-id="{{ $record->id }}"
