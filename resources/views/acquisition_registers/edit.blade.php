@@ -134,3 +134,88 @@ function confirmDelete(recordId) {
         });
     });
 </script>
+<script>
+    // Dependent dropdown ajax code
+    $(document).ready(function() {
+        $('#district_name').on('change', function() {
+            var districtId = $(this).val();
+
+            if (districtId) {
+                $.ajax({
+                    url: '/get-talukas/' + districtId,
+                    type: 'GET',
+                    success: function(data) {
+                        $('#taluka_id').empty();
+                        $('#taluka_id').append('<option value="">--Select Taluka--</option>');
+                        $.each(data, function(key, value) {
+                            $('#taluka_id').append('<option value="' + value.id + '">' + value.taluka_name + '</option>');
+                        });
+                    },
+                    error: function() {
+                        alert("An error occurred while fetching talukas.");
+                    }
+                });
+            } else {
+                $('#taluka_id').empty().append('<option value="">--Select Taluka--</option>');
+            }
+        });
+
+        // When taluka is selected
+        $('#taluka_id').change(function() {
+            var talukaId = $(this).val();
+            if (talukaId) {
+                // Make AJAX request to get villages for the selected taluka
+                $.ajax({
+                    url: '/villages/' + talukaId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        var villageDropdown = $('#village_id');
+                        villageDropdown.empty(); // Clear existing options
+                        villageDropdown.append('<option value="">--Village--</option>');
+                        $.each(data, function(key, village) {
+                            villageDropdown.append('<option value="' + village.id + '">' + village.village_name + '</option>');
+                        });
+                    }
+                });
+            }
+        });
+
+        // When village is selected
+        $('#village_id').change(function() {
+            var villageId = $(this).val();
+            if (villageId) {
+                // Make AJAX request to get villages for the selected taluka
+                $.ajax({
+                    url: '/serial_numbers/' + villageId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        var serialDropdown = $('#sr_no_id');
+                        serialDropdown.empty();
+                        serialDropdown.append('<option value="">--SR.No--</option>');
+                        $.each(data, function(key, sr) {
+                            serialDropdown.append('<option value="' + sr.id + '">' + sr.sr_no + '</option>');
+                        });
+                    }
+                });
+            }
+        });
+
+        $('#sr_no_id').change(function() {
+            var serialNo = $(this).val();
+            if (serialNo) {
+                $.ajax({
+                    url: '/la_purpose/' + serialNo,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data);
+
+                        $('#purpose_of_land').val(data.data);
+                    }
+                });
+            }
+        });
+    });
+</script>

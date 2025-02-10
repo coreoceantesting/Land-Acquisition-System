@@ -16,7 +16,7 @@ class VillageController extends Controller
     public function index()
     {
 
-        $villages = Village::with('taluka')->latest()->get();
+        $villages = Village::with('taluka.district')->latest()->get();
         $talukas = Taluka::all();
         $districts = District::all();
         return view('admin.masters.villages')->with(['villages'=>  $villages,  'talukas' =>  $talukas,'districts'=>$districts]);
@@ -83,11 +83,14 @@ class VillageController extends Controller
      */
     public function edit(Village $village)
     {
+        $village->loadMissing('taluka');
+
         if ($village)
         {
             $response = [
                 'result' => 1,
-                'village' => $village,
+                'village' => $village,  
+                'district' => $village->taluka,
             ];
         }
         else
