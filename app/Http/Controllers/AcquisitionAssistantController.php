@@ -140,7 +140,6 @@ class AcquisitionAssistantController extends Controller
 
             $districts = District::when(!$user->hasRole('Super Admin'), fn($q) => $q->where('id', $user->district_id))->get();
             $talukas = Taluka::when(!$user->hasRole('Super Admin'), fn($q) => $q->where('district_id', $user->district_id))->get();
-            // dd($talukas);
 
             $villages = Village::when(!$user->hasRole('Super Admin'), fn($q) => $q->whereHas('taluka', fn($q) => $q->where('district_id', $user->district_id)))->get();
 
@@ -175,6 +174,7 @@ class AcquisitionAssistantController extends Controller
             DB::beginTransaction();
 
             $input = $request->validated();
+            $input['acquisition_officer_status'] = 0;
             $acquisition_assistant->update(Arr::only($input, AcquisitionAssistant::getFillables()));
 
             AcquisitionAssistantSize::where('acquisition_assistant_id', $acquisition_assistant->id)->delete();

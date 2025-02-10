@@ -359,7 +359,7 @@
                     if (!data.error2)
                         swal("Successful!", data.success, "success")
                         .then((action) => {
-                            window.location.reload();
+                            window.location.href = '{{ route('acquisition_assistant.pending') }}';
                         });
                     else
                         swal("Error!", data.error2, "error");
