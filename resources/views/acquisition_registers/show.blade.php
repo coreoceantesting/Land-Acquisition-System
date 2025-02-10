@@ -80,7 +80,7 @@
 
             <div class="col-md-4">
                 <label class="col-form-label" for="land_acquisition_id">
-                    भूसंपादनाचे प्रयोजन / Purpose of land acquisition<span class="text-danger">*</span>
+                    Purpose of land acquisition/ भूसंपादनाचे प्रयोजन<span class="text-danger">*</span>
                 </label>
                 <select name="land_acquisition_id" id="land_acquisition_id" class="form-select" required disabled readonly>
                     <option value="" disabled>Select land acquisition</option>

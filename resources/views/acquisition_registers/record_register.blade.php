@@ -18,7 +18,7 @@
                                 <th> Taluka/तालुका </th>
                                 <th> Village/गाव</th>
                                  <th>SR.No/निवाडा क्र.</th>
-                                  <th> Purpose of land acquisition/भूसंपादनाचे प्रयोजन /</th>
+                                  <th> Purpose of land acquisition/भूसंपादनाचे प्रयोजन</th>
                                    <th>Bundle No/बंडल क्रमांक</th>
 
                                 <th>Actions</th>

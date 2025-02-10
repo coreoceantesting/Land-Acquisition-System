@@ -9,9 +9,9 @@
         <div class="card-body">
             <div class="mb-3 row">
                 <div class="col-md-4 mt-3">
-                    <label class="col-form-label" for="district_name">जिल्हा/ District <span class="text-danger">*</span></label>
+                    <label class="col-form-label" for="district_name">District /जिल्हा <span class="text-danger">*</span></label>
                     <select name="district_id" id="district_name" disabled readonly class="form-select" required>
-                        <option value="">जिल्हा निवडा</option>
+                        <option value="">Select District</option>
                         @foreach ($districts as $district)
                             <option value="{{ $district->id }}" {{ $district->id == $acquisitionAssistant->district_id ? 'selected' : '' }}>
                                 {{ $district->district_name }}
@@ -21,9 +21,9 @@
                 </div>
 
                 <div class="col-md-4 mt-3">
-                    <label class="col-form-label" for="taluka_name">तालुका / Taluka <span class="text-danger">*</span></label>
+                    <label class="col-form-label" for="taluka_name">Taluka/ तालुका <span class="text-danger">*</span></label>
                     <select name="taluka_id" id="taluka_id" disabled readonly class="form-select" required>
-                        <option value="">तालुका निवडा</option>
+                        <option value="">Select Taluka</option>
                         @foreach ($talukas as $taluka)
                             <option value="{{ $taluka->id }}" {{ $taluka->id == $acquisitionAssistant->taluka_id ? 'selected' : '' }}>{{ $taluka->taluka_name }}</option>
                         @endforeach
@@ -32,9 +32,9 @@
 
 
                 <div class="col-md-4 mt-3">
-                    <label class="col-form-label" for="village_name">गाव / Village <span class="text-danger">*</span></label>
+                    <label class="col-form-label" for="village_name">Village/ गाव <span class="text-danger">*</span></label>
                     <select name="village_id" disabled readonly id="village_id" class="form-select" required>
-                        <option value="">गाव निवडा</option>
+                        <option value="">Select Village</option>
                         @foreach ($villages as $village)
                             <option value="{{ $village->id }}" {{ $village->id == $acquisitionAssistant->village_id ? 'selected' : '' }}>{{ $village->village_name }}</option>
                         @endforeach
@@ -43,17 +43,17 @@
 
                 <div class="col-md-4 mt-3">
                     <label class="col-form-label" for="sr_no_id">
-                        निवाडा क्र. / Sr.No<span class="text-danger">*</span>
+                       SR.No/  निवाडा क्र.<span class="text-danger">*</span>
                     </label>
                     <input type="text" readonly class="form-control" value="{{ $acquisitionAssistant->sr_no_id }}">
                 </div>
 
                 <div class="col-md-4 mt-3">
                     <label class="col-form-label" for="land_acquisition_id">
-                        भूसंपादनाचे प्रयोजन / Purpose of land acquisition<span class="text-danger">*</span>
+                        Purpose of land acquisition/ भूसंपादनाचे प्रयोजन<span class="text-danger">*</span>
                     </label>
                     <select name="land_acquisition_id" disabled readonly id="land_acquisition_id" class="form-select" required>
-                        <option value="">भूसंपादनाचे प्रयोजन</option>
+                        <option value="">Select Land Acquisition</option>
                         @foreach ($land_acquisitions as $land_acquisition)
                             <option value="{{ $land_acquisition->id }}" {{ old('land_acquisition_id', $acquisitionAssistant->land_acquisition_id ?? '') == $land_acquisition->id ? 'selected' : '' }}>
                                 {{ $land_acquisition->land_acquisitions_name }}
@@ -63,15 +63,15 @@
                 </div>
 
                 <div class="col-md-4 mt-3">
-                    <label class="col-form-label" for="project_name">प्रकल्पाचे नाव / Project Name <span class="text-danger">*</span></label>
-                    <input class="form-control" id="project_name" disabled readonly name="project_name" type="text" placeholder="Enter Applicant Name" value="{{ old('project_name', $acquisitionAssistant->project_name) }}">
+                    <label class="col-form-label" for="project_name">Project Name/प्रकल्पाचे नाव <span class="text-danger">*</span></label>
+                    <input class="form-control" id="project_name" disabled readonly name="project_name" type="text" placeholder="Enter Project Name" value="{{ old('project_name', $acquisitionAssistant->project_name) }}">
                     <span class="text-danger is-invalid applicant_name_err"></span>
                 </div>
 
                 <div class="col-md-4 mt-3">
-                    <label class="col-form-label" for="year">भूसंपादनाचे वर्ष / Year <span class="text-danger">*</span></label>
+                    <label class="col-form-label" for="year"> Year / भूसंपादनाचे वर्ष<span class="text-danger">*</span></label>
                     <select name="year_id" id="year_id" disabled readonly class="form-select" required>
-                        <option value="">भूसंपादनाचे वर्ष निवडा</option>
+                        <option value="">Select Year</option>
                         @foreach ($years as $year)
                             <option value="{{ $year->id }}" {{ $year->id == $acquisitionAssistant->year_id ? 'selected' : '' }}>{{ $year->year }}</option>
                         @endforeach
@@ -83,8 +83,8 @@
 
 
                 <div class="col-md-4 mt-3">
-                    <label class="col-form-label" for="acquisition_board_name">भूसंपादन मंडळाचे नाव / Name of Land Acquisition Board<span class="text-danger">*</span></label>
-                    <textarea class="form-control" disabled readonly name="acquisition_board_name" id="acquisition_board_name" cols="30" rows="2" placeholder="Enter Applicant Address" required>{{ $acquisitionAssistant->acquisition_board_name ?? '' }}</textarea>
+                    <label class="col-form-label" for="acquisition_board_name"> Name of Land Acquisition Board /भूसंपादन मंडळाचे नाव<span class="text-danger">*</span></label>
+                    <textarea class="form-control" disabled readonly name="acquisition_board_name" id="acquisition_board_name" cols="30" rows="2" placeholder="Enter Land Acquisition" required>{{ $acquisitionAssistant->acquisition_board_name ?? '' }}</textarea>
                     <span class="text-danger is-invalid full_address_err"></span>
                     @error('acquisition_board_name')
                         <div class="text-danger">{{ $message }}</div>
@@ -93,16 +93,16 @@
 
 
                 <div class="col-md-4 mt-3">
-                    <label class="col-form-label" for="description">वर्णन / Description<span class="text-danger">*</span></label>
-                    <input class="form-control" id="description" disabled readonly name="description" type="text" placeholder="Enter Applicant Name" readonly value="{{ $acquisitionAssistant->description ?? '' }}">
+                    <label class="col-form-label" for="description">Description/वर्णन <span class="text-danger">*</span></label>
+                    <input class="form-control" id="description" disabled readonly name="description" type="text" placeholder="Enter Description" readonly value="{{ $acquisitionAssistant->description ?? '' }}">
                     <span class="text-danger is-invalid applicant_name_err"></span>
 
                 </div>
 
                 <div class="col-md-4 mt-3">
-                    <label class="col-form-label" for="designation">निवाडा घोषित करणारे तत्कालन भूसंपादन अधिकाऱ्याचे पदनाम / Designation <span class="text-danger">*</span></label>
+                    <label class="col-form-label" for="designation"> Designation/निवाडा घोषित करणारे तत्कालन भूसंपादन अधिकाऱ्याचे पदनाम <span class="text-danger">*</span></label>
                     <select name="designation" id="designation" disabled readonly class="form-control" required>
-                        <option value="">भूसंपादनाचे वर्ष निवडा</option>
+                        <option value="">Select Designation</option>
                         <option value="1" {{ old('designation', $acquisitionAssistant->designation ?? '') == '1' ? 'selected' : '' }}>लिपिक/Clerk</option>
                         <option value="2" {{ old('designation', $acquisitionAssistant->designation ?? '') == '2' ? 'selected' : '' }}>सहाय्यक/Assistant</option>
                     </select>
@@ -113,10 +113,10 @@
 
                 <div class="col-md-4 mt-3">
                     <label class="col-form-label" for="acquisition_proposal">
-                        भूसंपादन प्रस्ताव / Land acquisition proposal <span class="text-danger">*</span>
+                        Land acquisition proposal / भूसंपादन प्रस्ताव <span class="text-danger">*</span>
                     </label>
                     <select name="acquisition_proposal" disabled readonly id="acquisition_proposal" class="form-control" required>
-                        <option value="">भूसंपादनाचे वर्ष निवडा</option>
+                        <option value="">Select L.A proposal</option>
                         <option value="1" {{ old('acquisition_proposal', $acquisitionAssistant->acquisition_proposal ?? '') == '1' ? 'selected' : '' }}>
                             पूर्ण
                         </option>
@@ -131,9 +131,9 @@
 
 
                 <div class="col-md-4 mt-3">
-                    <label class="col-form-label" for="law">भूसंपादन कोणत्या कायद्यानुसार झाले ? / Land acquisition was done according to which law? <span class="text-danger">*</span></label>
+                    <label class="col-form-label" for="law"> Land acquisition was done according to which law?/ भूसंपादन कोणत्या कायद्यानुसार झाले ? <span class="text-danger">*</span></label>
                     <select name="law" id="law" disabled readonly class="form-control" required>
-                        <option value="">भूसंपादनाचे वर्ष निवडा</option>
+                        <option value="">Select L.A Law </option>
                         <option value="1" {{ old('law', $acquisitionAssistant->law ?? '') == '1' ? 'selected' : '' }}>
                             THE NATIONAL GREEN TRIBUNAL ACT, 2010/
                             राष्ट्रीय हरित न्यायाधिकरण कायदा, २०१०
@@ -242,9 +242,9 @@
                         @csrf
                         <input type="hidden" name="id" id="modelId">
                         <div class="mb-3">
-                            <label for="acquisitionProposal" class="form-label">भूसंपादन प्रस्ताव / Land acquisition proposal</label>
+                            <label for="acquisitionProposal" class="form-label"> Land acquisition proposal/भूसंपादन प्रस्ताव</label>
                             <select name="acquisition_proposal" id="acquisition_proposal" class="form-select" required>
-                                <option value="">भूसंपादन प्रस्ताव</option>
+                                <option value="">Select L.A proposal</option>
                                 <option value="1">पूर्ण</option>
                             </select>
                         </div>
