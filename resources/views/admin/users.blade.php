@@ -749,10 +749,11 @@
                     type: 'GET',
                     success: function(data) {
                         $('#district_name').empty(); // Clear existing options
-                        $('#district_id').append('<option value="" selected disabled>Select District</option>');
-                        $.each(data.districts, function(key, value) {
-                            $('#district_name').append('<option value="' + value.id + '">' + value.district_name + '</option>');
-                        });
+                        $('#district_name').attr('readonly');
+                        $('#district_name').append('<option value="" selected disabled>Select District</option>');
+                        // $.each(data.districts, function(key, value) {
+                            $('#district_name').append('<option selected value="' + data.districts.id + '">' + data.districts.district_name + '</option>');
+                        // });
 
                     }
                 });

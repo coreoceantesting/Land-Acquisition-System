@@ -105,8 +105,8 @@ class AcquisitionRegisterController extends Controller
             $acquisition_register = AcquisitionRegister::findOrFail($id);
 
             $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id) )->get();
-            $talukas = Taluka::all();
-            $villages = Village::all();
+            $talukas = Taluka::when(!$user->hasRole('Super Admin'), fn($q) => $q->where('district_id', $acquisition_register->district_id))->get();
+            $villages = Village::when(!$user->hasRole('Super Admin'), fn($q) => $q->where('taluka_id', $acquisition_register->taluka_id))->get();
             $sr_nos = AcquisitionRegister::query()
                                 ->select('sr_no', 'id')
                                 ->when(!$user->hasRole('Super Admin'), fn($q) => $q->where('district_id', $user->district_id))

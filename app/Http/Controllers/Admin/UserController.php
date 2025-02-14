@@ -29,9 +29,9 @@ class UserController extends Controller
     {
         $users = User::whereNot('id', Auth::user()->id)->latest()->get();
         $roles = Role::orderBy('id', 'DESC')->whereNot('name', 'like', '%super%')->get();
-        $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id) )->get();
+        $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id))->get();
 
-        return view('admin.users')->with(['users'=> $users, 'roles'=> $roles, 'districts'=> $districts]);
+        return view('admin.users')->with(['users' => $users, 'roles' => $roles, 'districts' => $districts]);
     }
 
     /**
@@ -39,9 +39,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id) )->get();
+        $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id))->get();
         $talukas = Taluka::all();
-        return view('admin.create_user', compact('districts','talukas'));
+        return view('admin.create_user', compact('districts', 'talukas'));
     }
 
     /**
@@ -49,21 +49,18 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        try
-        {
+        try {
             DB::beginTransaction();
 
             $input = $request->validated();
             $input['password'] = Hash::make($input['password']);
-            $user = User::create( Arr::only( $input, Auth::user()->getFillable() ) );
-            DB::table('model_has_roles')->insert(['role_id'=> $input['role'], 'model_type'=> 'App\Models\User', 'model_id'=> $user->id]);
+            $user = User::create(Arr::only($input, Auth::user()->getFillable()));
+            DB::table('model_has_roles')->insert(['role_id' => $input['role'], 'model_type' => 'App\Models\User', 'model_id' => $user->id]);
 
             DB::commit();
 
-            return response()->json(['success'=> 'User created successfully!']);
-        }
-        catch(\Exception $e)
-        {
+            return response()->json(['success' => 'User created successfully!']);
+        } catch (\Exception $e) {
             return $this->respondWithAjax($e, 'creating', 'User');
         }
     }
@@ -83,47 +80,46 @@ class UserController extends Controller
     {
         $roles = Role::whereNot('name', 'like', '%super%')->get();
         $user->loadMissing(['roles']);
-        $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id) )->get();
+        $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id))->get();
         $userOfficerHtml = '';
 
-        if($user->officer_id)
-        {
+        if ($user->officer_id) {
             $user->loadMissing(['officer.roles']);
-            $userOfficers = User::withWhereHas('roles', fn ($q) => $q->where('id', $user->officer->roles[0]->id))->get();
+            $userOfficers = User::withWhereHas('roles', fn($q) => $q->where('id', $user->officer->roles[0]->id))->get();
             $userOfficerHtml = '<span>
                 <option value="">--Select User Officer --</option>';
-                foreach($userOfficers as $userOfficer):
-                    $is_select = $userOfficer->id == $user->officer_id ? "selected" : "";
-                    $userOfficerHtml .= '<option value="'.$userOfficer->id.'" '.$is_select.'>'.$userOfficer->name.'</option>';
-                endforeach;
+            foreach ($userOfficers as $userOfficer):
+                $is_select = $userOfficer->id == $user->officer_id ? "selected" : "";
+                $userOfficerHtml .= '<option value="' . $userOfficer->id . '" ' . $is_select . '>' . $userOfficer->name . '</option>';
+            endforeach;
             $userOfficerHtml .= '</span>';
         }
 
         $roleHtml = '<span>
             <option value="">--Select Role --</option>';
-            foreach($roles as $role):
-                $is_select = $role->id == $user->roles[0]->id ? "selected" : "";
-                $roleHtml .= '<option value="'.$role->id.'" '.$is_select.'>'.$role->name.'</option>';
-            endforeach;
+        foreach ($roles as $role):
+            $is_select = $role->id == $user->roles[0]->id ? "selected" : "";
+            $roleHtml .= '<option value="' . $role->id . '" ' . $is_select . '>' . $role->name . '</option>';
+        endforeach;
         $roleHtml .= '</span>';
 
         $districtHtml = '<span>
             <option value="">--Select District --</option>';
-            foreach($districts as $district):
-                $is_select = $district->id == $user->district_id ? "selected" : "";
-                $districtHtml .= '<option value="'.$district->id.'" '.$is_select.'>'.$district->district_name.'</option>';
-            endforeach;
+        foreach ($districts as $district):
+            $is_select = $district->id == $user->district_id ? "selected" : "";
+            $districtHtml .= '<option value="' . $district->id . '" ' . $is_select . '>' . $district->district_name . '</option>';
+        endforeach;
         $districtHtml .= '</span>';
 
 
 
-            $response = [
-                'result' => 1,
-                'user' => $user,
-                'roleHtml' => $roleHtml,
-                'userOfficerHtml' => $userOfficerHtml,
-                'districtHtml' => $districtHtml,
-            ];
+        $response = [
+            'result' => 1,
+            'user' => $user,
+            'roleHtml' => $roleHtml,
+            'userOfficerHtml' => $userOfficerHtml,
+            'districtHtml' => $districtHtml,
+        ];
 
         return $response;
     }
@@ -133,21 +129,18 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        try
-        {
+        try {
             DB::beginTransaction();
 
             $input = $request->validated();
-            $user->update( Arr::only( $input, Auth::user()->getFillable() ) );
+            $user->update(Arr::only($input, Auth::user()->getFillable()));
             $user->roles()->detach();
-            DB::table('model_has_roles')->insert(['role_id'=> $input['role'], 'model_type'=> 'App\Models\User', 'model_id'=> $user->id]);
+            DB::table('model_has_roles')->insert(['role_id' => $input['role'], 'model_type' => 'App\Models\User', 'model_id' => $user->id]);
 
             DB::commit();
 
-            return response()->json(['success'=> 'User updated successfully!']);
-        }
-        catch(\Exception $e)
-        {
+            return response()->json(['success' => 'User updated successfully!']);
+        } catch (\Exception $e) {
             return $this->respondWithAjax($e, 'updating', 'User');
         }
     }
@@ -163,37 +156,28 @@ class UserController extends Controller
     public function toggle(Request $request, User $user)
     {
         $current_status = DB::table('users')->where('id', $user->id)->value('active_status');
-        try
-        {
+        try {
             DB::beginTransaction();
-            if($current_status == '1')
-            {
-                User::where('id', $user->id)->update([ 'active_status' => '0' ]);
-            }
-            else
-            {
-                User::where('id', $user->id)->update([ 'active_status' => '1' ]);
+            if ($current_status == '1') {
+                User::where('id', $user->id)->update(['active_status' => '0']);
+            } else {
+                User::where('id', $user->id)->update(['active_status' => '1']);
             }
             DB::commit();
-            return response()->json(['success'=> 'User status updated successfully']);
-        }
-        catch(\Exception $e)
-        {
+            return response()->json(['success' => 'User status updated successfully']);
+        } catch (\Exception $e) {
             return $this->respondWithAjax($e, 'changing', 'User\'s status');
         }
     }
 
     public function retire(Request $request, User $user)
     {
-        try
-        {
+        try {
             DB::beginTransaction();
-                $user->delete();
+            $user->delete();
             DB::commit();
-            return response()->json(['success'=> 'Employee retired successfully']);
-        }
-        catch(\Exception $e)
-        {
+            return response()->json(['success' => 'Employee retired successfully']);
+        } catch (\Exception $e) {
             return $this->respondWithAjax($e, 'changing', 'Employee\'s retirement status');
         }
     }
@@ -201,33 +185,28 @@ class UserController extends Controller
     public function changePassword(ChangeUserPasswordRequest $request, User $user)
     {
         $input = $request->validated();
-        try
-        {
+        try {
             DB::beginTransaction();
-            $user->update([ 'password' => Hash::make($input['new_password']) ]);
+            $user->update(['password' => Hash::make($input['new_password'])]);
             DB::commit();
-            return response()->json(['success'=> 'Password updated successfully']);
-        }
-        catch(\Exception $e)
-        {
+            return response()->json(['success' => 'Password updated successfully']);
+        } catch (\Exception $e) {
             return $this->respondWithAjax($e, 'changing', 'User\'s password');
         }
-
     }
 
 
     public function getRole(User $user)
     {
         $user->load('roles');
-        if ($user)
-        {
+        if ($user) {
             $roles = Role::orderBy('id', 'DESC')->get();
             $roleHtml = '<span>
                 <option value="">--Select Role--</option>';
-                foreach($roles as $role):
-                    $is_select = $role->id == $user->roles[0]->id ? "selected" : "";
-                    $roleHtml .= '<option value="'.$role->id.'" '.$is_select.'>'.$role->name.'</option>';
-                endforeach;
+            foreach ($roles as $role):
+                $is_select = $role->id == $user->roles[0]->id ? "selected" : "";
+                $roleHtml .= '<option value="' . $role->id . '" ' . $is_select . '>' . $role->name . '</option>';
+            endforeach;
             $roleHtml .= '</span>';
 
             $response = [
@@ -235,9 +214,7 @@ class UserController extends Controller
                 'user' => $user,
                 'roleHtml' => $roleHtml,
             ];
-        }
-        else
-        {
+        } else {
             $response = ['result' => 0];
         }
         return $response;
@@ -246,32 +223,29 @@ class UserController extends Controller
 
     public function assignRole(User $user, AssignUserRoleRequest $request)
     {
-        try
-        {
+        try {
             DB::beginTransaction();
             $user->roles()->detach();
-            DB::table('model_has_roles')->insert(['role_id'=> $request->edit_role, 'model_type'=> 'App\Models\User', 'model_id'=> $user->id]);
+            DB::table('model_has_roles')->insert(['role_id' => $request->edit_role, 'model_type' => 'App\Models\User', 'model_id' => $user->id]);
             DB::commit();
-            return response()->json(['success'=> 'Role updated successfully']);
-        }
-        catch(\Exception $e)
-        {
+            return response()->json(['success' => 'Role updated successfully']);
+        } catch (\Exception $e) {
             return $this->respondWithAjax($e, 'changing', 'User\'s role');
         }
     }
 
     public function getOfficers($roleId)
     {
-        $officers = User::withWhereHas('roles', fn ($query) => $query->where('role_id', $roleId) )->get(['id', 'name']);
+        $officers = User::withWhereHas('roles', fn($query) => $query->where('role_id', $roleId))->get(['id', 'name']);
 
         return response()->json($officers);
     }
 
     public function getDistricts($officerId)
     {
-        $districts = District::whereHas('users', function($q) use($officerId){
-            $q->where('officer_id', $officerId);
-        })->select('id','district_name')->get();
+        $districts = District::whereHas('users', function ($q) use ($officerId) {
+            $q->where('id', $officerId);
+        })->select('id', 'district_name')->first();
         // $districts = User::with('district')->where('officer_id', $officerId)->first();
 
         return response()->json(['districts' => $districts]);
