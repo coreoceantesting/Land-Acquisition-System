@@ -40,8 +40,8 @@ class UserController extends Controller
     public function create()
     {
         $districts = District::when(auth()->user()->roles[0]->name != 'Super Admin', fn($q) => $q->where('id', auth()->user()->district_id) )->get();
-
-        return view('admin.create_user', compact('districts'));
+        $talukas = Taluka::all();
+        return view('admin.create_user', compact('districts','talukas'));
     }
 
     /**
@@ -265,5 +265,15 @@ class UserController extends Controller
         $officers = User::withWhereHas('roles', fn ($query) => $query->where('role_id', $roleId) )->get(['id', 'name']);
 
         return response()->json($officers);
+    }
+
+    public function getDistricts($officerId)
+    {
+        $districts = District::whereHas('users', function($q) use($officerId){
+            $q->where('officer_id', $officerId);
+        })->select('id','district_name')->get();
+        // $districts = User::with('district')->where('officer_id', $officerId)->first();
+
+        return response()->json(['districts' => $districts]);
     }
 }

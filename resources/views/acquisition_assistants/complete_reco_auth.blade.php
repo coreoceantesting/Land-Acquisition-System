@@ -17,7 +17,7 @@
                                 <th>जिल्हा/District</th>
                                 <th>तालुका/Taluka</th>
                                 <th>गाव/Village</th>
-                                <th>निवाडा क्र./Sr.No</th>
+                                <th>निवाडा क्र./SR.No</th>
                                 <th>भूसंपादनाचे प्रयोजन/Purpose of land acquisition</th>
                                 <th>पूर्ण होण्याची तारीख/Completion Date</th>
                                 <th>प्रकल्पाचे नाव/Project Name</th>
@@ -33,7 +33,7 @@
                                     <td>{{ optional($record->village)->village_name ?? 'No village' }}</td>
                                     <td>{{ $record->sr_no_id ?? 'No sr_nos' }}</td>
                                     <td>{{ optional($record->land_acquisition)->land_acquisitions_name ?? 'No land_acquisitions_name' }}</td>
-                                    <td>{{ Carbon\Carbon::parse($record->updated_date)->format('d M, Y') }}</td>
+                                    <td>{{ $record->updated_date ? Carbon\Carbon::parse($record->updated_date)->format('d M, Y') : '-' }}</td>
                                     <td>{{ $record->project_name }}</td>
                                     <td>
                                         <a href="{{ route('acquisition_assistant.show', $record->id) }}?{{ http_build_query(['page_type' => 'record_auth']) }}" class="btn btn-sm btn-success">View</a>

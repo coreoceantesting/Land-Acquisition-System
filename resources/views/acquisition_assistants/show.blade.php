@@ -163,7 +163,8 @@
                         <tbody>
                             @foreach ($acquisitionAssistantSizes as $size)
                                 <tr>
-                                    <td>{{ $size->survey_or_group == 1 ? 'पूर्ण' : 'सुरु' }}</td>
+
+                                    <td>{{ $size->survey_or_group == 1 ? 'सर्वे क्र.' : 'गट क्र.' }}</td>
                                     <td>{{ $size->number }}</td>
                                     <td>{{ $size->area }}</td>
                                 </tr>
@@ -178,7 +179,7 @@
             <div class="row my-3">
 
                 <div class="col-4">
-                    <a href="{{ route('acquisition_assistant.pending') }}" class="btn btn-primary">Cancel</a>
+                    <a href="javascript:void(0);" class="btn btn-primary" onclick="window.history.back();">Cancel</a>
                     @if ($acquisitionAssistant->acquisition_officer_status == 0 || ($acquisitionAssistant->divisional_officer_status = 0))
                         @canany(['la_record.approve', 'la_record.reject'])
                             <button type="button" class="btn btn-success approve-btn" data-id="{{ $acquisitionAssistant->id }}">

@@ -57,7 +57,7 @@
 
                             <div class="col-md-4 mt-3">
                                 <label class="col-form-label" for="district_name"> जिल्हा/ District <span class="text-danger">*</span></label>
-                                <select name="district_id" id="district_name" class="form-select" required>
+                                <select name="district_id" id="district_name" class="form-control" required>
                                     <option value="">जिल्हा निवडा</option>
                                     @foreach($districts as $district)
                                     <option value="{{ $district->id }}">{{ $district->district_name }}</option>
@@ -736,6 +736,29 @@
             } else {
                 $('#taluka_id').empty();
                 $('#taluka_id').append('<option value="" selected disabled>Select Taluka</option>');
+            }
+        });
+
+
+        $('#officer_id').on('change', function() {
+            var officer_id = $(this).val();
+
+            if(officer_id) {
+                $.ajax({
+                    url: '/get-districts/' + officer_id, // your endpoint to get talukas
+                    type: 'GET',
+                    success: function(data) {
+                        $('#district_name').empty(); // Clear existing options
+                        $('#district_id').append('<option value="" selected disabled>Select District</option>');
+                        $.each(data.districts, function(key, value) {
+                            $('#district_name').append('<option value="' + value.id + '">' + value.district_name + '</option>');
+                        });
+
+                    }
+                });
+            } else {
+                $('#district_id').empty();
+                $('#district_id').append('<option value="" selected disabled>Select District</option>');
             }
         });
     });

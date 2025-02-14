@@ -36,6 +36,7 @@
                         </thead>
                         <tbody>
                             @forelse ($records as $record)
+
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ optional($record->district)->district_name ?? 'No district' }}</td>

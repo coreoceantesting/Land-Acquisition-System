@@ -21,7 +21,11 @@
                                 <th>भूसंपादनाचे प्रयोजन/Purpose of L.A</th>
                                 <th>प्रकल्पाचे नाव/Project Name</th>
                                 <th>Actions</th>
-                                <th>status</th>
+                                @can('la_record.change-status')
+                                    <th>
+                                        status
+                                    </th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -39,12 +43,14 @@
                                     <td>
                                         <a href="{{ route('acquisition_assistant.show', $record->id) }}?{{ http_build_query(['page_type' => 'record_auth']) }}" class="btn btn-sm btn-success">View</a>
                                     </td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-success changeStatusModel" data-bs-toggle="modal" data-bs-target="#statusModal" data-id="{{ $record->id }}"
-                                            data-acquisition_proposal="{{ $record->acquisition_proposal }}" data-updated_date="{{ $record->updated_date }}">
-                                            Change Status
-                                        </a>
-                                    </td>
+                                    @can('la_record.change-status')
+                                        <td>
+                                            <a href="#" class="btn btn-sm btn-success changeStatusModel" data-bs-toggle="modal" data-bs-target="#statusModal" data-id="{{ $record->id }}"
+                                                data-acquisition_proposal="{{ $record->acquisition_proposal }}" data-updated_date="{{ $record->updated_date }}">
+                                                Change Status
+                                            </a>
+                                        </td>
+                                    @endcan
                                 </tr>
                             @empty
                                 <tr>

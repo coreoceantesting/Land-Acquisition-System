@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <div class="mb-3 row">
                             <div class="col-md-4 mt-3">
-                                <label class="col-form-label" for="district_name">District/जिल्हा  <span class="text-danger">*</span></label>
+                                <label class="col-form-label" for="district_name">District/जिल्हा <span class="text-danger">*</span></label>
                                 <select name="district_id" id="district_name" class="form-select" required>
                                     <option value="" disabled selected>Select District</option>
                                     @foreach ($districts as $district)
@@ -74,18 +74,17 @@
 
                             <div class="col-md-4 mt-3">
                                 <label class="col-form-label" for="land_acquisition_id">
-                                   Purpose of land acquisition/ भूसंपादनाचे प्रयोजन<span class="text-danger">*</span>
+                                    Purpose of land acquisition/ भूसंपादनाचे प्रयोजन <span class="text-danger">*</span>
                                 </label>
-                                <select name="land_acquisition_id" id="land_acquisition_id" class="form-select" required>
-                                    <option value="" disabled selected>Select Land Acquisition</option>
-                                    @foreach ($land_acquisitions as $land_acquisition)
-                                        <option value="{{ $land_acquisition->id }}" {{ $land_acquisition->id == $acquisitionAssistant->land_acquisition_id ? 'selected' : '' }}>{{ $land_acquisition->land_acquisitions_name }}</option>
-                                    @endforeach
-                                </select>
+
+                                <input class="form-control" id="land_acquisition_id" name="land_acquisition_id" type="text" placeholder="Enter land acquisition"
+                                    value="{{ old('land_acquisition_id', isset($acquisitionAssistant) ? $acquisitionAssistant->land_acquisition->land_acquisitions_name ?? '' : '') }}" disabled readonly>
+
                                 @error('land_acquisition_id')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+
 
 
                             <div class="col-md-4 mt-3">
@@ -203,7 +202,7 @@
                                                     @enderror
                                                 </th>
                                                 <th>
-                                                    @if($loop->iteration > 1)
+                                                    @if ($loop->iteration > 1)
                                                         <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>
                                                     @endif
                                                 </th>
@@ -215,16 +214,16 @@
                         </div>
 
 
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary" id="editSubmit">Update</button>
-                              <a href="{{ route('acquisition_assistant.pending') }}" class="btn btn-primary btn-danger">Cancel</a>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary" id="editSubmit">Update</button>
+                            <a href="{{ route('acquisition_assistant.pending') }}" class="btn btn-primary btn-danger">Cancel</a>
 
-                            </div>
                         </div>
                     </div>
-                </form>
             </div>
+            </form>
         </div>
+    </div>
     </div>
     </div>
 </x-admin.layout>
@@ -400,15 +399,15 @@
     });
 </script>
 <Script>
-// document.getElementById('cancelButton').addEventListener('click', function() {
-//     // Perform an AJAX request if needed
-//     $.ajax({
-//         url: '/home', // Change this to your actual home route
-//         type: 'GET',
-//         success: function(response) {
-//             // Redirect to home page after AJAX request
-//             window.location.href = 'acquisition_assistant'; // Adjust as per your route
-//         }
-//     });
-// });
+    // document.getElementById('cancelButton').addEventListener('click', function() {
+    //     // Perform an AJAX request if needed
+    //     $.ajax({
+    //         url: '/home', // Change this to your actual home route
+    //         type: 'GET',
+    //         success: function(response) {
+    //             // Redirect to home page after AJAX request
+    //             window.location.href = 'acquisition_assistant'; // Adjust as per your route
+    //         }
+    //     });
+    // });
 </script>

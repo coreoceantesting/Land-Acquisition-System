@@ -13,6 +13,10 @@ class District extends BaseModel
 
     protected $fillable = ['district_name', 'district_initial'];
 
+    public function users(){
+        return $this->hasMany(User::class, 'district_id', 'id');
+    }
+
 
     public static function booted()
     {

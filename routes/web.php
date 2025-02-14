@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\Masters\TalukaController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DependentDropdownController;
 use App\Http\Controllers\Admin\Masters\DesignationController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -107,6 +109,8 @@ Route::middleware(['auth', 'PreventBackHistory', 'firewall.all'])->group(functio
     Route::get('acquisition_register/{id}', [AcquisitionRegisterController::class, 'show'])->name('acquisition_register.show');
 
     Route::get('/get-officers/{roleId}', [UserController::class, 'getOfficers']);
+
+    Route::get('/get-districts/{roleId}', [UserController::class, 'getDistricts']);
     // Route::get('/get-dependent-options/{id}', [DependentDropdownController::class, 'getDependentOptions']);
     Route::get('/get-talukas/{districtId}', [LandAcquisitionController::class, 'getTalukas'])->name('get-talukas');
     Route::get('villages/{talukaId}', [LandAcquisitionController::class, 'getVillages']);
@@ -121,6 +125,8 @@ Route::middleware(['auth', 'PreventBackHistory', 'firewall.all'])->group(functio
     Route::put('users/{user}/assign-role', [App\Http\Controllers\Admin\UserController::class, 'assignRole'])->name('users.assign-role');
     Route::resource('roles', App\Http\Controllers\Admin\RoleController::class);
 });
+
+
 
 Route::post('/acquisition_assistants/{id}/approve', [AcquisitionAssistantController::class, 'approve'])->name('acquisition_assistants.approve');
 Route::post('/acquisition_assistants/{id}/reject', [AcquisitionAssistantController::class, 'reject'])->name('acquisition_assistants.reject');
